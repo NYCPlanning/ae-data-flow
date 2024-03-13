@@ -1,0 +1,9 @@
+name: "ae_data_flow"
+
+profile: "dcp-ae-postgres"
+
+model-paths: ["sql"]
+
+tests:
+  +store_failures: true
+  schema: "_tests"
