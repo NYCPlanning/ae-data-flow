@@ -25,7 +25,7 @@ BEGIN;
 		"wgs84",
 		"li_ft"
 	)
-		FROM '../tax_lot.csv'
+		FROM '../pluto-partial.csv'
 		DELIMITER ','
 		CSV HEADER;
 
@@ -66,5 +66,21 @@ BEGIN;
 		FROM '../zoning_district_zoning_district_class.csv'
 		DELIMITER ','
 		CSV HEADER;
+
+COMMIT;
+
+BEGIN;
+    COPY tax_lot_temp (
+        "wkt",
+        "borough_id",
+        "block",
+        "lot",
+        "address",
+        "land_use_id",
+        "bbl",
+    )
+        FROM '../pluto-partial.csv'
+        DELIMITER ','
+        CSV HEADER;
 
 COMMIT;

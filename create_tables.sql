@@ -74,6 +74,17 @@ EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 
+CREATE TABLE IF NOT EXISTS "tax_lot_temp" (
+    "bbl" text PRIMARY KEY NOT NULL,
+    "borough_id" char(2) NOT NULL,
+    "block" text NOT NULL,
+    "lot" text NOT NULL,
+    "address" text,
+    "land_use_id" char(2),
+    "wkt" text
+);
+
+
 -- NOTICE:  identifier "zoning_district_zoning_district_class_zoning_district_class_id_zoning_district_class_id_fk" will be truncated to "zoning_district_zoning_district_class_zoning_district_class_id_"
 -- NOTICE:  identifier "zoning_district_zoning_district_class_zoning_district_class_id_zoning_district_class_id_fk" will be truncated to "zoning_district_zoning_district_class_zoning_district_class_id_"
 -- LINE 2:  ALTER TABLE "zoning_district_zoning_district_class" ADD CON...
