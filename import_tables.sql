@@ -15,21 +15,33 @@ BEGIN;
 COMMIT;
 
 BEGIN;
-	COPY tax_lot (
-		"bbl",
+	COPY pluto (
+		"wkt",
 		"borough_id",
 		"block",
 		"lot",
 		"address",
 		"land_use_id",
-		"wgs84",
-		"li_ft"
+		"bbl"
 	)
-		FROM '../tax_lot.csv'
+		FROM '../pluto.csv'
 		DELIMITER ','
 		CSV HEADER;
 
 COMMIT;
+
+INSERT INTO tax_lot
+SELECT
+	SUBSTRING(bbl, 1, 10) as bbl,
+	borough.id as borough_id,
+	block,
+	lot,
+	address,
+	land_use_id,
+	ST_GeomFromText(wkt, 4326) as wgs84,
+	ST_GeomFromText(wkt, 2263) as li_ft
+FROM pluto
+INNER JOIN borough ON pluto.borough_id=borough.abbr;
 
 BEGIN;
 	COPY zoning_district (
