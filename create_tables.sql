@@ -73,11 +73,3 @@ DO $$ BEGIN
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
-
--- NOTICE:  identifier "zoning_district_zoning_district_class_zoning_district_class_id_zoning_district_class_id_fk" will be truncated to "zoning_district_zoning_district_class_zoning_district_class_id_"
--- NOTICE:  identifier "zoning_district_zoning_district_class_zoning_district_class_id_zoning_district_class_id_fk" will be truncated to "zoning_district_zoning_district_class_zoning_district_class_id_"
--- LINE 2:  ALTER TABLE "zoning_district_zoning_district_class" ADD CON...
---          ^
--- NOTICE:  identifier "zoning_district_zoning_district_class_zoning_district_class_id_zoning_district_class_id_fk" will be truncated to "zoning_district_zoning_district_class_zoning_district_class_id_"
--- DO
-
