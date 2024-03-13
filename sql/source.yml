@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: zoning_api_sources
+    schema: public
+    tables:
+      - name: source_pluto
+        tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: source_pluto_columns_set
+              column_list:
+                - bbl
+                - borough
+                - block
+                - lot
+                - address
+                - land_use
+                - wkt
+        columns:
+          - name: bbl
+              - unique
+              - not_null
+          - name: wkt
+            tests:
+              - unique
+              - not_null
+
+      - name: source_zoning_districts
+        tests:
+          - dbt_expectations.expect_table_columns_to_contain_set:
+              name: source_zoning_districts_columns_set
+              column_list: 
+                - zonedist
+                - wkt
+        columns:
+          - name: wkt
+            tests:
+              - unique
+              - not_null

@@ -55,6 +55,7 @@ pyenv version
 ```bash
 python3 -m pip install --force-reinstall -r requirements.txt
 pip list
+dbt deps
 ```
 
 ### Set environment variables

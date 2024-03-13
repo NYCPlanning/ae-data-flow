@@ -11,7 +11,7 @@ dcp-ae-postgres:
       password: "{{ env_var('BUILD_ENGINE_PASSWORD') }}"
       port: "{{ env_var('BUILD_ENGINE_PORT') | as_number }}"
       dbname: "{{ env_var('BUILD_ENGINE_DB') }}"
-      schema: "{{ env_var('BUILD_ENGINE_SCHEMA') }}"
+      schema: public
     staging:
       type: postgres
       host: "{{ env_var('BUILD_ENGINE_HOST') }}"
@@ -19,4 +19,4 @@ dcp-ae-postgres:
       password: "{{ env_var('BUILD_ENGINE_PASSWORD') }}"
       port: "{{ env_var('BUILD_ENGINE_PORT') | as_number }}"
       dbname: zoning-api-staging
-      schema: staging
+      schema: public
