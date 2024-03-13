@@ -68,3 +68,19 @@ BEGIN;
 		CSV HEADER;
 
 COMMIT;
+
+BEGIN;
+    COPY pluto (
+        "wkt",
+        "borough_id",
+        "block",
+        "lot",
+        "address",
+        "land_use_id",
+        "bbl",
+    )
+        FROM '../pluto.csv'
+        DELIMITER ','
+        CSV HEADER;
+		
+COMMIT;
