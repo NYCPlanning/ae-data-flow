@@ -26,7 +26,7 @@ Once you have cloned this repo, install the necessary dependencies:
 
 ```bash
 npm i
-pip install --editable .
+python3 -m pip install --force-reinstall -r requirements.txt
 ```
 
 ### Set environment variables
