@@ -55,20 +55,30 @@ dbt debug
 
 ### Load source data
 
-To copy source data files from Digital Ocean:
+To copy source data files from Digital Ocean, we can use `curl` for public files:
 
 ```bash
 # for public files
 curl --remote-name https://BUCKET.URL.com/folder/folder/data.csv
+```
 
-# for non-public files
-# requires MinIO
-curl -O https://dl.min.io/client/mc/release/linux-amd64/mc \
-    && chmod +x mc \
-    && mv ./mc /usr/bin/
+For non-public files like our CSVs in `/edm/distribution/`, we can use [minio](https://github.com/minio/minio).
 
-mc config host add spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY_ID $DO_SPACES_SECRET_ACCESS_KEY --api S3v4
+#### Using brew:
 
+Install
+```bash
+brew install minio/stable/mc
+```
+
+Add DO Spaces to the `mc` configuration
+```bash
+mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY_ID $DO_SPACES_SECRET_ACCESS_KEY
+```
+We use `spaces` here but you can name the alias anything. When you run `mc config host list` you should see the newly added host with credentials from your `.env`.
+
+Copy CSV files
+```bash
 mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/pluto.csv pluto.csv
 mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/attachments/zoning_districts.csv zoning_districts.csv
 mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/attachments/source_data_versions.csv source_data_versions.csv
