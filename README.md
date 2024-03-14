@@ -95,7 +95,7 @@ export BUILD_ENGINE_URI=${BUILD_ENGINE_SERVER}/${BUILD_ENGINE_DB}
 
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file sql/load_sources_simple.sql \
+  --file sql/load_sources.sql \
   --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
 ```
 
