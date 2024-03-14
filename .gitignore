@@ -1,0 +1,19 @@
+# Distribution / packaging
+/node_modules
+*.egg-info/
+
+# Logs
+logs
+*.logs
+
+# OS
+.DS_Store
+
+# env files
+.env
+.env*
+
+# dbt files 
+**/.user.yml
+dbt_packages/
+target/
