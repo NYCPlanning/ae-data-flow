@@ -73,13 +73,3 @@ DO $$ BEGIN
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
-
-CREATE TABLE IF NOT EXISTS "pluto" (
-	"bbl" text PRIMARY KEY NOT NULL,
-	"borough_id" char(2) NOT NULL,
-	"block" text NOT NULL,
-	"lot" text NOT NULL,
-	"address" text,
-	"land_use_id" char(2),
-	"wkt" text
-);
