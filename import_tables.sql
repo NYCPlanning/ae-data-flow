@@ -14,22 +14,6 @@ BEGIN;
 
 COMMIT;
 
-BEGIN;
-	COPY pluto (
-		"wkt",
-		"borough_id",
-		"block",
-		"lot",
-		"address",
-		"land_use_id",
-		"bbl"
-	)
-		FROM '../pluto.csv'
-		DELIMITER ','
-		CSV HEADER;
-
-COMMIT;
-
 INSERT INTO tax_lot
 SELECT
 	SUBSTRING(bbl, 1, 10) as bbl,
