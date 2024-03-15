@@ -4,6 +4,12 @@ This is the primary repository for the data pipelines of Application Engineering
 
 It is used to populate databases used by APIs.
 
+## Design
+
+### Zoning API
+
+<a href=<https://github.com/NYCPlanning/ae-data-flow/blob/main/diagrams/workflow_zoning_api_update.drawio.png>><img src="https://github.com/NYCPlanning/ae-data-flow/blob/main/diagrams/workflow_zoning_api_update.drawio.png" width='1000' alt="Diagram of Zoning API data flow">
+
 ## Local setup
 
 ### Setup MiniO for S3 file transfers
