@@ -20,6 +20,27 @@ If you're using [pyenv](https://github.com/pyenv/pyenv), you can create a virtua
 
 If you need to install pyenv, follow [these instructions](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation).
 
+#### Setup MiniO for S3 file transfers
+
+For non-public files like our CSVs in `/edm/distribution/`, we can use [minio](https://github.com/minio/minio) for authenticated file transfers.
+
+> [!NOTE]
+> These instructions are for local setup on macOS.
+
+Install
+
+```bash
+brew install minio/stable/mc
+```
+
+Add DO Spaces to the `mc` configuration
+
+```bash
+mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY_ID $DO_SPACES_SECRET_ACCESS_KEY
+```
+
+We use `spaces` here but you can name the alias anything. When you run `mc config host list` you should see the newly added host with credentials from your `.env`.
+
 ### Install dependencies
 
 Once you have cloned this repo, install the necessary dependencies:
@@ -55,29 +76,8 @@ dbt debug
 
 ### Load source data
 
-To copy source data files from Digital Ocean, we can use `curl` for public files:
-
-```bash
-# for public files
-curl --remote-name https://BUCKET.URL.com/folder/folder/data.csv
-```
-
-For non-public files like our CSVs in `/edm/distribution/`, we can use [minio](https://github.com/minio/minio).
-
-#### Using brew:
-
-Install
-```bash
-brew install minio/stable/mc
-```
-
-Add DO Spaces to the `mc` configuration
-```bash
-mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY_ID $DO_SPACES_SECRET_ACCESS_KEY
-```
-We use `spaces` here but you can name the alias anything. When you run `mc config host list` you should see the newly added host with credentials from your `.env`.
-
 Copy CSV files
+
 ```bash
 mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/pluto.csv pluto.csv
 mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/attachments/zoning_districts.csv zoning_districts.csv
