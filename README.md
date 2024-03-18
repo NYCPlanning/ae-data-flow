@@ -6,12 +6,6 @@ It is used to populate databases used by APIs.
 
 ## Local setup
 
-### Make sure you're using the correct version of Node
-
-The `.nvmrc` file tells you which version of node you should be using to run the project.
-
-If you're using [nvm](https://github.com/nvm-sh/nvm) and already have the correct version installed, you can switch by running `nvm use` from the root of this repo.
-
 ### Make sure you're using the correct version of python
 
 The `.python-version` file tells you which version of python you should be using to run the project.
@@ -46,7 +40,6 @@ We use `spaces` here but you can name the alias anything. When you run `mc confi
 Once you have cloned this repo, install the necessary dependencies:
 
 ```bash
-npm i
 python3 -m pip install --force-reinstall -r requirements.txt
 ```
 
