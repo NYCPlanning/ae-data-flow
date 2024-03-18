@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "source_pluto" (
 	"lot" text NOT NULL,
 	"address" text,
 	"land_use" char(2),
-	"wkt" geometry
+	"wkt" geometry(MULTIPOLYGON, 2263)
 );
 CREATE INDEX pluto_geom_idx
   ON source_pluto
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "source_zoning_districts" (
 	"zonedist" text NOT NULL,
 	"shape_leng" float,
 	"shape_area" float,
-	"wkt" geometry
+	"wkt" geometry(MULTIPOLYGON, 4326)
 );
 CREATE INDEX zoning_districts_geom_idx
   ON source_zoning_districts
