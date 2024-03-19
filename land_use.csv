@@ -1,0 +1,12 @@
+﻿id,description,color
+01,One & Two Family Buildings,#feffa8ff
+02,Multi-Family Walk-Up Buildings,#fcb842ff
+03,Multi-Family Elevator Buildings,#b16e00ff
+04,Mixed Residential & Commercial Buildings,#ff8341ff
+05,Commercial & Office Buildings,#fc2929ff
+06,Industrial & Manufacturing Buildings,#e362fbff
+07,Transportation & Utility,#e0Beebff
+08,Public Facilities & Institutions,#44a3d5ff
+09,Open Space & Outdoor Recreation,#78d271ff
+10,Parking Facilities,#bab8b6ff
+11,Vacant Land,#555555ff

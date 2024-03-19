@@ -22,15 +22,16 @@ SELECT
 FROM source_pluto
 INNER JOIN borough ON source_pluto.borough=borough.abbr;
 
-COPY zoning_district (
-	"id",
-	"label",
-	"wgs84",
-	"li_ft"
-)
-	FROM '../zoning_district.csv'
-	DELIMITER ','
-	CSV HEADER;
+INSERT INTO zoning_district
+SELECT
+    GEN_RANDOM_UUID() AS id,
+    zonedist AS label,
+    ST_Transform(wkt, 4326) as wgs84,
+		ST_Transform(wkt, 2263) as li_ft
+FROM source_zoning_districts
+WHERE
+    zonedist NOT IN ('PARK', 'BALL FIELD', 'PUBLIC PLACE', 'PLAYGROUND', 'BPC', '');
+    -- AND ST_GEOMETRYTYPE(ST_MAKEVALID(wkt)) = 'ST_MultiPolygon';  This doesn't seem to do anything, but was in data-engineering/products/pluto/pluto_build/sql/export_ae_tables.sql
 
 COPY zoning_district_class (
 	"id",
@@ -43,10 +44,14 @@ COPY zoning_district_class (
 	DELIMITER ','
 	CSV HEADER;
 
-COPY zoning_district_zoning_district_class (
-	"zoning_district_id",
-	"zoning_district_class_id"
+INSERT INTO zoning_district_zoning_district_class
+WITH split_zones AS (
+    SELECT
+        id,
+        UNNEST(STRING_TO_ARRAY(label, '/')) AS individual_zoning_district
+    FROM zoning_district
 )
-	FROM '../zoning_district_zoning_district_class.csv'
-	DELIMITER ','
-	CSV HEADER;
+SELECT
+    id AS zoning_district_id,
+    (REGEXP_MATCH(individual_zoning_district, '^(\w\d+)(?:[^\d].*)?$'))[1] AS zoning_district_class_id
+FROM split_zones;

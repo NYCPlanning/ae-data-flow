@@ -1,0 +1,22 @@
+id,category,description,url,color
+M1,Manufacturing,M1 districts are designated for areas with light industries.,,#f3b3ffff
+M2,Manufacturing,M2 districts occupy the middle ground between light and heavy industrial areas.,,#e187f3ff
+M3,Manufacturing,"M3 districts are designated for areas with heavy industries that generate noise, traffic or pollutants.",,#cf5ce6ff
+C1,Commercial,C1 districts are mapped along streets that serve local retail needs within residential neighborhoods.,,#ffa89cff
+C2,Commercial,C2 districts are mapped along streets that serve local retail needs within residential neighborhoods.,,#fd9a8fff
+C3,Commercial,"C3 districts permit waterfront recreational activities, primarily boating and fishing, in areas along the waterfront.",,#fa867cff
+C4,Commercial,"C4 districts are mapped in regional centers where larger stores, theaters and office uses serve a wider region and generate more traffic than neighborhood shopping areas.",,#f76e67ff
+C5,Commercial,C5 districts are intended for commercial areas that require central locations or serve the entire metropolitan region.,,#f2544eff
+C6,Commercial,C6 districts are intended for commercial areas that require central locations or serve the entire metropolitan region.,,#ee3a36ff
+C7,Commercial,C7 districts are specifically designated for large open amusement parks.,,#ea2220ff
+C8,Commercial,"C8 districts, bridging commercial and manufacturing uses, provide for automotive and other heavy commercial services that often require large amounts of land.",,#e50000ff
+R1,Residential,"R1 districts are leafy, low-density neighborhoods of large, single-family detached homes on spacious lots.",,#fff8a6ff
+R2,Residential,Residential development in R2 districts is limited exclusively to single-family detached houses.,,#fff7a6ff
+R3,Residential,"R3 districts are the lowest density districts that allow semi-detached one- and two-family residences, as well as detached homes",,#fff797ff
+R4,Residential,"R4 districts are general residence districts that allow a variety of housing types, including low-rise attached houses, small multifamily apartment houses, and detached and semi-detached one- and two-family residences.",,#fff584ff
+R5,Residential,"R5 districts are general residence districts that allow a variety of housing types, including low-rise attached houses, small multifamily apartment houses, and detached and semi-detached one- and two-family residences.",,#fff36cff
+R6,Residential,"R6 zoning districts are widely mapped in built-up, medium-density areas of the city whose character can range from neighborhoods with a diverse mix of building types and heights to large-scale “tower in the park” developments.",,#fff153ff
+R7,Residential,"R7 zoning districts are medium-density apartment house districts that encourage lower apartment buildings on smaller lots and, on larger lots, taller buildings with less lot coverage.",,#ffee39ff
+R8,Residential,"R8 zoning districts are high-density apartment house districts that encourage mid-rise apartment buildings on smaller lots and, on larger lots, taller buildings with less lot coverage.",,#ffec22ff
+R9,Residential,R9 districts are high-density districts that permit a wide range of building types including towers.,,#ffeb0eff
+R10,Residential,R10 districts are high-density districts that permit a wide range of building types including towers.,,#ffea00ff
