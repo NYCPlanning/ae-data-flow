@@ -4,6 +4,8 @@ profile: "dcp-ae-postgres"
 
 model-paths: ["sql"]
 
+test-paths: ["tests"]
+
 tests:
   +store_failures: true
   schema: "_tests"

@@ -18,8 +18,25 @@ sources:
                 - wkt
         columns:
           - name: bbl
+            tests:
               - unique
               - not_null
+              - bbl_formatting
+          - name: borough
+            tests: 
+              - accepted_values:
+                  values: ['MN', 'BK', 'BX', 'QN', 'SI']
+          - name: block
+            tests:
+              - not_null
+              - one_to_five_digits
+          - name: lot
+            tests:
+              - not_null
+              - one_to_four_digits
+          - name: land_use
+            tests:
+              - two_digits
           - name: wkt
             tests:
               - unique
@@ -33,6 +50,15 @@ sources:
                 - zonedist
                 - wkt
         columns:
+          - name: zonedist
+            tests:
+              - not_null
+          - name: shape_leng
+            tests:
+              - not_null
+          - name: shape_area
+            tests:
+              - not_null
           - name: wkt
             tests:
               - unique
