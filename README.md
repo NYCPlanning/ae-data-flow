@@ -114,15 +114,17 @@ dbt test --select "source:*"
 ```
 
 ### Create tables
+```bash
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
   --file create_tables.sql \
   --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
-
+```
 ### Populate tables
+```bash
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
   --file import_tables.sql \
   --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
-
+```
 ### TBD
