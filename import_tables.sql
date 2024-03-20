@@ -26,12 +26,12 @@ INSERT INTO zoning_district
 SELECT
     GEN_RANDOM_UUID() AS id,
     zonedist AS label,
-    ST_Transform(wkt, 4326) as wgs84,
+    wkt as wgs84,
 		ST_Transform(wkt, 2263) as li_ft
 FROM source_zoning_districts
 WHERE
-    zonedist NOT IN ('PARK', 'BALL FIELD', 'PUBLIC PLACE', 'PLAYGROUND', 'BPC', '');
-    -- AND ST_GEOMETRYTYPE(ST_MAKEVALID(wkt)) = 'ST_MultiPolygon';  This doesn't seem to do anything, but was in data-engineering/products/pluto/pluto_build/sql/export_ae_tables.sql
+    zonedist NOT IN ('PARK', 'BALL FIELD', 'PUBLIC PLACE', 'PLAYGROUND', 'BPC', '')
+    AND ST_GEOMETRYTYPE(wkt) = 'ST_MultiPolygon';
 
 COPY zoning_district_class (
 	"id",
