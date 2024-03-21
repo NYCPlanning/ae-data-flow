@@ -78,13 +78,13 @@ dbt deps
 
 ## Usage
 ### Quickrun
-Once you have set up your `.env` file, you can automatically run all of the below commands in sequence.  To do so, make sure the script has the correct permissions:
-```bash
-chmod 755 import.sh
-```
-Then, to run the commands:
+Once you have set up your `.env` file, you can automatically run all of the below commands in sequence.  To run the commands:
 ```bash
 ./import.sh
+```
+If you receive an error, make sure the script has the correct permissions:
+```bash
+chmod 755 import.sh
 ```
 
 ### Set environment variables

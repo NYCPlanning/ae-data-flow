@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit when any command fails
+set -e
+
 # To use environment variables defined in .env:
 export $(cat .env | sed 's/#.*//g' | xargs)
 
@@ -18,8 +21,7 @@ export BUILD_ENGINE_URI=${BUILD_ENGINE_SERVER}/${BUILD_ENGINE_DB}
 
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file sql/load_sources.sql \
-  --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
+  --file sql/load_sources.sql
 
 # Validate source data
 dbt test --select "source:*"
@@ -27,11 +29,9 @@ dbt test --select "source:*"
 # Create API tables in data flow DB
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file create_tables.sql \
-  --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
+  --file create_tables.sql
 
 # Populate API tables in data flow DB
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file populate_tables.sql \
-  --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
+  --file populate_tables.sql
