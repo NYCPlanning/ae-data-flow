@@ -13,8 +13,8 @@ For each API, there is a database cluster with a `staging` and a `prod` database
 For each API and the relevant databases, this is the approach to updating data:
 
 1. Load source data into the data flow database
-2. Create tables that are identical in structure to those in the API database
-3. Replace the rows in the API database
+2. Create tables that are identical in structure to the API database tables
+3. Replace the rows in the API database tables
 
 These steps are first performed on the `staging` sets of databases. When that process has succeeded and the API's use of it has passed QA, the same process is steps are performed on the `prod` set of databases
 
@@ -93,10 +93,12 @@ To use environment variables defined in `.env`:
 export $(cat .env | sed 's/#.*//g' | xargs)
 ```
 
-## Running the project locally
+## Local use
 
 > [!NOTE]
 > The approaches to running this locally will inform how this will be run in CI using github actions.
+>
+> This currently requires a local install of `postgres` in order to use the `psql` CLI. We may prefer an approach that does not depend on this.
 
 ### Test database connection
 
@@ -104,9 +106,9 @@ export $(cat .env | sed 's/#.*//g' | xargs)
 dbt debug
 ```
 
-### Load source data
+### Load source data into data flow DB
 
-Copy CSV files
+Download CSV files from Digital Ocean file storage
 
 ```bash
 mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/pluto.csv pluto.csv
@@ -114,10 +116,7 @@ mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/attachments/zoning
 mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/attachments/source_data_versions.csv source_data_versions.csv
 ```
 
-To create source data tables in the database:
-
-> [!IMPORTANT]
-> This assumes `postgres` is installed. We may prefer an approach that does not depend on this assumption.
+Copy CSV files into source data tables
 
 ```bash
 export BUILD_ENGINE_SERVER=postgresql://${BUILD_ENGINE_USER}:${BUILD_ENGINE_PASSWORD}@${BUILD_ENGINE_HOST}:${BUILD_ENGINE_PORT}
@@ -135,7 +134,7 @@ psql ${BUILD_ENGINE_URI} \
 dbt test --select "source:*"
 ```
 
-### Create tables
+### Create API tables in data flow DB
 
 ```bash
 psql ${BUILD_ENGINE_URI} \
@@ -144,13 +143,18 @@ psql ${BUILD_ENGINE_URI} \
   --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
 ```
 
-### Populate tables
+### Populate API tables in data flow DB
 
 ```bash
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file import_tables.sql \
+  --file populate_tables.sql \
   --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
 ```
 
-### TBD
+### Replace rows in API database tables
+
+```bash
+# TODO
+# maybe pg_dump + pg_restore?
+```
