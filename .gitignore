@@ -17,3 +17,6 @@ logs
 **/.user.yml
 dbt_packages/
 target/
+
+# data files
+.data/

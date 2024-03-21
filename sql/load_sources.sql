@@ -13,7 +13,7 @@ CREATE INDEX pluto_geom_idx
   ON source_pluto
   USING GIST (wkt);
 
-\COPY source_pluto ("wkt", "borough", "block", "lot", "address", "land_use", "bbl") FROM './pluto.csv' DELIMITER ',' CSV HEADER;
+\COPY source_pluto ("wkt", "borough", "block", "lot", "address", "land_use", "bbl") FROM '.data/pluto.csv' DELIMITER ',' CSV HEADER;
 
 
 DROP TABLE IF EXISTS source_zoning_districts;
@@ -28,4 +28,4 @@ CREATE INDEX zoning_districts_geom_idx
   ON source_zoning_districts
   USING GIST (wkt);
 
-\COPY source_zoning_districts ("wkt", "zonedist", "shape_leng", "shape_area") FROM './zoning_districts.csv' DELIMITER ',' CSV HEADER;
+\COPY source_zoning_districts ("wkt", "zonedist", "shape_leng", "shape_area") FROM '.data/zoning_districts.csv' DELIMITER ',' CSV HEADER;
