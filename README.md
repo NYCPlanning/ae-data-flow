@@ -16,7 +16,16 @@ For each API and the relevant databases, this is the approach to updating data:
 2. Create tables that are identical in structure to the API database tables
 3. Replace the rows in the API database tables
 
-These steps are first performed on the `staging` sets of databases. When that process has succeeded and the API's use of it has passed QA, the same process is steps are performed on the `prod` set of databases
+These steps are first performed on the `staging` sets of databases. When that process has succeeded and the API's use of it has passed QA, the same process is performed on the `prod` set of databases.
+
+This is a more granular description of those steps:
+
+1. Download CSV files from Digital Ocean file storage
+2. Copy CSV files into source data tables
+3. Test source data tables
+4. Create API tables in the data flow database
+5. Populate the API tables in data flow database
+6. Replace rows in API tables in the API database
 
 ### Zoning API example
 
@@ -83,22 +92,6 @@ dbt deps
 >
 > This currently requires a local install of `postgres` in order to use the `psql` CLI. We may prefer an approach that does not depend on this.
 
-### Quickrun
-
-Once you have set up your `.env` file, you can automatically run all of the below commands in sequence.  To run the commands:
-
-```bash
-./bash/download.sh
-./bash/import.sh
-./bash/transform.sh
-```
-
-If you receive an error, make sure the script has the correct permissions:
-
-```bash
-chmod 755 import.sh
-```
-
 ### Set environment variables
 
 Create a file called `.env` in the root folder of the project and copy the contents of `sample.env` into that new file.
@@ -110,63 +103,17 @@ Next, fill in the blank values.
 >
 > To use a deployed database in Digital Ocean, the values you need can be found in the AE 1password vault.
 
-To use environment variables defined in `.env`:
+### Run each step
 
 ```bash
-export $(cat .env | sed 's/#.*//g' | xargs)
-export BUILD_ENGINE_SERVER=postgresql://${BUILD_ENGINE_USER}:${BUILD_ENGINE_PASSWORD}@${BUILD_ENGINE_HOST}:${BUILD_ENGINE_PORT}
-export BUILD_ENGINE_URI=${BUILD_ENGINE_SERVER}/${BUILD_ENGINE_DB}
+./bash/download.sh
+./bash/import.sh
+./bash/transform.sh
+# TODO ./bash/export.sh
 ```
 
-### Test database connection
+If you receive an error, make sure the script has the correct permissions:
 
 ```bash
-dbt debug
-```
-
-### Load source data into data flow DB
-
-Download CSV files from Digital Ocean file storage
-
-```bash
-mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/pluto.csv pluto.csv
-mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/attachments/zoning_districts.csv zoning_districts.csv
-mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/attachments/source_data_versions.csv source_data_versions.csv
-```
-
-Copy CSV files into source data tables
-
-```bash
-psql ${BUILD_ENGINE_URI} \
-  --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file sql/load_sources.sql
-```
-
-### Validate source data
-
-```bash
-dbt test --select "source:*"
-```
-
-### Create API tables in data flow DB
-
-```bash
-psql ${BUILD_ENGINE_URI} \
-  --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file create_tables.sql
-```
-
-### Populate API tables in data flow DB
-
-```bash
-psql ${BUILD_ENGINE_URI} \
-  --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file populate_tables.sql
-```
-
-### Replace rows in API database tables
-
-```bash
-# TODO
-# maybe pg_dump + pg_restore?
+chmod 755 import.sh
 ```
