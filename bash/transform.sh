@@ -12,9 +12,9 @@ dbt debug
 # Create API tables in data flow DB
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file create_tables.sql
+  --file sql/create_tables.sql
 
 # Populate API tables in data flow DB
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file populate_tables.sql
+  --file sql/populate_tables.sql
