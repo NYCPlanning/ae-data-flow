@@ -1,12 +1,24 @@
 # AE Data Flow
 
-This is the primary repository for the data pipelines of Application Engineering team at the NYC Department of City Planning (DCP).
+This is the primary repository for the data pipelines of the Application Engineering (AE) team at the NYC Department of City Planning (DCP).
 
-It is used to populate databases used by APIs.
+These pipelines are used to populate the databases used by our APIs and are called "data flows".
 
 ## Design
 
-### Zoning API
+For all AE data flows, there is one database cluster with a `staging` and a `prod` database. There are also `dev` databases. These are called data flow databases.
+
+For each API, there is a database cluster with a `staging` and a `prod` database. The only tables in those databases are those that an API uses. These are called API databases.
+
+For each API and the relevant databases, this is the approach to updating data:
+
+1. Load source data into the data flow database
+2. Create tables that are identical in structure to those in the API database
+3. Replace the rows in the API database
+
+These steps are first performed on the `staging` sets of databases. When that process has succeeded and the API's use of it has passed QA, the same process is steps are performed on the `prod` set of databases
+
+### Zoning API example
 
 <a href=<https://github.com/NYCPlanning/ae-data-flow/blob/main/diagrams/workflow_zoning_api_update.drawio.png>><img src="https://github.com/NYCPlanning/ae-data-flow/blob/main/diagrams/workflow_zoning_api_update.drawio.png" width='1000' alt="Diagram of Zoning API data flow">
 
@@ -40,7 +52,7 @@ We use `spaces` here but you can name the alias anything. When you run `mc confi
 >
 > If you are using a different approach like [venv](https://docs.python.org/3/library/venv.html) or [virtualenv](https://virtualenv.pypa.io/en/latest/), follow comparable instructions in the relevant docs.
 
-The `.python-version` file define which version of python this project uses.
+The `.python-version` file defines which version of python this project uses.
 
 #### Create a virtual environment named `venv_ae_data_flow`
 
@@ -75,18 +87,22 @@ Next, fill in the blank values and edit `BUILD_ENGINE_SCHEMA=local_YOUR_NAME` to
 >
 > To use a deployed database in Digital Ocean, the values you need can be found in the AE 1password vault.
 
-To set those environment variables in a terminal window run `export $(cat .env | sed 's/#.*//g' | xargs)`.
-
-### Test database connection
+To use environment variables defined in `.env`:
 
 ```bash
-dbt debug
+export $(cat .env | sed 's/#.*//g' | xargs)
 ```
 
 ## Running the project locally
 
 > [!NOTE]
 > The approaches to running this locally will inform how this will be run in CI using github actions.
+
+### Test database connection
+
+```bash
+dbt debug
+```
 
 ### Load source data
 
@@ -120,17 +136,21 @@ dbt test --select "source:*"
 ```
 
 ### Create tables
+
 ```bash
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
   --file create_tables.sql \
   --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
 ```
+
 ### Populate tables
+
 ```bash
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
   --file import_tables.sql \
   --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
 ```
+
 ### TBD
