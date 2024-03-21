@@ -76,13 +76,25 @@ pip list
 dbt deps
 ```
 
-## Usage
+## Local usage
+
+> [!NOTE]
+> The approaches to running this locally will inform how this will be run in CI using github actions.
+>
+> This currently requires a local install of `postgres` in order to use the `psql` CLI. We may prefer an approach that does not depend on this.
+
 ### Quickrun
+
 Once you have set up your `.env` file, you can automatically run all of the below commands in sequence.  To run the commands:
+
 ```bash
-./import.sh
+./bash/download.sh
+./bash/import.sh
+./bash/transform.sh
 ```
+
 If you receive an error, make sure the script has the correct permissions:
+
 ```bash
 chmod 755 import.sh
 ```
@@ -105,13 +117,6 @@ export $(cat .env | sed 's/#.*//g' | xargs)
 export BUILD_ENGINE_SERVER=postgresql://${BUILD_ENGINE_USER}:${BUILD_ENGINE_PASSWORD}@${BUILD_ENGINE_HOST}:${BUILD_ENGINE_PORT}
 export BUILD_ENGINE_URI=${BUILD_ENGINE_SERVER}/${BUILD_ENGINE_DB}
 ```
-
-## Local use
-
-> [!NOTE]
-> The approaches to running this locally will inform how this will be run in CI using github actions.
->
-> This currently requires a local install of `postgres` in order to use the `psql` CLI. We may prefer an approach that does not depend on this.
 
 ### Test database connection
 
