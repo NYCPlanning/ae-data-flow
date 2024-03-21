@@ -80,7 +80,7 @@ dbt deps
 
 Create a file called `.env` in the root folder of the project and copy the contents of `sample.env` into that new file.
 
-Next, fill in the blank values and edit `BUILD_ENGINE_SCHEMA=local_YOUR_NAME` to be unique amongst the team.
+Next, fill in the blank values.
 
 > [!IMPORTANT]
 > To use a local database, `sample_local.env` likely has the environment variable values you need.
@@ -123,8 +123,7 @@ Copy CSV files into source data tables
 ```bash
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file sql/load_sources.sql \
-  --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
+  --file sql/load_sources.sql
 ```
 
 ### Validate source data
@@ -138,8 +137,7 @@ dbt test --select "source:*"
 ```bash
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file create_tables.sql \
-  --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
+  --file create_tables.sql
 ```
 
 ### Populate API tables in data flow DB
@@ -147,8 +145,7 @@ psql ${BUILD_ENGINE_URI} \
 ```bash
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
-  --file populate_tables.sql \
-  --variable SCHEMA_NAME=${BUILD_ENGINE_SCHEMA}
+  --file populate_tables.sql
 ```
 
 ### Replace rows in API database tables
