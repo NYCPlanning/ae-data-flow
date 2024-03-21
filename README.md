@@ -76,6 +76,17 @@ pip list
 dbt deps
 ```
 
+## Usage
+### Quickrun
+Once you have set up your `.env` file, you can automatically run all of the below commands in sequence.  To do so, make sure the script has the correct permissions:
+```bash
+chmod 755 import.sh
+```
+Then, to run the commands:
+```bash
+./import.sh
+```
+
 ### Set environment variables
 
 Create a file called `.env` in the root folder of the project and copy the contents of `sample.env` into that new file.
