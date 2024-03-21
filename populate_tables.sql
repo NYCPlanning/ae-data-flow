@@ -1,13 +1,6 @@
-COPY borough ("id", "title", "abbr")
-	FROM '../borough.csv'
-	DELIMITER ','
-	CSV HEADER;
+\COPY borough ("id", "title", "abbr") FROM './borough.csv' DELIMITER ',' CSV HEADER;
 
-
-COPY land_use ("id", "description", "color")
-	FROM '../land_use.csv'
-	DELIMITER ','
-	CSV HEADER;
+\COPY land_use ("id", "description", "color") FROM './land_use.csv' DELIMITER ',' CSV HEADER;
 
 INSERT INTO tax_lot
 SELECT
@@ -33,16 +26,7 @@ WHERE
     zonedist NOT IN ('PARK', 'BALL FIELD', 'PUBLIC PLACE', 'PLAYGROUND', 'BPC', '')
     AND ST_GEOMETRYTYPE(wkt) = 'ST_MultiPolygon';
 
-COPY zoning_district_class (
-	"id",
-	"category",
-	"description",
-	"url",
-	"color"
-)
-	FROM '../zoning_district_class.csv'
-	DELIMITER ','
-	CSV HEADER;
+\COPY zoning_district_class ( "id", "category", "description", "url", "color" ) FROM './zoning_district_class.csv' DELIMITER ',' CSV HEADER;
 
 INSERT INTO zoning_district_zoning_district_class
 WITH split_zones AS (
