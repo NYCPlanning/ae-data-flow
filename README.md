@@ -59,7 +59,7 @@ brew install minio/stable/mc
 #### Add DO Spaces to the `mc` configuration
 
 ```bash
-mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY_ID $DO_SPACES_SECRET_ACCESS_KEY
+mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY $DO_SPACES_SECRET_KEY
 ```
 
 We use `spaces` here but you can name the alias anything. When you run `mc config host list` you should see the newly added host with credentials from your `.env`.
