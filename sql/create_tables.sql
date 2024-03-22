@@ -1,19 +1,5 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 
-DROP TABLE IF EXISTS borough CASCADE;
-CREATE TABLE IF NOT EXISTS "borough" (
-	"id" char(1) PRIMARY KEY NOT NULL,
-	"title" text NOT NULL,
-	"abbr" text NOT NULL
-);
-
-DROP TABLE IF EXISTS land_use CASCADE;
-CREATE TABLE IF NOT EXISTS "land_use" (
-	"id" char(2) PRIMARY KEY NOT NULL,
-	"description" text NOT NULL,
-	"color" char(9) NOT NULL
-);
-
 DROP TABLE IF EXISTS tax_lot CASCADE;
 CREATE TABLE IF NOT EXISTS "tax_lot" (
 	"bbl" char(10) PRIMARY KEY NOT NULL,
@@ -38,28 +24,12 @@ EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 
-
-DO $$ BEGIN
- CREATE TYPE "category" AS ENUM('Residential', 'Commercial', 'Manufacturing');
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
-
 DROP TABLE IF EXISTS zoning_district CASCADE;
 CREATE TABLE IF NOT EXISTS "zoning_district" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"label" text NOT NULL,
 	"wgs84" geography(multiPolygon, 4326) NOT NULL,
 	"li_ft" geometry(multiPolygon,2263) NOT NULL
-);
-
-DROP TABLE IF EXISTS zoning_district_class CASCADE;
-CREATE TABLE IF NOT EXISTS "zoning_district_class" (
-	"id" text PRIMARY KEY NOT NULL,
-	"category" "category",
-	"description" text NOT NULL,
-	"url" text,
-	"color" char(9) NOT NULL
 );
 
 DROP TABLE IF EXISTS zoning_district_zoning_district_class CASCADE;

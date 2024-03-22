@@ -11,6 +11,12 @@ export BUILD_ENGINE_URI=${BUILD_ENGINE_SERVER}/${BUILD_ENGINE_DB}
 # Test database connection
 dbt debug
 
+# Create custom column types
+dbt run-operation create_column_type_category
+
+# Load seed csvs
+dbt seed --full-refresh
+
 # Create API tables in data flow DB
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \

@@ -1,0 +1,33 @@
+version: 2
+
+seeds:
+  - name: borough
+    config:
+      column_types:
+        id: char(1)
+    columns:
+      - name: id
+      - name: title
+      - name: abbr
+
+  - name: land_use
+    config:
+      column_types:
+        id: char(2)
+        color: char(9)
+    columns:
+      - name: id
+      - name: description
+      - name: color
+
+  - name: zoning_district_class
+    config:
+      column_types:
+        category: category
+        color: char(9)
+    columns:
+      - name: id
+      - name: category
+      - name: description
+      - name: url
+      - name: color

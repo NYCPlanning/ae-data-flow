@@ -1,9 +1,3 @@
-\COPY borough ("id", "title", "abbr") FROM './seeds/borough.csv' DELIMITER ',' CSV HEADER;
-
-\COPY land_use ("id", "description", "color") FROM './seeds/land_use.csv' DELIMITER ',' CSV HEADER;
-
-\COPY zoning_district_class ( "id", "category", "description", "url", "color" ) FROM './seeds/zoning_district_class.csv' DELIMITER ',' CSV HEADER;
-
 INSERT INTO tax_lot
 SELECT
 	SUBSTRING(bbl, 1, 10) as bbl,
