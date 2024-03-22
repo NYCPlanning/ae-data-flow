@@ -22,7 +22,7 @@ on:
 jobs:
   run_update:
     name: Run Update
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     environment:
       name: ${{ inputs.environment_name }}
     steps:
