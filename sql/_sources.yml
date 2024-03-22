@@ -23,9 +23,10 @@ sources:
               - not_null
               - bbl_formatting
           - name: borough
-            tests: 
-              - accepted_values:
-                  values: ['MN', 'BK', 'BX', 'QN', 'SI']
+            tests:
+              - relationships:
+                  to: ref('borough')
+                  field: abbr
           - name: block
             tests:
               - not_null
