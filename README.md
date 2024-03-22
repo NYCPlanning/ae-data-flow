@@ -63,6 +63,13 @@ We use `spaces` here but you can name the alias anything. When you run `mc confi
 
 The `.python-version` file defines which version of python this project uses.
 
+#### Install
+
+```bash
+brew install pyenv
+brew install pyenv-virtualenv
+```
+
 #### Create a virtual environment named `venv_ae_data_flow`
 
 ```bash
@@ -73,7 +80,7 @@ pyenv virtualenvs
 #### Activate `venv_ae_data_flow` in the current terminal
 
 ```bash
-pyenv shell venv_ae_data_flow
+pyenv activate venv_ae_data_flow
 pyenv version
 ```
 
