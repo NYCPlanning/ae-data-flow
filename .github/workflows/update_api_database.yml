@@ -1,0 +1,44 @@
+name: 🚀 Update API Database
+
+on:
+  workflow_dispatch:
+    inputs:
+      api_name:
+        description: "Which API database to update"
+        type: choice
+        required: true
+        options:
+          - zoning-api
+      environment_name:
+        description: "Which environemnt to use"
+        type: choice
+        required: true
+        options:
+          - dev
+          - staging
+          - production
+
+jobs:
+  run_update:
+    name: Run Update
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Load Secrets
+        uses: 1password/load-secrets-action@v1
+        with:
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          TOY_SECRET_1PASSWORD: "op://AE Data Flow/Toy Secret File/TOY_SECRET_LABEL"
+
+      - name: Health check
+        run: |
+          python --version
+          echo "Hello API Database update!"
+          echo "Using API Database: ${{ inputs.api_name }}"
+          echo "Using environment: ${{ inputs.environment_name }}"
+          echo "Toy Secret value: $TOY_SECRET_1PASSWORD"
