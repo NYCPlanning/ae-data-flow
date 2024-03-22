@@ -31,6 +31,16 @@ This is a more granular description of those steps:
 
 <a href=https://github.com/NYCPlanning/ae-data-flow/blob/main/diagrams/workflow_zoning_api_update.drawio.png><img src="https://github.com/NYCPlanning/ae-data-flow/blob/main/diagrams/workflow_zoning_api_update.drawio.png" width='1000' alt="Diagram of Zoning API data flow">
 
+## CI usage
+
+We use a github action to perform API database updates.
+
+We have three [environments](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment) to configure the databases and credentials used for an API database update.
+
+The `dev` environment can used on any branch. The `staging` and `production` environments can only be used on the `main` branch.
+
+When an action attempts to use the `production` environment, specific people or teams specified in this repo's settings must approve the action run's access of environment.
+
 ## Local setup
 
 ### Setup MiniO for S3 file transfers
@@ -95,8 +105,6 @@ dbt deps
 ## Local usage
 
 > [!NOTE]
-> The approaches to running this locally will inform how this will be run in CI using github actions.
->
 > This currently requires a local install of `postgres` in order to use the `psql` CLI. We may prefer an approach that does not depend on this.
 
 ### Set environment variables
