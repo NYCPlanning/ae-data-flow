@@ -36,6 +36,11 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           TOY_SECRET_1PASSWORD: "op://AE Data Flow/Toy Secret File/TOY_SECRET_LABEL"
 
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
       - name: Health check
         run: |
           python --version
