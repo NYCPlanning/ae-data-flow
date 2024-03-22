@@ -35,6 +35,9 @@ jobs:
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           TOY_SECRET_1PASSWORD: "op://AE Data Flow/Toy Secret File/TOY_SECRET_LABEL"
+          DO_SPACES_ENDPOINT: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_ENDPOINT"
+          DO_SPACES_ACCESS_KEY_ID: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_ACCESS_KEY"
+          DO_SPACES_SECRET_ACCESS_KEY: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_SECRET_KEY"
 
       - name: Setup python
         uses: actions/setup-python@v5
@@ -48,3 +51,12 @@ jobs:
           echo "Using API Database: ${{ inputs.api_name }}"
           echo "Using environment: ${{ inputs.environment_name }}"
           echo "Toy Secret value: $TOY_SECRET_1PASSWORD"
+
+      - name: Install dependencies
+        run: |
+          brew install postgresql@15
+          brew install minio/stable/mc
+          mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY_ID $DO_SPACES_SECRET_ACCESS_KEY
+          python3 -m pip install --force-reinstall -r requirements.txt
+          pip list
+          dbt deps
