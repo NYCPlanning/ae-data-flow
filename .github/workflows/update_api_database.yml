@@ -44,6 +44,12 @@ jobs:
           DO_DATA_FLOW_DB_USERNAME_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow dev/username"
           DO_DATA_FLOW_DB_PASSWORD_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow dev/password"
           DO_DATA_FLOW_DB_DATASBASE_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow dev/database"
+          DO_DATA_FLOW_DB_USERNAME_STAGING: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow staging/username"
+          DO_DATA_FLOW_DB_PASSWORD_STAGING: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow staging/password"
+          DO_DATA_FLOW_DB_DATASBASE_STAGING: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow staging/database"
+          DO_DATA_FLOW_DB_USERNAME_PRODUCTION: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow production/username"
+          DO_DATA_FLOW_DB_PASSWORD_PRODUCTION: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow production/password"
+          DO_DATA_FLOW_DB_DATASBASE_PRODUCTION: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow production/database"
 
       - name: Set .env file
         run: |
@@ -64,12 +70,16 @@ jobs:
       - name: Set .env file for staging
         if: inputs.environment_name == 'staging'
         run: |
-          echo "not yet"
+          echo "BUILD_ENGINE_USER=$DO_DATA_FLOW_DB_USERNAME_STAGING" >> .env
+          echo "BUILD_ENGINE_PASSWORD=$DO_DATA_FLOW_DB_PASSWORD_STAGING" >> .env
+          echo "BUILD_ENGINE_DB=$DO_DATA_FLOW_DB_DATASBASE_STAGING" >> .env
 
       - name: Set .env file for production
         if: inputs.environment_name == 'production'
         run: |
-          echo "not yet"
+          echo "BUILD_ENGINE_USER=$DO_DATA_FLOW_DB_USERNAME_PRODUCTION" >> .env
+          echo "BUILD_ENGINE_PASSWORD=$DO_DATA_FLOW_DB_PASSWORD_PRODUCTION" >> .env
+          echo "BUILD_ENGINE_DB=$DO_DATA_FLOW_DB_DATASBASE_PRODUCTION" >> .env
 
       - name: Setup python
         uses: actions/setup-python@v5
