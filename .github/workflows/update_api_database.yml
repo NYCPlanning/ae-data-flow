@@ -107,9 +107,14 @@ jobs:
       - name: Install dependencies
         run: |
           brew install postgresql@15
+          export PATH="/usr/local/opt/postgresql@15/bin:$PATH"
+          brew services start postgresql@15
           brew install minio/stable/mc
           mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY_ID $DO_SPACES_SECRET_ACCESS_KEY
           python3 -m pip install --force-reinstall -r requirements.txt
+
+          postgres --version
+          pg_dump --version
           pip list
           dbt deps
 
