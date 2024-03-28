@@ -117,6 +117,7 @@ jobs:
           postgres --version
           psql --version
           pg_dump --version
+          which psql
           pip list
           dbt deps
 
