@@ -115,6 +115,7 @@ jobs:
           python3 -m pip install --force-reinstall -r requirements.txt
 
           postgres --version
+          psql --version
           pg_dump --version
           pip list
           dbt deps
