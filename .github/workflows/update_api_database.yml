@@ -117,4 +117,7 @@ jobs:
           postgres --version
           psql --version
           pg_dump --version
+
+      - name: Check dependencies (PATH really)
+        run: |
           which psql
