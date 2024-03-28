@@ -107,6 +107,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version-file: ".python-version"
+          
+      - name: Setup PostgreSQL
+        uses: tj-actions/install-postgresql@v3
+        with:
+          postgresql-version: 15
 
       - name: Health check
         run: |
@@ -118,10 +123,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          brew install postgresql@15
           brew install minio/stable/mc
           mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY_ID $DO_SPACES_SECRET_ACCESS_KEY
           python3 -m pip install --force-reinstall -r requirements.txt
+
+          postgres --version
+          psql --version
+          pg_dump --version
+          which psql
           pip list
           dbt deps
 
