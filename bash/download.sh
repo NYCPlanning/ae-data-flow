@@ -3,8 +3,13 @@
 # Exit when any command fails
 set -e
 
-# To use environment variables defined in .env:
-export $(cat .env | sed 's/#.*//g' | xargs)
+FILE_DIR=$(dirname "$(readlink -f "$0")")
+ROOT_DIR=$FILE_DIR/../
+
+source $ROOT_DIR/bash/utils/set_environment_variables.sh
+
+# Setting Environmental Variables
+set_envars
 
 # Download CSV files from Digital Ocean file storage
 DATA_DIRECTORY=.data/
