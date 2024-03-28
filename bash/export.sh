@@ -3,13 +3,13 @@
 # Exit when any command fails
 set -e
 
-# To use environment variables defined in .env:
-export $(cat .env | sed 's/#.*//g' | xargs)
-export BUILD_ENGINE_SERVER=postgresql://${BUILD_ENGINE_USER}:${BUILD_ENGINE_PASSWORD}@${BUILD_ENGINE_HOST}:${BUILD_ENGINE_PORT}
-export BUILD_ENGINE_URI=${BUILD_ENGINE_SERVER}/${BUILD_ENGINE_DB}
+FILE_DIR=$(dirname "$(readlink -f "$0")")
+ROOT_DIR=$FILE_DIR/../
 
-export BUILD_ZONING_API_DB_SERVER=postgresql://${ZONING_API_USER}:${ZONING_API_PASSWORD}@${ZONING_API_HOST}:${ZONING_API_PORT}
-export BUILD_ZONING_API_ENGINE_URI=${BUILD_ZONING_API_DB_SERVER}/${ZONING_API_DB}
+source $ROOT_DIR/bash/utils/set_environment_variables.sh
+
+# Setting Environmental Variables
+set_envars
 
 # Dump Zoning API DB tables to db.dump
 pg_dump -Fc -t tax_lot -t borough -t land_use -t zoning_district -t zoning_district_class -t zoning_district_zoning_district_class ${BUILD_ENGINE_URI} > db.dump

@@ -3,10 +3,13 @@
 # Exit when any command fails
 set -e
 
-# To use environment variables defined in .env:
-export $(cat .env | sed 's/#.*//g' | xargs)
-export BUILD_ENGINE_SERVER=postgresql://${BUILD_ENGINE_USER}:${BUILD_ENGINE_PASSWORD}@${BUILD_ENGINE_HOST}:${BUILD_ENGINE_PORT}
-export BUILD_ENGINE_URI=${BUILD_ENGINE_SERVER}/${BUILD_ENGINE_DB}
+FILE_DIR=$(dirname "$(readlink -f "$0")")
+ROOT_DIR=$FILE_DIR/../
+
+source $ROOT_DIR/bash/utils/set_environment_variables.sh
+
+# Setting Environmental Variables
+set_envars
 
 # Test database connection
 dbt debug
