@@ -43,13 +43,24 @@ jobs:
           DO_DATA_FLOW_DB_PORT: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow/port"
           DO_DATA_FLOW_DB_USERNAME_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow dev/username"
           DO_DATA_FLOW_DB_PASSWORD_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow dev/password"
-          DO_DATA_FLOW_DB_DATASBASE_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow dev/database"
+          DO_DATA_FLOW_DB_DATABASE_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow dev/database"
           DO_DATA_FLOW_DB_USERNAME_STAGING: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow staging/username"
           DO_DATA_FLOW_DB_PASSWORD_STAGING: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow staging/password"
           DO_DATA_FLOW_DB_DATASBASE_STAGING: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow staging/database"
           DO_DATA_FLOW_DB_USERNAME_PRODUCTION: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow production/username"
           DO_DATA_FLOW_DB_PASSWORD_PRODUCTION: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow production/password"
           DO_DATA_FLOW_DB_DATASBASE_PRODUCTION: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow production/database"
+          DO_ZONING_API_DB_HOST: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API/host"
+          DO_ZONING_API_DB_PORT: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API/port"
+          DO_ZONING_API_DB_USERNAME_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API dev/username"
+          DO_ZONING_API_DB_PASSWORD_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API dev/password"
+          DO_ZONING_API_DB_DATABASE_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API dev/database"
+          DO_ZONING_API_DB_USERNAME_STAGING: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API staging/username"
+          DO_ZONING_API_DB_PASSWORD_STAGING: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API staging/password"
+          DO_ZONING_API_DB_DATABASE_STAGING: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API staging/database"
+          DO_ZONING_API_DB_USERNAME_PRODUCTION: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API production/username"
+          DO_ZONING_API_DB_PASSWORD_PRODUCTION: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API production/password"
+          DO_ZONING_API_DB_DATABASE_PRODUCTION: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API production/database"
 
       - name: Set .env file
         run: |
@@ -59,13 +70,18 @@ jobs:
           echo "DO_SPACES_BUCKET_DISTRIBUTIONS=$DO_SPACES_BUCKET_DISTRIBUTIONS" >> .env
           echo "BUILD_ENGINE_HOST=$DO_DATA_FLOW_DB_HOST" >> .env
           echo "BUILD_ENGINE_PORT=$DO_DATA_FLOW_DB_PORT" >> .env
+          echo "ZONING_API_HOST=$DO_ZONING_API_DB_HOST" >> .env
+          echo "ZONING_API_PORT=$DO_ZONING_API_DB_PORT" >> .env
 
       - name: Set .env file for dev
         if: inputs.environment_name == 'dev'
         run: |
           echo "BUILD_ENGINE_USER=$DO_DATA_FLOW_DB_USERNAME_DEV" >> .env
           echo "BUILD_ENGINE_PASSWORD=$DO_DATA_FLOW_DB_PASSWORD_DEV" >> .env
-          echo "BUILD_ENGINE_DB=$DO_DATA_FLOW_DB_DATASBASE_DEV" >> .env
+          echo "BUILD_ENGINE_DB=$DO_DATA_FLOW_DB_DATABASE_DEV" >> .env
+          echo "ZONING_API_USER=$DO_ZONING_API_DB_USERNAME_DEV" >> .env
+          echo "ZONING_API_PASSWORD=$DO_ZONING_API_DB_PASSWORD_DEV" >> .env
+          echo "ZONING_API_DB=$DO_ZONING_API_DB_DATABASE_DEV" >> .env
 
       - name: Set .env file for staging
         if: inputs.environment_name == 'staging'
@@ -73,6 +89,9 @@ jobs:
           echo "BUILD_ENGINE_USER=$DO_DATA_FLOW_DB_USERNAME_STAGING" >> .env
           echo "BUILD_ENGINE_PASSWORD=$DO_DATA_FLOW_DB_PASSWORD_STAGING" >> .env
           echo "BUILD_ENGINE_DB=$DO_DATA_FLOW_DB_DATASBASE_STAGING" >> .env
+          echo "ZONING_API_USER=$DO_ZONING_API_DB_USERNAME_STAGING" >> .env
+          echo "ZONING_API_PASSWORD=$DO_ZONING_API_DB_PASSWORD_STAGING" >> .env
+          echo "ZONING_API_DB=$DO_ZONING_API_DB_DATABASE_STAGING" >> .env
 
       - name: Set .env file for production
         if: inputs.environment_name == 'production'
@@ -80,6 +99,9 @@ jobs:
           echo "BUILD_ENGINE_USER=$DO_DATA_FLOW_DB_USERNAME_PRODUCTION" >> .env
           echo "BUILD_ENGINE_PASSWORD=$DO_DATA_FLOW_DB_PASSWORD_PRODUCTION" >> .env
           echo "BUILD_ENGINE_DB=$DO_DATA_FLOW_DB_DATASBASE_PRODUCTION" >> .env
+          echo "ZONING_API_USER=$DO_ZONING_API_DB_USERNAME_PRODUCTION" >> .env
+          echo "ZONING_API_PASSWORD=$DO_ZONING_API_DB_PASSWORD_PRODUCTION" >> .env
+          echo "ZONING_API_DB=$DO_ZONING_API_DB_DATABASE_PRODUCTION" >> .env
 
       - name: Setup python
         uses: actions/setup-python@v5
@@ -117,4 +139,4 @@ jobs:
 
       - name: Export to API DB
         run: |
-          echo #TODO
+          ./bash/export.sh
