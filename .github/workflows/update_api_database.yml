@@ -118,21 +118,3 @@ jobs:
           psql --version
           pg_dump --version
           which psql
-          pip list
-          dbt deps
-
-      - name: Download
-        run: |
-          ./bash/download.sh
-
-      - name: Import
-        run: |
-          ./bash/import.sh
-
-      - name: Transform
-        run: |
-          ./bash/transform.sh
-
-      - name: Export to API DB
-        run: |
-          ./bash/export.sh
