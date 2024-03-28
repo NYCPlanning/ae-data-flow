@@ -106,6 +106,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          brew uninstall postgresql@14
           brew install postgresql@15
           export PATH="/usr/local/opt/postgresql@15/bin:$PATH"
           brew services start postgresql@15
