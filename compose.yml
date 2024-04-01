@@ -1,0 +1,12 @@
+services:
+  db:
+    build: 
+      context: ./db
+    environment:
+      - POSTGRES_USER=${BUILD_ENGINE_USER}
+      - POSTGRES_PASSWORD=${BUILD_ENGINE_PASSWORD}
+      - POSTGRES_DB=${BUILD_ENGINE_DB}
+    ports:
+      - "8001:5432"
+    volumes:
+      - ./db-volume:/var/lib/postgresql/data

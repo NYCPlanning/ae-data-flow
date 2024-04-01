@@ -13,6 +13,9 @@ logs
 .env
 .env*
 
+# database volume
+db-volume
+
 # dbt files 
 **/.user.yml
 dbt_packages/
