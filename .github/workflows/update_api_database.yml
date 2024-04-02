@@ -146,6 +146,10 @@ jobs:
         run: |
           ./bash/transform.sh
 
-      - name: Export to API DB
+      - name: Export
         run: |
           ./bash/export.sh
+
+      - name: Update API DB
+        run: |
+          ./bash/update_api_db.sh
