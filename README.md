@@ -102,10 +102,17 @@ pip list
 dbt deps
 ```
 
-## Local usage
+### Setup postgres
 
-> [!NOTE]
-> This currently requires a local install of `postgres` in order to use the `psql` CLI. We may prefer an approach that does not depend on this.
+We use `postgres` version 15 in order to use the `psql` CLI.
+
+```bash
+brew install postgresql@15
+# Restart the terminal
+psql --version
+```
+
+## Local usage
 
 ### Set environment variables
 
@@ -118,13 +125,23 @@ Next, fill in the blank values.
 >
 > To use a deployed database in Digital Ocean, the values you need can be found in the AE 1password vault.
 
+### Run local database with docker compose
+
+Next, use [docker compose](https://docs.docker.com/compose/) to stand up a local PostGIS database.
+
+```bash
+docker compose up
+```
+
+If you need to install docker compose, follow [these instructions](https://docs.docker.com/compose/install/).
+
 ### Run each step
 
 ```bash
 ./bash/download.sh
 ./bash/import.sh
 ./bash/transform.sh
-# TODO ./bash/export.sh
+./bash/export.sh
 ```
 
 If you receive an error, make sure the script has the correct permissions:
