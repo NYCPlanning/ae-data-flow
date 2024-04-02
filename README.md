@@ -142,6 +142,7 @@ If you need to install docker compose, follow [these instructions](https://docs.
 ./bash/import.sh
 ./bash/transform.sh
 ./bash/export.sh
+./bash/update_api_db.sh
 ```
 
 If you receive an error, make sure the script has the correct permissions:
