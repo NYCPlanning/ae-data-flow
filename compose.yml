@@ -1,6 +1,7 @@
 services:
   db:
-    build: 
+    container_name: ${BUILD_ENGINE_CONTAINER_NAME}
+    build:
       context: ./db
     environment:
       - POSTGRES_USER=${BUILD_ENGINE_USER}

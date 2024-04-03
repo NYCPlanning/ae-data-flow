@@ -130,7 +130,7 @@ Next, fill in the blank values.
 Next, use [docker compose](https://docs.docker.com/compose/) to stand up a local PostGIS database.
 
 ```bash
-docker compose up
+./bash/utils/setup_local_db.sh
 ```
 
 If you need to install docker compose, follow [these instructions](https://docs.docker.com/compose/install/).
