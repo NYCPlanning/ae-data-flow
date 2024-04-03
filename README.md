@@ -150,3 +150,8 @@ If you receive an error, make sure the script has the correct permissions:
 ```bash
 chmod 755 import.sh
 ```
+
+## Setup with docker
+```bash
+docker compose run -it data-flow bash
+```

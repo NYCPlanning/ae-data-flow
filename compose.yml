@@ -1,7 +1,9 @@
 services:
-  db:
+  data-flow:
     build: 
-      context: ./db
+      context: .
+    env_file:
+      - .env
     environment:
       - POSTGRES_USER=${BUILD_ENGINE_USER}
       - POSTGRES_PASSWORD=${BUILD_ENGINE_PASSWORD}
