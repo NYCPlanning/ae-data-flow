@@ -27,6 +27,10 @@ This is a more granular description of those steps:
 5. Populate the API tables in data flow database
 6. Replace rows in API tables in the API database
 
+### Infrastructure
+
+<a href=https://github.com/NYCPlanning/ae-data-flow/blob/main/diagrams/infrastructure_api_data_flow.drawio.drawio.png><img src="https://github.com/NYCPlanning/ae-data-flow/blob/main/diagrams/infrastructure_api_data_flow.drawio.drawio.png" width='1000' alt="Diagram of API data flow infrastructure">
+
 ### Zoning API example
 
 <a href=https://github.com/NYCPlanning/ae-data-flow/blob/main/diagrams/workflow_zoning_api_update.drawio.png><img src="https://github.com/NYCPlanning/ae-data-flow/blob/main/diagrams/workflow_zoning_api_update.drawio.png" width='1000' alt="Diagram of Zoning API data flow">
