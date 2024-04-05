@@ -55,27 +55,48 @@ jobs:
                 echo "ZONING_API_USER=$DO_ZONING_API_DB_USERNAME_DEV" >> .env
                 echo "ZONING_API_PASSWORD=$DO_ZONING_API_DB_PASSWORD_DEV" >> .env
                 echo "ZONING_API_DB=$DO_ZONING_API_DB_DATABASE_DEV" >> .env
+
             - name: Install prerequisite packages
               run: |
                 sudo apt-get update  
                 sudo apt-get install -y wget
                 sudo apt-get install -y software-properties-common
+
             - name: Install postgres-client-15
               run: |                
                 sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
                 sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
                 sudo apt-get update
                 sudo apt-get install -y postgresql-client-15
+
             - name: Install minio client
               run: |
                 sudo wget https://dl.min.io/client/mc/release/linux-amd64/mc
                 sudo chmod +x mc
+
             - name: Install python
               run: |
                 sudo apt-get install -y python3 python3-pip
                 pip install -r requirements.txt 
+
             - name: Install dbt dependencies
               run: |
                 sudo apt-get install -y git
                 dbt deps
-            
+
+            - name: Download
+              run: |
+                ./bash/download.sh
+
+            - name: Import
+              run: |
+                ./bash/import.sh
+
+            - name: Transform
+              run: |
+                ./bash/transform.sh
+
+            - name: Export
+              run: |
+                ./bash/export.sh
+                  
