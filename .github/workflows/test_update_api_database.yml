@@ -27,7 +27,7 @@ jobs:
                     OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
                     DO_SPACES_ENDPOINT: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_ENDPOINT"
                     DO_SPACES_ACCESS_KEY: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_ACCESS_KEY"
-                    DO_SPACES_SECRET_ACCESS_KEY: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_SECRET_KEY"
+                    DO_SPACES_SECRET_KEY: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_SECRET_KEY"
                     DO_SPACES_BUCKET_DISTRIBUTIONS: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_BUCKET_DISTRIBUTIONS"
                     DO_DATA_FLOW_DB_HOST: "127.0.0.1"
                     DO_DATA_FLOW_DB_PORT: "5432"
@@ -74,9 +74,6 @@ jobs:
                 sudo wget https://dl.min.io/client/mc/release/linux-amd64/mc
                 sudo chmod +x mc
                 sudo mv mc /usr/local/bin
-            - name: Check minio client install
-              run: mc --help
-
             - name: Install python
               run: |
                 sudo apt-get install -y python3 python3-pip
