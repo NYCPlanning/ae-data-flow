@@ -1,16 +1,16 @@
 FROM ubuntu:latest
 
-RUN apt update
+RUN apt-get update
 
 # RUN apt install -y wget gpg gnupg2 software-properties-common apt-transport-https lsb-release ca-certificates
-RUN apt install -y wget 
-RUN apt install -y software-properties-common
+RUN apt-get install -y wget 
+RUN apt-get install -y software-properties-common
 
 # psql from postgres-client
 RUN sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN apt update
-RUN apt install -y postgresql-client-15
+RUN apt-get update
+RUN apt-get install -y postgresql-client-15
 
 
 # minio client
@@ -19,7 +19,7 @@ RUN chmod +x mc
 
 # python
 COPY requirements.txt /requirements.txt
-RUN apt install -y python3 python3-pip
+RUN apt-get install -y python3 python3-pip
 RUN pip install -r requirements.txt 
 
 # dbt
@@ -29,7 +29,7 @@ COPY package-lock.yml /package-lock.yml
 COPY packages.yml /packages.yml
 COPY profiles.yml /profiles.yml
 ## install
-RUN apt install -y git
+RUN apt-get install -y git
 RUN dbt deps
 ## tests
 COPY tests /tests
