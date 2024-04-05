@@ -4,7 +4,7 @@ jobs:
     etl:
         runs-on: ubuntu-latest
         services:
-            postgis:
+            postgres:
                 image: postgis/postgis:15-3.4-alpine
                 env:
                     POSTGRES_PASSWORD: postgres
@@ -19,6 +19,42 @@ jobs:
         steps:
             - name: check out repo code
               uses: actions/checkout@v4
+            - name: Load Secrets
+              uses: 1password/load-secrets-action@v1  
+              with:
+                    export-env: true
+              env:
+                    OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+                    DO_SPACES_ENDPOINT: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_ENDPOINT"
+                    DO_SPACES_ACCESS_KEY_ID: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_ACCESS_KEY"
+                    DO_SPACES_SECRET_ACCESS_KEY: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_SECRET_KEY"
+                    DO_SPACES_BUCKET_DISTRIBUTIONS: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_BUCKET_DISTRIBUTIONS"
+                    DO_DATA_FLOW_DB_HOST: "postgres"
+                    DO_DATA_FLOW_DB_PORT: "5432"
+                    DO_DATA_FLOW_DB_USERNAME_DEV: "postgres"
+                    DO_DATA_FLOW_DB_PASSWORD_DEV: "postgres"
+                    DO_DATA_FLOW_DB_DATABASE_DEV: "postgres"
+                    DO_ZONING_API_DB_HOST: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API/host"
+                    DO_ZONING_API_DB_PORT: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API/port"
+                    DO_ZONING_API_DB_USERNAME_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API dev/username"
+                    DO_ZONING_API_DB_PASSWORD_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API dev/password"
+                    DO_ZONING_API_DB_DATABASE_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - Zoning API dev/database"
+            - name: Set .env file
+              run: |
+                echo "DO_SPACES_ENDPOINT=$DO_SPACES_ENDPOINT" >> .env
+                echo "DO_SPACES_ACCESS_KEY=$DO_SPACES_ACCESS_KEY" >> .env
+                echo "DO_SPACES_SECRET_KEY=$DO_SPACES_SECRET_KEY" >> .env
+                echo "DO_SPACES_BUCKET_DISTRIBUTIONS=$DO_SPACES_BUCKET_DISTRIBUTIONS" >> .env
+                echo "BUILD_ENGINE_HOST=$DO_DATA_FLOW_DB_HOST" >> .env
+                echo "BUILD_ENGINE_PORT=$DO_DATA_FLOW_DB_PORT" >> .env
+                echo "ZONING_API_HOST=$DO_ZONING_API_DB_HOST" >> .env
+                echo "ZONING_API_PORT=$DO_ZONING_API_DB_PORT" >> .env
+                echo "BUILD_ENGINE_USER=$DO_DATA_FLOW_DB_USERNAME_DEV" >> .env
+                echo "BUILD_ENGINE_PASSWORD=$DO_DATA_FLOW_DB_PASSWORD_DEV" >> .env
+                echo "BUILD_ENGINE_DB=$DO_DATA_FLOW_DB_DATABASE_DEV" >> .env
+                echo "ZONING_API_USER=$DO_ZONING_API_DB_USERNAME_DEV" >> .env
+                echo "ZONING_API_PASSWORD=$DO_ZONING_API_DB_PASSWORD_DEV" >> .env
+                echo "ZONING_API_DB=$DO_ZONING_API_DB_DATABASE_DEV" >> .env
             - name: Install prerequisite packages
               run: |
                 sudo apt-get update  
