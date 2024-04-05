@@ -3,7 +3,6 @@ on: [push]
 jobs:
     etl:
         runs-on: ubuntu-latest
-        container: ubuntu:latest
         services:
             postgres:
                 image: postgis/postgis:15-3.4-alpine
@@ -74,8 +73,9 @@ jobs:
               run: |
                 sudo wget https://dl.min.io/client/mc/release/linux-amd64/mc
                 sudo chmod +x mc
+                sudo mv mc /usr/local/bin
             - name: Check minio client install
-              run: /mc --help
+              run: mc --help
 
             - name: Install python
               run: |

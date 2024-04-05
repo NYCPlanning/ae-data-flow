@@ -16,6 +16,7 @@ RUN apt-get install -y postgresql-client-15
 # minio client
 RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc
 RUN chmod +x mc
+RUN mv mc /usr/local/bin
 
 # python
 COPY requirements.txt /requirements.txt
