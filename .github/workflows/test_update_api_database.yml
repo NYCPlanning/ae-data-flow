@@ -58,7 +58,7 @@ jobs:
                 sudo apt-get install -y software-properties-common
 
             - name: Remove postgres 14
-              run: apt-get remove postgresql-14
+              run: sudo apt-get remove postgresql-14
 
             - name: Install postgres-client-15
               run: |                
@@ -66,6 +66,7 @@ jobs:
                 sudo wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
                 sudo apt-get update
                 sudo apt-get install -y postgresql postgresql-client-15
+
             - name: Check postgres install
               run: pg_dump --version    
 
