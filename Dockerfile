@@ -1,13 +1,17 @@
-# Github Actions recommends debian:
-## https://docs.github.com/en/actions/creating-actions/dockerfile-support-for-github-actions#from
-FROM postgres:15-bookworm
+FROM ubuntu:latest
 
-# pre-requisites
-RUN apt update 
-RUN apt install -y wget ca-certificates libpsl5 libssl3 openssl publicsuffix
+RUN apt update
 
-# postgis
-RUN apt install -y postgresql-15-postgis-3
+# RUN apt install -y wget gpg gnupg2 software-properties-common apt-transport-https lsb-release ca-certificates
+RUN apt install -y wget 
+RUN apt install -y software-properties-common
+
+# psql from postgres-client
+RUN sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN apt update
+RUN apt install -y postgresql-client-15
+
 
 # minio client
 RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc
@@ -16,7 +20,7 @@ RUN chmod +x mc
 # python
 COPY requirements.txt /requirements.txt
 RUN apt install -y python3 python3-pip
-RUN pip install -r requirements.txt --break-system-packages
+RUN pip install -r requirements.txt 
 
 # dbt
 ## config
@@ -39,3 +43,5 @@ COPY sql /sql
 COPY borough.csv /borough.csv
 COPY land_use.csv /land_use.csv
 COPY zoning_district_class.csv /zoning_district_class.csv 
+
+CMD ["sleep", "infinity"]
