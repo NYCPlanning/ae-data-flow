@@ -57,8 +57,8 @@ jobs:
                 sudo apt-get install -y wget
                 sudo apt-get install -y software-properties-common
 
-            - name: Remove postgres 14
-              run: sudo apt-get remove postgresql-14
+            - name: Remove postgreswl 14
+              run: sudo apt-get remove postgresql-14 postgresql-client-14
 
             - name: Install postgres-client-15
               run: |                
