@@ -56,6 +56,7 @@ jobs:
                 sudo apt-get update  
                 sudo apt-get install -y wget
                 sudo apt-get install -y software-properties-common
+                sudo apt install -y gpg gnupg2 apt-transport-https lsb-release ca-certificates
 
             - name: Remove postgresql 14
               run: sudo apt-get remove -y postgresql-14 postgresql-client-14
