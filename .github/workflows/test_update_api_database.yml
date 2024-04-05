@@ -74,7 +74,7 @@ jobs:
                 sudo wget https://dl.min.io/client/mc/release/linux-amd64/mc
                 sudo chmod +x mc
             - name: Check minio client install
-              run: /mc --help
+              run: mc --help
 
             - name: Install python
               run: |
