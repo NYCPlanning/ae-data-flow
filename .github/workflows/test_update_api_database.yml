@@ -29,7 +29,7 @@ jobs:
                     DO_SPACES_ACCESS_KEY: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_ACCESS_KEY"
                     DO_SPACES_SECRET_ACCESS_KEY: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_SECRET_KEY"
                     DO_SPACES_BUCKET_DISTRIBUTIONS: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_BUCKET_DISTRIBUTIONS"
-                    DO_DATA_FLOW_DB_HOST: "postgres"
+                    DO_DATA_FLOW_DB_HOST: "127.0.0.1"
                     DO_DATA_FLOW_DB_PORT: "5432"
                     DO_DATA_FLOW_DB_USERNAME_DEV: "postgres"
                     DO_DATA_FLOW_DB_PASSWORD_DEV: "postgres"
