@@ -1,0 +1,58 @@
+{
+  "name": "ae-data-flow",
+  "version": "0.0.0",
+  "description": "ETL for application engineering",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier \"**/*.ts\" --write",
+    "flow": "npm run download && npm run configure && npm run seed && npm run populate",
+    "configure": "npm run drizzle:flow:push && npm run pg:flow:configure",
+    "download": "npm run minio:download && npm run shp:convert",
+    "seed": "npm run pg:source:create && npm run pg:source:load && npm run db:pg:model:create ",
+    "populate": "npm run pg:model:transform && npm run db:pg:target:populate",
+    "drizzle:api:pull": "drizzle-kit introspect --config ./drizzle/api.config.ts",
+    "drizzle:flow:push": "drizzle-kit push --config ./drizzle/flow.config.ts",
+    "minio:download": "tsx ./minio/download.ts",
+    "shp:convert": "tsx ./shp/convert.ts",
+    "pg:flow:configure": "tsx ./pg/configure/configure.ts",
+    "pg:source:create": "tsx ./pg/source-create/create.ts",
+    "pg:source:load": "tsx ./pg/source-load/load.ts",
+    "pg:model:transform": "tsx ./pg/model-transform/transform.ts",
+    "db:pg:target:populate": "docker compose exec -e BUILD=$BUILD -it db  bash flow/target-populate/populate.sh",
+    "db:pg:model:create": "docker compose exec -it db bash flow/model-create/$BUILD.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@terraformer/wkt": "^2.2.1",
+    "@turf/turf": "^7.0.0",
+    "@types/geojson": "^7946.0.14",
+    "@types/node": "^20.14.10",
+    "@types/pg": "^8.11.6",
+    "@types/pg-copy-streams": "^1.2.5",
+    "@types/pg-format": "^1.0.5",
+    "@types/shpjs": "^3.4.7",
+    "@types/terraformer__wkt": "^2.0.3",
+    "csv-stringify": "^6.5.0",
+    "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.22.8",
+    "drizzle-orm": "^0.31.2",
+    "minio": "^8.0.1",
+    "pg": "^8.12.0",
+    "pg-copy-streams": "^6.0.6",
+    "pg-format": "^1.0.4",
+    "prettier": "3.3.2",
+    "shpjs": "^5.0.2",
+    "tsx": "^4.16.2"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
+}

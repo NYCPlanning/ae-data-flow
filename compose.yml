@@ -1,13 +1,23 @@
 services:
   db:
-    container_name: ${BUILD_ENGINE_CONTAINER_NAME}
     build:
-      context: ./db
+      context: db/.
     environment:
-      - POSTGRES_USER=${BUILD_ENGINE_USER}
-      - POSTGRES_PASSWORD=${BUILD_ENGINE_PASSWORD}
-      - POSTGRES_DB=${BUILD_ENGINE_DB}
+      - POSTGRES_USER=${FLOW_DATABASE_USER}
+      - POSTGRES_PASSWORD=${FLOW_DATABASE_PASSWORD}
+      - POSTGRES_DB=${FLOW_DATABASE_NAME}
+      - TARGET_DATABASE_USER=${TARGET_DATABASE_USER}
+      - TARGET_DATABASE_PASSWORD=${TARGET_DATABASE_PASSWORD}
+      - TARGET_DATABASE_NAME=${TARGET_DATABASE_NAME}
+      - TARGET_DATABASE_PORT=${TARGET_DATABASE_PORT}
+      - TARGET_DATABASE_HOST=${TARGET_DATABASE_HOST}
+    networks:
+      - data
     ports:
       - "8001:5432"
     volumes:
-      - ./db-volume:/var/lib/postgresql/data
+      - ./db/pg:/var/lib/postgresql/flow
+networks:
+  data:
+    name: ae-zoning-api_data
+    external: true
