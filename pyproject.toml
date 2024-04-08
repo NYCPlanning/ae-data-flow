@@ -1,8 +1,0 @@
-[project]
-name = "ae-data-flow"
-version = "0.0.1"
-description = ""
-requires-python = ">=3.11"
-dependencies = [    
-    "dbt-postgres",
-]
