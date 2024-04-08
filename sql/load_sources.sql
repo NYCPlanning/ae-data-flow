@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS postgis;
+
 DROP TABLE IF EXISTS source_pluto;
 DROP INDEX IF EXISTS pluto_geom_idx;
 CREATE TABLE IF NOT EXISTS "source_pluto" (

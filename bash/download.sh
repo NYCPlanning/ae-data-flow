@@ -11,6 +11,9 @@ source $ROOT_DIR/bash/utils/set_environment_variables.sh
 # Setting Environmental Variables
 set_envars
 
+# set alias
+mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY $DO_SPACES_SECRET_KEY
+
 # Download CSV files from Digital Ocean file storage
 DATA_DIRECTORY=.data/
 mkdir -p ${DATA_DIRECTORY} && (

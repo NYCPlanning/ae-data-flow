@@ -1,13 +1,34 @@
 services:
   db:
-    container_name: ${BUILD_ENGINE_CONTAINER_NAME}
     build:
-      context: ./db
+      context: db/.
     environment:
       - POSTGRES_USER=${BUILD_ENGINE_USER}
       - POSTGRES_PASSWORD=${BUILD_ENGINE_PASSWORD}
       - POSTGRES_DB=${BUILD_ENGINE_DB}
+    networks:
+      - data
     ports:
       - "8001:5432"
+  runner:
+    build: 
+      context: .
+    env_file:
+      - .env
+    networks:
+      - data
+  data-flow:
+    build: 
+      context: .
+    env_file:
+      - .env
+    networks:
+      - data
     volumes:
-      - ./db-volume:/var/lib/postgresql/data
+      - ./tests:/tests
+      - ./bash:/bash
+      - ./sql:/sql
+networks:
+  data:
+    name: ae-zoning-api_data
+    external: true

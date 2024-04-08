@@ -1,4 +1,4 @@
-FROM postgis/postgis:15-3.4
+FROM postgres:15-bookworm
 
 RUN apt update 
 RUN apt install -y postgresql-15-postgis-3
