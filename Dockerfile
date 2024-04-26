@@ -1,10 +1,15 @@
-FROM ubuntu:latest
+FROM ubuntu:jammy
 
 RUN apt-get update
 
 # RUN apt install -y wget gpg gnupg2 software-properties-common apt-transport-https lsb-release ca-certificates
 RUN apt-get install -y wget 
 RUN apt-get install -y software-properties-common
+
+# ogr2ogr
+RUN add-apt-repository ppa:ubuntugis/ppa
+RUN apt-get update
+RUN apt-get install -y gdal-bin
 
 # psql from postgres-client
 RUN sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
