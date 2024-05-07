@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:jammy
 
 RUN apt-get update
 
@@ -32,17 +32,12 @@ COPY profiles.yml /profiles.yml
 ## install
 RUN apt-get install -y git
 RUN dbt deps
-## tests
-COPY tests /tests
 
 # etl
-## scripts
-COPY bash ./bash
-## commands
-COPY sql /sql
 ## local source files
 COPY borough.csv /borough.csv
 COPY land_use.csv /land_use.csv
 COPY zoning_district_class.csv /zoning_district_class.csv 
 
 CMD ["sleep", "infinity"]
+
