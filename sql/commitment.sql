@@ -213,6 +213,28 @@ BEGIN;
 		value numeric
 	);
 
+	CREATE TABLE city_council_district (
+		id text PRIMARY KEY,
+		li_ft geometry(MultiPolygon, 2263),
+		mercator_fill geometry(MultiPolygon, 3857),
+		mercator_label geometry(Point, 3857)
+	);
+
+	CREATE TABLE borough (
+		id char(1) PRIMARY KEY,
+		title text,
+		abbr text
+	);
+
+	CREATE TABLE community_district (
+		borough_id char(1) references borough(id),
+		id char(2),
+		PRIMARY KEY (borough_id, id),
+		li_ft geometry(MultiPolygon, 2263),
+		mercator_fill geometry(MultiPolygon, 3857),
+		mercator_label geometry(Point, 3857)
+	);
+
 SAVEPOINT target_structure;
 -- End "structure_target_tables"
 
@@ -639,6 +661,31 @@ SELECT
 	plannedcommit_total AS value
 FROM commitment_source_id;
 
+INSERT INTO city_council_district
+SELECT
+  coundist AS id,
+  ST_Transform(geom, 2263) AS li_ft,
+  ST_Transform(geom, 3857) AS mercator_fill,
+  ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label
+FROM city_council_districts_source
+
+INSERT INTO borough
+SELECT
+  borocode AS id,
+  boroname AS name,
+  ST_Transform(geom, 2263) AS li_ft,
+  ST_Transform(geom, 3857) AS mercator_fill,
+  ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label
+FROM borough_source
+
+INSERT INTO community_district
+SELECT
+  SUBSTRING(borocd::text, 1, 1) AS borough_id,
+  SUBSTRING(borocd::text, 2, 3) AS id,
+  ST_Transform(geom, 2263) AS li_ft,
+  ST_Transform(geom, 3857) AS mercator_fill,
+  ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label
+FROM community_districts_source
 -- 
 WITH project_spatial AS (
 	SELECT 
@@ -666,64 +713,4 @@ WITH project_spatial AS (
 		project_spatial.id = project.id;
 -- End "commitment_transform"
 
-BEGIN;
-	CREATE TABLE city_council_district (
-	id text PRIMARY KEY,
-	li_ft geometry(MultiPolygon, 2263),
-	mercator_fill geometry(MultiPolygon, 3857),
-	mercator_label geometry(Point, 3857)
-	);
-COMMIT;
 
-BEGIN;
-	INSERT INTO city_council_district
-	SELECT
-		coundist AS id,
-		ST_Transform(geom, 2263) AS li_ft,
-		ST_Transform(geom, 3857) AS mercator_fill,
-		ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label
-	FROM city_council_districts_source
-COMMIT;
-
-BEGIN;
-	CREATE TABLE borough (
-	id char(1) PRIMARY KEY,
-	name text,
-	li_ft geometry(MultiPolygon, 2263),
-	mercator_fill geometry(MultiPolygon, 3857),
-	mercator_label geometry(Point, 3857)
-	);
-COMMIT;
-
-BEGIN;
-	INSERT INTO borough
-	SELECT
-		borocode AS id,
-		boroname AS name,
-		ST_Transform(geom, 2263) AS li_ft,
-		ST_Transform(geom, 3857) AS mercator_fill,
-		ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label
-	FROM borough_source
-COMMIT;
-
-BEGIN;
-	CREATE TABLE community_district (
-	borough_id char(1) references borough(id),
-	id char(2),
-	PRIMARY KEY (borough_id, id),
-	li_ft geometry(MultiPolygon, 2263),
-	mercator_fill geometry(MultiPolygon, 3857),
-	mercator_label geometry(Point, 3857)
-	)
-COMMIT;
-
-BEGIN;
-	INSERT INTO community_district
-	SELECT
-		SUBSTRING(borocd::text, 1, 1) AS borough_id,
-		SUBSTRING(borocd::text, 2, 3) AS id,
-		ST_Transform(geom, 2263) AS li_ft,
-		ST_Transform(geom, 3857) AS mercator_fill,
-		ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label
-	FROM community_districts_source
-COMMIT;
