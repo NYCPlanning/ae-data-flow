@@ -17,13 +17,6 @@ services:
       - .env
     networks:
       - data
-  data-flow:
-    build: 
-      context: .
-    env_file:
-      - .env
-    networks:
-      - data
     volumes:
       - ./tests:/tests
       - ./bash:/bash
