@@ -25,7 +25,7 @@ RUN mv mc /usr/local/bin
 
 # python
 COPY requirements.txt /requirements.txt
-RUN apt-get install -y python3 python3-pip
+RUN apt-get install -y python3 python3-pip libpq-dev
 RUN pip install -r requirements.txt 
 
 # dbt
