@@ -18,10 +18,18 @@ mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY $DO_SPACES_SECRET_
 DATA_DIRECTORY=.data/
 mkdir -p ${DATA_DIRECTORY} && (
     cd ${DATA_DIRECTORY}
-    # mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/pluto.csv pluto.csv
-    # mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/attachments/zoning_districts.csv zoning_districts.csv
-    # mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/dcp_pluto/23v3/attachments/source_data_versions.csv source_data_versions.csv
-    mc cp spaces/edm-publishing/db-pluto/publish/24v1.1/pluto/pluto.zip pluto.zip
-    unzip pluto.zip -d pluto
-    # mc cp spaces/${DO_SPACES_BUCKET_DISTRIBUTIONS}/db-cpdb/draft/nightly_qa/cpdb_planned_commitments.csv cpdb_planned_commitments.csv
+    # zoning and tax lots
+    mc cp spaces/edm-distributions/dcp_pluto/23v3/pluto.csv pluto.csv
+    mc cp spaces/edm-distributions/dcp_pluto/23v3/attachments/zoning_districts.csv zoning_districts.csv
+    mc cp spaces/edm-distributions/dcp_pluto/23v3/attachments/source_data_versions.csv source_data_versions.csv
+
+    # capital planning
+    mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_planned_commitments.csv cpdb_planned_commitments.csv
+    mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_projects.csv cpdb_projects.csv
+    mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_dcpattributes_pts.shp.zip cpdb_dcpattributes_pts.shp.zip
+    unzip -o cpdb_dcpattributes_pts.shp.zip -d cpdb_dcpattributes_pts.shp
+    mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_dcpattributes_poly.shp.zip cpdb_dcpattributes_poly.shp.zip
+    unzip -o cpdb_dcpattributes_poly.shp.zip -d cpdb_dcpattributes_poly.shp
+ 
 )
+
