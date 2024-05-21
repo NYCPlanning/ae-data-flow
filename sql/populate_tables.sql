@@ -71,9 +71,9 @@ SELECT
 	min_date,
 	max_date,
   -- The enum in the API database drops the oxford comma
-  -- This was unintential but the simplest way to rectify
+  -- This was unintentional but the simplest way to rectify
   -- the data source with the API database is to coerce the
-  -- source value to drop the oxform comma
+  -- source value to drop the oxford comma
   CASE 
 	 WHEN type_category = 'Fixed Asset' OR
 	 	type_category = 'Fixed Asset' OR
@@ -463,5 +463,48 @@ SELECT
 	plannedcommit_total AS value
 FROM capital_commitment_source_id;
 
+INSERT INTO city_council_district
+SELECT
+  coundist AS id,
+  ST_Transform(geom, 2263) AS li_ft,
+  ST_Transform(geom, 3857) AS mercator_fill,
+  ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label
+FROM city_council_district_source;
+
+INSERT INTO community_district
+SELECT
+  SUBSTRING(borocd::text, 1, 1) AS borough_id,
+  SUBSTRING(borocd::text, 2, 3) AS id,
+  -- TODO: refactor li_ft to be MultiPolygon,
+  -- its correct geometry type
+  ST_PointOnSurface(ST_Transform(geom, 2263)) AS li_ft,
+  ST_Transform(geom, 3857) AS mercator_fill,
+  ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label
+FROM community_district_source;
+
+WITH capital_project_spatial AS (
+	SELECT 
+		COALESCE(capital_project_source_m_poly.magency, capital_project_source_m_pnt.magency) AS managing_code,
+		COALESCE(capital_project_source_m_poly.projectid, capital_project_source_m_pnt.projectid) id,
+		capital_project_source_m_poly.geom AS m_poly,
+		capital_project_source_m_pnt.geom AS m_pnt
+	FROM capital_project_source_m_poly
+	FULL OUTER JOIN capital_project_source_m_pnt
+		ON capital_project_source_m_poly.magency = capital_project_source_m_pnt.magency AND 
+			capital_project_source_m_poly.projectid = capital_project_source_m_pnt.projectid
+		)
+	UPDATE capital_project
+-- 		Need to transform to 2263 because it is imported as 6539
+		SET li_ft_m_pnt = ST_Transform(capital_project_spatial.m_pnt, 2263),
+			li_ft_m_poly = ST_Transform(capital_project_spatial.m_poly, 2263),
+			mercator_label = CASE 
+								WHEN capital_project_spatial.m_pnt IS NOT NULL THEN ST_Transform(ST_PointOnSurface(capital_project_spatial.m_pnt), 3857)
+								WHEN capital_project_spatial.m_poly IS NOT NULL THEN ST_Transform((ST_MaximumInscribedCircle(capital_project_spatial.m_poly)).center, 3857)
+							END,
+			mercator_fill_m_pnt = ST_Transform(capital_project_spatial.m_pnt, 3857),
+			mercator_fill_m_poly = ST_Transform(capital_project_spatial.m_poly, 3857)
+	FROM capital_project_spatial
+	WHERE capital_project_spatial.managing_code = capital_project.managing_code AND
+		capital_project_spatial.id = capital_project.id;
 -- End "commitment_transform"
 

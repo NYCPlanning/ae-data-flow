@@ -69,6 +69,7 @@ Before continuing with the `data-flow` setup, follow the steps within `nycplanni
 
 ```bash
 docker compose exec data-flow bash ./bash/download.sh
+docker compose exec data-flow bash ./bash/activate_postgis.sh
 docker compose exec data-flow bash ./bash/import.sh
 docker compose exec data-flow bash ./bash/transform.sh
 docker compose exec data-flow bash ./bash/export.sh
