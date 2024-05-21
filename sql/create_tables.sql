@@ -1,6 +1,4 @@
 -- Zoning districts and tax lots
-CREATE EXTENSION IF NOT EXISTS postgis;
-
 DROP TABLE IF EXISTS borough CASCADE;
 CREATE TABLE IF NOT EXISTS "borough" (
 	"id" char(1) PRIMARY KEY NOT NULL,

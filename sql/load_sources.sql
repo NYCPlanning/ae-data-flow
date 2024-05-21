@@ -1,5 +1,3 @@
-CREATE EXTENSION IF NOT EXISTS postgis;
-
 -- Tax lots
 DROP TABLE IF EXISTS source_pluto;
 DROP INDEX IF EXISTS pluto_geom_idx;
