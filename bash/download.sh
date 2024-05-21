@@ -27,9 +27,12 @@ mkdir -p ${DATA_DIRECTORY} && (
     mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_planned_commitments.csv cpdb_planned_commitments.csv
     mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_projects.csv cpdb_projects.csv
     mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_dcpattributes_pts.shp.zip cpdb_dcpattributes_pts.shp.zip
-    unzip -o cpdb_dcpattributes_pts.shp.zip -d cpdb_dcpattributes_pts.shp
+    unzip -o cpdb_dcpattributes_pts.shp.zip -d cpdb_dcpattributes_pts
     mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_dcpattributes_poly.shp.zip cpdb_dcpattributes_poly.shp.zip
-    unzip -o cpdb_dcpattributes_poly.shp.zip -d cpdb_dcpattributes_poly.shp
- 
+    unzip -o cpdb_dcpattributes_poly.shp.zip -d cpdb_dcpattributes_poly
+    mc cp spaces/edm-publishing/datasets/dcp_city_council_districts/24B/dcp_city_council_districts.zip dcp_city_council_districts.zip
+    unzip -o dcp_city_council_districts.zip -d dcp_city_council_districts
+    mc cp spaces/edm-publishing/datasets/dcp_community_districts/24B/dcp_community_districts.zip dcp_community_districts.zip
+    unzip -o dcp_community_districts.zip -d dcp_community_districts
 )
 
