@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:latest
 
 RUN apt-get update
 
@@ -7,8 +7,6 @@ RUN apt-get install -y wget
 RUN apt-get install -y software-properties-common
 
 # ogr2ogr
-RUN add-apt-repository ppa:ubuntugis/ppa
-RUN apt-get update
 RUN apt-get install -y gdal-bin
 
 # psql from postgres-client
@@ -26,7 +24,7 @@ RUN apt-get install -y unzip
 # python
 COPY requirements.txt /requirements.txt
 RUN apt-get install -y python3 python3-pip libpq-dev
-RUN pip install -r requirements.txt 
+RUN pip install -r requirements.txt --break-system-packages
 
 # dbt
 ## config
