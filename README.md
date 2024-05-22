@@ -56,16 +56,17 @@ Create a file called `.env` in the root folder of the project and copy the conte
 Next, fill in the blank values.
 
 ### Run the local zoning api database
-The `data-flow` steps are run against the `zoning-api` database. Locally, this relies on these two containers running on the same network. The zoning-api creates the network, which the data-flow then joins.
-Before continuing with the `data-flow` setup, follow the steps within `nycplanning/ae-zoning-api` to get its database running in a container.
+The `data-flow` steps are run against the `zoning-api` database. Locally, this relies on these two containers running on the same network. The zoning-api creates the `data` network, which the data-flow containers can then join.
+Before continuing with the `data-flow` setup, follow the steps within `nycplanning/ae-zoning-api` to get its database running in a container on a `data` docker network.
 
-### Run data-flow local database with docker compose
+### Run the local data flow
+After setting up the zoning-api, return to this repository and run the data-flow docker compose
 
 ```bash
-./bash/utils/setup_local_db.sh
+docker compose up
 ```
 
-### Run each step to complete the data flow
+#### Run each step to complete the data flow
 
 ```bash
 docker compose exec data-flow bash ./bash/download.sh
@@ -81,3 +82,4 @@ If you receive an error, make sure the script has the correct permissions:
 ```bash
 chmod 755 import.sh
 ```
+
