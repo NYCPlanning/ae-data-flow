@@ -69,12 +69,12 @@ docker compose up
 #### Run each step to complete the data flow
 
 ```bash
-docker compose exec data-flow bash ./bash/download.sh
-docker compose exec data-flow bash ./bash/activate_postgis.sh
-docker compose exec data-flow bash ./bash/import.sh
-docker compose exec data-flow bash ./bash/transform.sh
-docker compose exec data-flow bash ./bash/export.sh
-docker compose exec data-flow bash ./bash/update_api_db.sh
+docker compose exec runner bash ./bash/download.sh
+docker compose exec runner bash ./bash/activate_postgis.sh
+docker compose exec runner bash ./bash/import.sh
+docker compose exec runner bash ./bash/transform.sh
+docker compose exec runner bash ./bash/export.sh
+docker compose exec runner bash ./bash/update_api_db.sh
 ```
 
 If you receive an error, make sure the script has the correct permissions:
