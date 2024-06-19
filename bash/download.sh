@@ -18,12 +18,14 @@ mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY $DO_SPACES_SECRET_
 DATA_DIRECTORY=.data/
 mkdir -p ${DATA_DIRECTORY} && (
     cd ${DATA_DIRECTORY}
+    echo "Downloading files for Zoning API ..."
     # zoning and tax lots (pluto 23v3)
     mc cp spaces/ae-data-backups/zoning-api/pluto.csv pluto.csv
     mc cp spaces/ae-data-backups/zoning-api/zoning_districts.csv zoning_districts.csv
     mc cp spaces/ae-data-backups/zoning-api/source_data_versions.csv source_data_versions.csv
 
     # capital planning
+    echo "Downloading files for Capital Projects API ..."
     mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_planned_commitments.csv cpdb_planned_commitments.csv
     mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_projects.csv cpdb_projects.csv
     mc cp spaces/edm-publishing/db-cpdb/publish/latest/cpdb_dcpattributes_pts.shp.zip cpdb_dcpattributes_pts.shp.zip

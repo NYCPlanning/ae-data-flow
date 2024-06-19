@@ -38,7 +38,6 @@ jobs:
           DO_SPACES_ENDPOINT: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_ENDPOINT"
           DO_SPACES_ACCESS_KEY_ID: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_ACCESS_KEY"
           DO_SPACES_SECRET_ACCESS_KEY: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_SECRET_KEY"
-          DO_SPACES_BUCKET_DISTRIBUTIONS: "op://AE Data Flow/Digital Ocean - S3 file storage/DO_SPACES_BUCKET_DISTRIBUTIONS"
           DO_DATA_FLOW_DB_HOST: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow/host"
           DO_DATA_FLOW_DB_PORT: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow/port"
           DO_DATA_FLOW_DB_USERNAME_DEV: "op://AE Data Flow/Digital Ocean DB Cluster - AE Data Flow dev/username"
@@ -67,7 +66,6 @@ jobs:
           echo "DO_SPACES_ENDPOINT=$DO_SPACES_ENDPOINT" >> .env
           echo "DO_SPACES_ACCESS_KEY=$DO_SPACES_ACCESS_KEY" >> .env
           echo "DO_SPACES_SECRET_KEY=$DO_SPACES_SECRET_KEY" >> .env
-          echo "DO_SPACES_BUCKET_DISTRIBUTIONS=$DO_SPACES_BUCKET_DISTRIBUTIONS" >> .env
           echo "BUILD_ENGINE_HOST=$DO_DATA_FLOW_DB_HOST" >> .env
           echo "BUILD_ENGINE_PORT=$DO_DATA_FLOW_DB_PORT" >> .env
           echo "ZONING_API_HOST=$DO_ZONING_API_DB_HOST" >> .env
