@@ -16,6 +16,7 @@ set_envars
 mkdir -p ${DATA_DIRECTORY} && (
     cd ${DATA_DIRECTORY}
     # Dump Zoning API DB tables to db.dump
+    echo "Exporting API tables to db.dump file ..."
     pg_dump -Fc --no-owner \
       -t tax_lot \
       -t borough \

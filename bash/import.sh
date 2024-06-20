@@ -15,6 +15,7 @@ set_envars
 dbt debug
 
 # transfer shapefiles to data tables
+echo "Importing shapefiles into DB ..."
 ### TODO: configure the filepath for pointing to folders
 ## project multipoints
 ogr2ogr -nln capital_project_source_m_pnt \
