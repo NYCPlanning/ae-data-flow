@@ -19,7 +19,7 @@ dbt debug
 ## project multipoints
 ogr2ogr -nln capital_project_source_m_pnt \
   -nlt PROMOTE_TO_MULTI \
-  Pg:"dbname=$BUILD_ENGINE_DB host=$BUILD_ENGINE_HOST user=$BUILD_ENGINE_USER port=$BUILD_ENGINE_PORT" \
+  PG:${BUILD_ENGINE_URI} \
   .data/cpdb_dcpattributes_pts \
   -lco precision=NO \
   -lco GEOMETRY_NAME=geom
@@ -27,7 +27,7 @@ ogr2ogr -nln capital_project_source_m_pnt \
 ## project multipolygons
 ogr2ogr -nln capital_project_source_m_poly \
   -nlt PROMOTE_TO_MULTI \
-  Pg:"dbname=$BUILD_ENGINE_DB host=$BUILD_ENGINE_HOST user=$BUILD_ENGINE_USER port=$BUILD_ENGINE_PORT" \
+  PG:${BUILD_ENGINE_URI} \
   .data/cpdb_dcpattributes_poly \
   -lco precision=NO \
   -lco GEOMETRY_NAME=geom
@@ -36,7 +36,7 @@ ogr2ogr -nln capital_project_source_m_poly \
 ## city council districts
 ogr2ogr -nln city_council_district_source \
   -nlt PROMOTE_TO_MULTI \
-  Pg:"dbname=$BUILD_ENGINE_DB host=$BUILD_ENGINE_HOST user=$BUILD_ENGINE_USER port=$BUILD_ENGINE_PORT" \
+  PG:${BUILD_ENGINE_URI} \
   .data/dcp_city_council_districts \
   -lco precision=NO \
   -lco GEOMETRY_NAME=geom
@@ -45,7 +45,7 @@ ogr2ogr -nln city_council_district_source \
 ## community districts
 ogr2ogr -nln community_district_source \
   -nlt PROMOTE_TO_MULTI \
-  Pg:"dbname=$BUILD_ENGINE_DB host=$BUILD_ENGINE_HOST user=$BUILD_ENGINE_USER port=$BUILD_ENGINE_PORT" \
+  PG:${BUILD_ENGINE_URI} \
   .data/dcp_community_districts \
   -lco precision=NO \
   -lco GEOMETRY_NAME=geom
