@@ -3,14 +3,6 @@
 # Exit when any command fails
 set -e
 
-FILE_DIR=$(dirname "$(readlink -f "$0")")
-ROOT_DIR=$FILE_DIR/../
-
-source $ROOT_DIR/bash/utils/set_environment_variables.sh
-
-# Setting Environmental Variables
-set_envars
-
 # set alias
 mc alias set spaces $DO_SPACES_ENDPOINT $DO_SPACES_ACCESS_KEY $DO_SPACES_SECRET_KEY
 

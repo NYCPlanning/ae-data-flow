@@ -3,17 +3,6 @@
 # Exit when any command fails
 set -e
 
-FILE_DIR=$(dirname "$(readlink -f "$0")")
-ROOT_DIR=$FILE_DIR/../
-
-source $ROOT_DIR/bash/utils/set_environment_variables.sh
-
-# Setting Environmental Variables
-set_envars
-
-# Test database connection
-dbt debug
-
 # transfer shapefiles to data tables
 echo "Importing shapefiles into DB ..."
 ### TODO: configure the filepath for pointing to folders
@@ -53,10 +42,13 @@ ogr2ogr -nln community_district_source \
 
 
 # Copy CSV files into source data tables
-
+echo "Importing csv files into DB ..."
 psql ${BUILD_ENGINE_URI} \
   --set ON_ERROR_STOP=1 --single-transaction --quiet \
   --file sql/load_sources.sql
 
+# Test database connection
+echo "Testing imported data ..."
+dbt debug
 # Validate source data
 dbt test --select "source:*"
