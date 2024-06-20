@@ -23,6 +23,7 @@ services:
       - ./tests:/tests
       - ./bash:/bash
       - ./sql:/sql
+      - ./.data:/.data
 networks:
   data:
     name: ae-zoning-api_data
