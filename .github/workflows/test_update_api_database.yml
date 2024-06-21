@@ -39,6 +39,9 @@ jobs:
                 sudo apt-get update  
                 sudo apt-get install -y wget
                 sudo apt-get install -y git
+            - name: Install GDal
+              run: |
+                sudo apt-get -y gdal-bin
             - name: Setup PostgreSQL
               uses: tj-actions/install-postgresql@v3
               with:
