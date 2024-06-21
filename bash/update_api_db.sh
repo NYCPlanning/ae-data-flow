@@ -16,5 +16,5 @@ set_envars
 mkdir -p ${DATA_DIRECTORY} && (
     cd ${DATA_DIRECTORY}
     # Replace tables in Zoning API DB with updated data from db.dump
-    pg_restore --no-owner --clean --if-exists -d ${BUILD_ZONING_API_ENGINE_URI} db.dump
+    pg_restore --no-owner --clean -d ${BUILD_ZONING_API_ENGINE_URI} db.dump
 )
