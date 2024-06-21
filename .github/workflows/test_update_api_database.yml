@@ -69,4 +69,6 @@ jobs:
               run: ./bash/transform.sh
             - name: Export
               run: ./bash/export.sh
+            - name: Update
+              run: ./bash/update_api_db.sh  
                   
