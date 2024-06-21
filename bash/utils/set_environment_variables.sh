@@ -7,6 +7,7 @@ UTILS_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 ROOT_DIR=$(dirname ${UTILS_DIR})/../
 
 function set_envars {
+    export PGPASSWORD=$BUILD_ENGINE_PASSWORD
     # To use environment variables defined in .env:
     echo "setting environment variables from .env file ..."
     export $(cat $ROOT_DIR/.env | sed 's/#.*//g' | xargs)
