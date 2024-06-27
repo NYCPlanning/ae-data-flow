@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS "city_council_district" (
 CREATE TABLE IF NOT EXISTS "community_district" (
 	"borough_id" char(1),
 	"id" char(2),
-	"li_ft" geometry(multiPoint,2263),
+	"li_ft" geometry(multiPolygon,2263),
 	"mercator_fill" geometry(multiPolygon,3857),
 	"mercator_label" geometry(point,3857),
 	CONSTRAINT community_district_borough_id_id_pk PRIMARY KEY("borough_id","id")
