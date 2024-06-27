@@ -475,9 +475,7 @@ INSERT INTO community_district
 SELECT
   SUBSTRING(borocd::text, 1, 1) AS borough_id,
   SUBSTRING(borocd::text, 2, 3) AS id,
-  -- TODO: refactor li_ft to be MultiPolygon,
-  -- its correct geometry type
-  ST_PointOnSurface(ST_Transform(geom, 2263)) AS li_ft,
+  ST_Transform(geom, 2263) AS li_ft,
   ST_Transform(geom, 3857) AS mercator_fill,
   ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label
 FROM community_district_source;
