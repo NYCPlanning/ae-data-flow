@@ -31,7 +31,7 @@ mkdir -p ${DATA_DIRECTORY} && (
       -t capital_project \
       -t capital_project_checkbook \
       -t capital_project_fund \
-      -t captial_commitment \
+      -t capital_commitment \
       -t city_council_district \
       -t community_district \
       -t managing_code \
