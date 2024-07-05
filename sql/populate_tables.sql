@@ -395,7 +395,7 @@ INTO capital_commitment_source_id
 FROM capital_commitment_source;
 
 -- Move data from commitment source id to commitment
-INSERT INTO captial_commitment
+INSERT INTO capital_commitment
 SELECT 
 	id,
 	commitment_code AS type,
@@ -475,9 +475,9 @@ INSERT INTO community_district
 SELECT
   SUBSTRING(borocd::text, 1, 1) AS borough_id,
   SUBSTRING(borocd::text, 2, 3) AS id,
-  ST_Transform(geom, 2263) AS li_ft,
   ST_Transform(geom, 3857) AS mercator_fill,
-  ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label
+  ST_Transform((ST_MaximumInscribedCircle(geom)).center, 3857) AS mercator_label,
+  ST_Transform(geom, 2263) AS li_ft
 FROM community_district_source;
 
 WITH capital_project_spatial AS (
