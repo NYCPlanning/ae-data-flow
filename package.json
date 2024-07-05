@@ -1,0 +1,20 @@
+{
+  "name": "ae-data-flow",
+  "version": "0.0.0",
+  "description": "ETL for application engineering",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "drizzle-kit": "^0.22.8",
+    "drizzle-orm": "^0.31.2",
+    "pg": "^8.12.0"
+  }
+}
