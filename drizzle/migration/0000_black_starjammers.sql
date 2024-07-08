@@ -53,10 +53,63 @@ CREATE TABLE IF NOT EXISTS "spatial_ref_sys" (
 	"proj4text" varchar(2048)
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "agency_budget" (
+	"code" text PRIMARY KEY NOT NULL,
+	"type" text,
+	"sponsor" text
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "agency" (
+	"initials" text PRIMARY KEY NOT NULL,
+	"name" text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "capital_commitment" (
+	"id" uuid PRIMARY KEY NOT NULL,
+	"type" char(4),
+	"planned_date" date,
+	"managing_code" char(3),
+	"capital_project_id" text,
+	"budget_line_code" text,
+	"budget_line_id" text
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "capital_commitment_fund" (
+	"id" uuid PRIMARY KEY NOT NULL,
+	"capital_commitment_id" uuid,
+	"capital_fund_category" "capital_fund_category",
+	"value" numeric
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "capital_commitment_type" (
+	"code" char(4) PRIMARY KEY NOT NULL,
+	"description" text
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "managing_code" (
+	"id" char(3) PRIMARY KEY NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "borough" (
 	"id" char(1) PRIMARY KEY NOT NULL,
 	"title" text NOT NULL,
 	"abbr" text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "capital_project_checkbook" (
+	"id" uuid PRIMARY KEY NOT NULL,
+	"managing_code" char(3),
+	"capital_project_id" text,
+	"value" numeric
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "capital_project_fund" (
+	"id" uuid PRIMARY KEY NOT NULL,
+	"managing_code" char(3),
+	"capital_project_id" text,
+	"capital_fund_category" "capital_fund_category",
+	"stage" "capital_project_fund_stage",
+	"value" numeric
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "tax_lot" (
@@ -76,16 +129,11 @@ CREATE TABLE IF NOT EXISTS "land_use" (
 	"color" char(9) NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "zoning_district" (
-	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"label" text NOT NULL,
-	"wgs84" "geography" NOT NULL,
-	"li_ft" geometry(MultiPolygon,2263) NOT NULL
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "zoning_district_zoning_district_class" (
-	"zoning_district_id" uuid NOT NULL,
-	"zoning_district_class_id" text NOT NULL
+CREATE TABLE IF NOT EXISTS "city_council_district" (
+	"id" text PRIMARY KEY NOT NULL,
+	"li_ft" geometry(MultiPolygon,2263),
+	"mercator_fill" geometry(MultiPolygon,3857),
+	"mercator_label" geometry(Point,3857)
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "zoning_district_class" (
@@ -96,64 +144,16 @@ CREATE TABLE IF NOT EXISTS "zoning_district_class" (
 	"color" char(9) NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "city_council_district" (
-	"id" text PRIMARY KEY NOT NULL,
-	"li_ft" geometry(MultiPolygon,2263),
-	"mercator_fill" geometry(MultiPolygon,3857),
-	"mercator_label" geometry(Point,3857)
+CREATE TABLE IF NOT EXISTS "zoning_district_zoning_district_class" (
+	"zoning_district_id" uuid NOT NULL,
+	"zoning_district_class_id" text NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "agency" (
-	"initials" text PRIMARY KEY NOT NULL,
-	"name" text NOT NULL
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "agency_budget" (
-	"code" text PRIMARY KEY NOT NULL,
-	"type" text,
-	"sponsor" text
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "capital_commitment_fund" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"capital_commitment_id" uuid,
-	"capital_fund_category" "capital_fund_category",
-	"value" numeric
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "capital_commitment_type" (
-	"code" char(4) PRIMARY KEY NOT NULL,
-	"description" text
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "capital_project_checkbook" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"managing_code" char(3),
-	"capital_project_id" text,
-	"value" numeric
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "capital_project_fund" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"managing_code" char(3),
-	"capital_project_id" text,
-	"capital_fund_category" "capital_fund_category",
-	"stage" "capital_project_fund_stage",
-	"value" numeric
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "managing_code" (
-	"id" char(3) PRIMARY KEY NOT NULL
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "capital_commitment" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"type" char(4),
-	"planned_date" date,
-	"managing_code" char(3),
-	"capital_project_id" text,
-	"budget_line_code" text,
-	"budget_line_id" text
+CREATE TABLE IF NOT EXISTS "zoning_district" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"label" text NOT NULL,
+	"wgs84" "geography" NOT NULL,
+	"li_ft" geometry(MultiPolygon,2263) NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "budget_line" (
@@ -188,31 +188,25 @@ CREATE TABLE IF NOT EXISTS "capital_project" (
 );
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "tax_lot" ADD CONSTRAINT "tax_lot_borough_id_borough_id_fk" FOREIGN KEY ("borough_id") REFERENCES "public"."borough"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "tax_lot" ADD CONSTRAINT "tax_lot_land_use_id_land_use_id_fk" FOREIGN KEY ("land_use_id") REFERENCES "public"."land_use"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "zoning_district_zoning_district_class" ADD CONSTRAINT "zoning_district_zoning_district_class_zoning_district_id_zoning" FOREIGN KEY ("zoning_district_id") REFERENCES "public"."zoning_district"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "zoning_district_zoning_district_class" ADD CONSTRAINT "zoning_district_zoning_district_class_zoning_district_class_id_" FOREIGN KEY ("zoning_district_class_id") REFERENCES "public"."zoning_district_class"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
  ALTER TABLE "agency_budget" ADD CONSTRAINT "agency_budget_sponsor_agency_initials_fk" FOREIGN KEY ("sponsor") REFERENCES "public"."agency"("initials") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "capital_commitment" ADD CONSTRAINT "capital_commitment_budget_line_code_budget_line_id_budget_line_" FOREIGN KEY ("budget_line_code","budget_line_id") REFERENCES "public"."budget_line"("code","id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "capital_commitment" ADD CONSTRAINT "capital_commitment_managing_code_capital_project_id_capital_pro" FOREIGN KEY ("managing_code","capital_project_id") REFERENCES "public"."capital_project"("managing_code","id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "capital_commitment" ADD CONSTRAINT "capital_commitment_type_capital_commitment_type_code_fk" FOREIGN KEY ("type") REFERENCES "public"."capital_commitment_type"("code") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -236,19 +230,25 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "capital_commitment" ADD CONSTRAINT "capital_commitment_type_capital_commitment_type_code_fk" FOREIGN KEY ("type") REFERENCES "public"."capital_commitment_type"("code") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "tax_lot" ADD CONSTRAINT "tax_lot_borough_id_borough_id_fk" FOREIGN KEY ("borough_id") REFERENCES "public"."borough"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "capital_commitment" ADD CONSTRAINT "capital_commitment_managing_code_capital_project_id_capital_pro" FOREIGN KEY ("managing_code","capital_project_id") REFERENCES "public"."capital_project"("managing_code","id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "tax_lot" ADD CONSTRAINT "tax_lot_land_use_id_land_use_id_fk" FOREIGN KEY ("land_use_id") REFERENCES "public"."land_use"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "capital_commitment" ADD CONSTRAINT "capital_commitment_budget_line_code_budget_line_id_budget_line_" FOREIGN KEY ("budget_line_code","budget_line_id") REFERENCES "public"."budget_line"("code","id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "zoning_district_zoning_district_class" ADD CONSTRAINT "zoning_district_zoning_district_class_zoning_district_class_id_" FOREIGN KEY ("zoning_district_class_id") REFERENCES "public"."zoning_district_class"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "zoning_district_zoning_district_class" ADD CONSTRAINT "zoning_district_zoning_district_class_zoning_district_id_zoning" FOREIGN KEY ("zoning_district_id") REFERENCES "public"."zoning_district"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -266,13 +266,13 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "capital_project" ADD CONSTRAINT "capital_project_managing_code_managing_code_id_fk" FOREIGN KEY ("managing_code") REFERENCES "public"."managing_code"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "capital_project" ADD CONSTRAINT "capital_project_managing_agency_agency_initials_fk" FOREIGN KEY ("managing_agency") REFERENCES "public"."agency"("initials") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "capital_project" ADD CONSTRAINT "capital_project_managing_agency_agency_initials_fk" FOREIGN KEY ("managing_agency") REFERENCES "public"."agency"("initials") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "capital_project" ADD CONSTRAINT "capital_project_managing_code_managing_code_id_fk" FOREIGN KEY ("managing_code") REFERENCES "public"."managing_code"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

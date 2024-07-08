@@ -148,381 +148,6 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.borough": {
-      "name": "borough",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "char(1)",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "title": {
-          "name": "title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "abbr": {
-          "name": "abbr",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.tax_lot": {
-      "name": "tax_lot",
-      "schema": "",
-      "columns": {
-        "bbl": {
-          "name": "bbl",
-          "type": "char(10)",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "borough_id": {
-          "name": "borough_id",
-          "type": "char(1)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "block": {
-          "name": "block",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "lot": {
-          "name": "lot",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "address": {
-          "name": "address",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "land_use_id": {
-          "name": "land_use_id",
-          "type": "char(2)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "wgs84": {
-          "name": "wgs84",
-          "type": "geography",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "li_ft": {
-          "name": "li_ft",
-          "type": "geometry(MultiPolygon,2263)",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "tax_lot_borough_id_borough_id_fk": {
-          "name": "tax_lot_borough_id_borough_id_fk",
-          "tableFrom": "tax_lot",
-          "tableTo": "borough",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "borough_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "tax_lot_land_use_id_land_use_id_fk": {
-          "name": "tax_lot_land_use_id_land_use_id_fk",
-          "tableFrom": "tax_lot",
-          "tableTo": "land_use",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "land_use_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.land_use": {
-      "name": "land_use",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "char(2)",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "color": {
-          "name": "color",
-          "type": "char(9)",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.zoning_district": {
-      "name": "zoning_district",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "label": {
-          "name": "label",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "wgs84": {
-          "name": "wgs84",
-          "type": "geography",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "li_ft": {
-          "name": "li_ft",
-          "type": "geometry(MultiPolygon,2263)",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.zoning_district_zoning_district_class": {
-      "name": "zoning_district_zoning_district_class",
-      "schema": "",
-      "columns": {
-        "zoning_district_id": {
-          "name": "zoning_district_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "zoning_district_class_id": {
-          "name": "zoning_district_class_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "zoning_district_zoning_district_class_zoning_district_id_zoning": {
-          "name": "zoning_district_zoning_district_class_zoning_district_id_zoning",
-          "tableFrom": "zoning_district_zoning_district_class",
-          "tableTo": "zoning_district",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "zoning_district_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "zoning_district_zoning_district_class_zoning_district_class_id_": {
-          "name": "zoning_district_zoning_district_class_zoning_district_class_id_",
-          "tableFrom": "zoning_district_zoning_district_class",
-          "tableTo": "zoning_district_class",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "zoning_district_class_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.zoning_district_class": {
-      "name": "zoning_district_class",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "category": {
-          "name": "category",
-          "type": "category",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "url": {
-          "name": "url",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "color": {
-          "name": "color",
-          "type": "char(9)",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.city_council_district": {
-      "name": "city_council_district",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "li_ft": {
-          "name": "li_ft",
-          "type": "geometry(MultiPolygon,2263)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "mercator_fill": {
-          "name": "mercator_fill",
-          "type": "geometry(MultiPolygon,3857)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "mercator_label": {
-          "name": "mercator_label",
-          "type": "geometry(Point,3857)",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "city_council_district_li_ft_index": {
-          "name": "city_council_district_li_ft_index",
-          "columns": [
-            {
-              "expression": "li_ft",
-              "asc": true,
-              "nulls": "last",
-              "opclass": "gist_geometry_ops_2d",
-              "isExpression": false
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "gist",
-          "with": {}
-        },
-        "city_council_district_mercator_fill_index": {
-          "name": "city_council_district_mercator_fill_index",
-          "columns": [
-            {
-              "expression": "mercator_fill",
-              "asc": true,
-              "nulls": "last",
-              "opclass": "gist_geometry_ops_2d",
-              "isExpression": false
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "gist",
-          "with": {}
-        },
-        "city_council_district_mercator_label_index": {
-          "name": "city_council_district_mercator_label_index",
-          "columns": [
-            {
-              "expression": "mercator_label",
-              "asc": true,
-              "nulls": "last",
-              "opclass": "gist_geometry_ops_2d",
-              "isExpression": false
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "gist",
-          "with": {}
-        }
-      },
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.agency": {
-      "name": "agency",
-      "schema": "",
-      "columns": {
-        "initials": {
-          "name": "initials",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
     "public.agency_budget": {
       "name": "agency_budget",
       "schema": "",
@@ -558,6 +183,127 @@
           ],
           "columnsTo": [
             "initials"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.agency": {
+      "name": "agency",
+      "schema": "",
+      "columns": {
+        "initials": {
+          "name": "initials",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.capital_commitment": {
+      "name": "capital_commitment",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "char(4)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "planned_date": {
+          "name": "planned_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "managing_code": {
+          "name": "managing_code",
+          "type": "char(3)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "capital_project_id": {
+          "name": "capital_project_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "budget_line_code": {
+          "name": "budget_line_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "budget_line_id": {
+          "name": "budget_line_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "capital_commitment_budget_line_code_budget_line_id_budget_line_": {
+          "name": "capital_commitment_budget_line_code_budget_line_id_budget_line_",
+          "tableFrom": "capital_commitment",
+          "tableTo": "budget_line",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "budget_line_code",
+            "budget_line_id"
+          ],
+          "columnsTo": [
+            "code",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "capital_commitment_managing_code_capital_project_id_capital_pro": {
+          "name": "capital_commitment_managing_code_capital_project_id_capital_pro",
+          "tableFrom": "capital_commitment",
+          "tableTo": "capital_project",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "managing_code",
+            "capital_project_id"
+          ],
+          "columnsTo": [
+            "managing_code",
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "capital_commitment_type_capital_commitment_type_code_fk": {
+          "name": "capital_commitment_type_capital_commitment_type_code_fk",
+          "tableFrom": "capital_commitment",
+          "tableTo": "capital_commitment_type",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "type"
+          ],
+          "columnsTo": [
+            "code"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -631,6 +377,50 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.managing_code": {
+      "name": "managing_code",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "char(3)",
+          "primaryKey": true,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.borough": {
+      "name": "borough",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "char(1)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "abbr": {
+          "name": "abbr",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
@@ -754,14 +544,113 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.managing_code": {
-      "name": "managing_code",
+    "public.tax_lot": {
+      "name": "tax_lot",
+      "schema": "",
+      "columns": {
+        "bbl": {
+          "name": "bbl",
+          "type": "char(10)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "borough_id": {
+          "name": "borough_id",
+          "type": "char(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "block": {
+          "name": "block",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lot": {
+          "name": "lot",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "address": {
+          "name": "address",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "land_use_id": {
+          "name": "land_use_id",
+          "type": "char(2)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "wgs84": {
+          "name": "wgs84",
+          "type": "geography",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "li_ft": {
+          "name": "li_ft",
+          "type": "geometry(MultiPolygon,2263)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "tax_lot_borough_id_borough_id_fk": {
+          "name": "tax_lot_borough_id_borough_id_fk",
+          "tableFrom": "tax_lot",
+          "tableTo": "borough",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "borough_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "tax_lot_land_use_id_land_use_id_fk": {
+          "name": "tax_lot_land_use_id_land_use_id_fk",
+          "tableFrom": "tax_lot",
+          "tableTo": "land_use",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "land_use_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.land_use": {
+      "name": "land_use",
       "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "char(3)",
+          "type": "char(2)",
           "primaryKey": true,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "color": {
+          "name": "color",
+          "type": "char(9)",
+          "primaryKey": false,
           "notNull": true
         }
       },
@@ -770,102 +659,213 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "public.capital_commitment": {
-      "name": "capital_commitment",
+    "public.city_council_district": {
+      "name": "city_council_district",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "li_ft": {
+          "name": "li_ft",
+          "type": "geometry(MultiPolygon,2263)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mercator_fill": {
+          "name": "mercator_fill",
+          "type": "geometry(MultiPolygon,3857)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mercator_label": {
+          "name": "mercator_label",
+          "type": "geometry(Point,3857)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "city_council_district_li_ft_index": {
+          "name": "city_council_district_li_ft_index",
+          "columns": [
+            {
+              "expression": "li_ft",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "gist_geometry_ops_2d",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gist",
+          "with": {}
+        },
+        "city_council_district_mercator_fill_index": {
+          "name": "city_council_district_mercator_fill_index",
+          "columns": [
+            {
+              "expression": "mercator_fill",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "gist_geometry_ops_2d",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gist",
+          "with": {}
+        },
+        "city_council_district_mercator_label_index": {
+          "name": "city_council_district_mercator_label_index",
+          "columns": [
+            {
+              "expression": "mercator_label",
+              "asc": true,
+              "nulls": "last",
+              "opclass": "gist_geometry_ops_2d",
+              "isExpression": false
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gist",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.zoning_district_class": {
+      "name": "zoning_district_class",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "category",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "color": {
+          "name": "color",
+          "type": "char(9)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.zoning_district_zoning_district_class": {
+      "name": "zoning_district_zoning_district_class",
+      "schema": "",
+      "columns": {
+        "zoning_district_id": {
+          "name": "zoning_district_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "zoning_district_class_id": {
+          "name": "zoning_district_class_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "zoning_district_zoning_district_class_zoning_district_class_id_": {
+          "name": "zoning_district_zoning_district_class_zoning_district_class_id_",
+          "tableFrom": "zoning_district_zoning_district_class",
+          "tableTo": "zoning_district_class",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "zoning_district_class_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "zoning_district_zoning_district_class_zoning_district_id_zoning": {
+          "name": "zoning_district_zoning_district_class_zoning_district_id_zoning",
+          "tableFrom": "zoning_district_zoning_district_class",
+          "tableTo": "zoning_district",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "zoning_district_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.zoning_district": {
+      "name": "zoning_district",
       "schema": "",
       "columns": {
         "id": {
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "label": {
+          "name": "label",
+          "type": "text",
+          "primaryKey": false,
           "notNull": true
         },
-        "type": {
-          "name": "type",
-          "type": "char(4)",
+        "wgs84": {
+          "name": "wgs84",
+          "type": "geography",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
-        "planned_date": {
-          "name": "planned_date",
-          "type": "date",
+        "li_ft": {
+          "name": "li_ft",
+          "type": "geometry(MultiPolygon,2263)",
           "primaryKey": false,
-          "notNull": false
-        },
-        "managing_code": {
-          "name": "managing_code",
-          "type": "char(3)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "capital_project_id": {
-          "name": "capital_project_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "budget_line_code": {
-          "name": "budget_line_code",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "budget_line_id": {
-          "name": "budget_line_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "capital_commitment_type_capital_commitment_type_code_fk": {
-          "name": "capital_commitment_type_capital_commitment_type_code_fk",
-          "tableFrom": "capital_commitment",
-          "tableTo": "capital_commitment_type",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "type"
-          ],
-          "columnsTo": [
-            "code"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "capital_commitment_managing_code_capital_project_id_capital_pro": {
-          "name": "capital_commitment_managing_code_capital_project_id_capital_pro",
-          "tableFrom": "capital_commitment",
-          "tableTo": "capital_project",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "managing_code",
-            "capital_project_id"
-          ],
-          "columnsTo": [
-            "managing_code",
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "capital_commitment_budget_line_code_budget_line_id_budget_line_": {
-          "name": "capital_commitment_budget_line_code_budget_line_id_budget_line_",
-          "tableFrom": "capital_commitment",
-          "tableTo": "budget_line",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "budget_line_code",
-            "budget_line_id"
-          ],
-          "columnsTo": [
-            "code",
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -1171,20 +1171,6 @@
         }
       },
       "foreignKeys": {
-        "capital_project_managing_code_managing_code_id_fk": {
-          "name": "capital_project_managing_code_managing_code_id_fk",
-          "tableFrom": "capital_project",
-          "tableTo": "managing_code",
-          "schemaTo": "public",
-          "columnsFrom": [
-            "managing_code"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
         "capital_project_managing_agency_agency_initials_fk": {
           "name": "capital_project_managing_agency_agency_initials_fk",
           "tableFrom": "capital_project",
@@ -1195,6 +1181,20 @@
           ],
           "columnsTo": [
             "initials"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "capital_project_managing_code_managing_code_id_fk": {
+          "name": "capital_project_managing_code_managing_code_id_fk",
+          "tableFrom": "capital_project",
+          "tableTo": "managing_code",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "managing_code"
+          ],
+          "columnsTo": [
+            "id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
