@@ -1,4 +1,5 @@
-import { pgTable, pgEnum, integer, text, varchar, foreignKey, uuid, char, date, numeric, geometry, index, primaryKey } from "drizzle-orm/pg-core"
+import { pgTable, foreignKey, pgEnum, text, uuid, char, date, numeric, geometry, index, primaryKey } from "drizzle-orm/pg-core"
+import { multiPolygonGeog, multiPolygonGeom } from "../drizzle-pgis";
   import { sql } from "drizzle-orm"
 
 export const capital_fund_category = pgEnum("capital_fund_category", ['city-non-exempt', 'city-exempt', 'city-cost', 'non-city-state', 'non-city-federal', 'non-city-other', 'non-city-cost', 'total'])
@@ -6,41 +7,6 @@ export const capital_project_category = pgEnum("capital_project_category", ['Fix
 export const capital_project_fund_stage = pgEnum("capital_project_fund_stage", ['adopt', 'allocate', 'commit', 'spent'])
 export const category = pgEnum("category", ['Residential', 'Commercial', 'Manufacturing'])
 
-
-export const geography_columns = pgTable("geography_columns", {
-	// TODO: failed to parse database type 'name'
-	f_table_catalog: unknown("f_table_catalog"),
-	// TODO: failed to parse database type 'name'
-	f_table_schema: unknown("f_table_schema"),
-	// TODO: failed to parse database type 'name'
-	f_table_name: unknown("f_table_name"),
-	// TODO: failed to parse database type 'name'
-	f_geography_column: unknown("f_geography_column"),
-	coord_dimension: integer("coord_dimension"),
-	srid: integer("srid"),
-	type: text("type"),
-});
-
-export const geometry_columns = pgTable("geometry_columns", {
-	f_table_catalog: varchar("f_table_catalog", { length: 256 }),
-	// TODO: failed to parse database type 'name'
-	f_table_schema: unknown("f_table_schema"),
-	// TODO: failed to parse database type 'name'
-	f_table_name: unknown("f_table_name"),
-	// TODO: failed to parse database type 'name'
-	f_geometry_column: unknown("f_geometry_column"),
-	coord_dimension: integer("coord_dimension"),
-	srid: integer("srid"),
-	type: varchar("type", { length: 30 }),
-});
-
-export const spatial_ref_sys = pgTable("spatial_ref_sys", {
-	srid: integer("srid").primaryKey().notNull(),
-	auth_name: varchar("auth_name", { length: 256 }),
-	auth_srid: integer("auth_srid"),
-	srtext: varchar("srtext", { length: 2048 }),
-	proj4text: varchar("proj4text", { length: 2048 }),
-});
 
 export const agency_budget = pgTable("agency_budget", {
 	code: text("code").primaryKey().notNull(),
@@ -140,8 +106,7 @@ export const tax_lot = pgTable("tax_lot", {
 	lot: text("lot").notNull(),
 	address: text("address"),
 	land_use_id: char("land_use_id", { length: 2 }).references(() => land_use.id),
-	// TODO: failed to parse database type 'geography'
-	wgs84: unknown("wgs84").notNull(),
+	wgs84: multiPolygonGeog("wgs84", 4326).notNull(),
 	li_ft: geometry("li_ft", { type: "multipolygon", srid: 2263 }).notNull(),
 });
 
@@ -182,7 +147,7 @@ export const zoning_district = pgTable("zoning_district", {
 	id: uuid("id").defaultRandom().primaryKey().notNull(),
 	label: text("label").notNull(),
 	// TODO: failed to parse database type 'geography'
-	wgs84: unknown("wgs84").notNull(),
+	wgs84: multiPolygonGeog("wgs84", 4326).notNull(),
 	li_ft: geometry("li_ft", { type: "multipolygon", srid: 2263 }).notNull(),
 });
 

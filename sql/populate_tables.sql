@@ -76,7 +76,7 @@ SELECT
   -- source value to drop the oxford comma
   CASE 
 	 WHEN type_category = 'Fixed Asset' OR
-	 	type_category = 'Fixed Asset' OR
+	 	type_category = 'Lump Sum' OR
 		type_category IS NULL
 		THEN type_category::capital_project_category
 	 WHEN type_category = 'ITT, Vehicles, and Equipment'

@@ -5,6 +5,7 @@ export default {
   schema: "./drizzle/schema/*",
   dialect: "postgresql",
   out: "./drizzle/migration",
+  extensionsFilters: ["postgis"],
   dbCredentials: {
     host: process.env.API_DATABASE_HOST!,
     port: parseInt(process.env.API_DATABASE_PORT!),

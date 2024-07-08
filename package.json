@@ -8,11 +8,14 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "drizzle:api:pull": "drizzle-kit introspect --config ./drizzle/api.config.ts"
+    "drizzle:api:pull": "drizzle-kit introspect --config ./drizzle/api.config.ts",
+    "drizzle:flow:push": "drizzle-kit push --config ./drizzle/flow.config.ts",
+    "drizzle:flow:migrate": "drizzle-kit push --config ./drizzle/flow.config.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/geojson": "^7946.0.14",
     "@types/node": "^20.14.10",
     "drizzle-kit": "^0.22.8",
     "drizzle-orm": "^0.31.2",

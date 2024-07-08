@@ -1,6 +1,5 @@
 -- Current sql file was generated after introspecting the database
 -- If you want to run this migration please uncomment this code before executing migrations
-/*
 DO $$ BEGIN
  CREATE TYPE "public"."capital_fund_category" AS ENUM('city-non-exempt', 'city-exempt', 'city-cost', 'non-city-state', 'non-city-federal', 'non-city-other', 'non-city-cost', 'total');
 EXCEPTION
@@ -24,34 +23,6 @@ DO $$ BEGIN
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "geography_columns" (
-	"f_table_catalog" "name",
-	"f_table_schema" "name",
-	"f_table_name" "name",
-	"f_geography_column" "name",
-	"coord_dimension" integer,
-	"srid" integer,
-	"type" text
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "geometry_columns" (
-	"f_table_catalog" varchar(256),
-	"f_table_schema" "name",
-	"f_table_name" "name",
-	"f_geometry_column" "name",
-	"coord_dimension" integer,
-	"srid" integer,
-	"type" varchar(30)
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "spatial_ref_sys" (
-	"srid" integer PRIMARY KEY NOT NULL,
-	"auth_name" varchar(256),
-	"auth_srid" integer,
-	"srtext" varchar(2048),
-	"proj4text" varchar(2048)
-);
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "agency_budget" (
 	"code" text PRIMARY KEY NOT NULL,
@@ -119,7 +90,8 @@ CREATE TABLE IF NOT EXISTS "tax_lot" (
 	"lot" text NOT NULL,
 	"address" text,
 	"land_use_id" char(2),
-	"wgs84" "geography" NOT NULL,
+	-- Caution: hand updated
+	"wgs84" geography(MultiPolygon,4326) NOT NULL,
 	"li_ft" geometry(MultiPolygon,2263) NOT NULL
 );
 --> statement-breakpoint
@@ -152,7 +124,8 @@ CREATE TABLE IF NOT EXISTS "zoning_district_zoning_district_class" (
 CREATE TABLE IF NOT EXISTS "zoning_district" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"label" text NOT NULL,
-	"wgs84" "geography" NOT NULL,
+	-- Caution: hand updated
+	"wgs84" geography(MultiPolygon,4326) NOT NULL,
 	"li_ft" geometry(MultiPolygon,2263) NOT NULL
 );
 --> statement-breakpoint
@@ -287,4 +260,3 @@ CREATE INDEX IF NOT EXISTS "capital_project_li_ft_m_pnt_index" ON "capital_proje
 CREATE INDEX IF NOT EXISTS "capital_project_li_ft_m_poly_index" ON "capital_project" USING gist ("li_ft_m_poly" gist_geometry_ops_2d);--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "capital_project_mercator_fill_m_pnt_index" ON "capital_project" USING gist ("mercator_fill_m_pnt" gist_geometry_ops_2d);--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "capital_project_mercator_fill_m_poly_index" ON "capital_project" USING gist ("mercator_fill_m_poly" gist_geometry_ops_2d);
-*/
