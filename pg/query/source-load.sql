@@ -1,0 +1,5 @@
+COPY
+	%s (%I)
+	FROM STDIN
+	DELIMITER ','
+	CSV HEADER;

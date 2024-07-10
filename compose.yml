@@ -3,24 +3,13 @@ services:
     build:
       context: db/.
     environment:
-      - POSTGRES_USER=${BUILD_ENGINE_USER}
-      - POSTGRES_PASSWORD=${BUILD_ENGINE_PASSWORD}
-      - POSTGRES_DB=${BUILD_ENGINE_DB}
+      - POSTGRES_USER=${FLOW_DATABASE_USER}
+      - POSTGRES_PASSWORD=${FLOW_DATABASE_PASSWORD}
+      - POSTGRES_DB=${FLOW_DATABASE_NAME}
     networks:
       - data
     ports:
       - "8001:5432"
-  runner:
-    build: 
-      context: .
-    env_file:
-      - .env
-    networks:
-      - data
-    volumes:
-      - ./tests:/tests
-      - ./bash:/bash
-      - ./sql:/sql
 networks:
   data:
     name: ae-zoning-api_data

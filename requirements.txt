@@ -1,3 +1,0 @@
-dbt-postgres
-boto3
-pandas

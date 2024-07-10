@@ -8,17 +8,37 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "flow": "npm run drizzle:flow:push && npm run minio:download && npm run pg:flow",
     "drizzle:api:pull": "drizzle-kit introspect --config ./drizzle/api.config.ts",
     "drizzle:flow:push": "drizzle-kit push --config ./drizzle/flow.config.ts",
-    "drizzle:flow:migrate": "drizzle-kit push --config ./drizzle/flow.config.ts"
+    "minio:download": "ts-node ./minio/download.ts",
+    "pg:flow": "npm run pg:source:flow && npm run pg:target:flow",
+    "pg:source:flow": "npm run pg:configure && npm run pg:source:create && npm run pg:source:load",
+    "pg:configure": "ts-node ./pg/query.ts configure",
+    "pg:source:create": "ts-node ./pg/query.ts source-create",
+    "pg:source:load": "ts-node ./pg/copy.ts",
+    "pg:target:flow": "npm run pg:target:connect && npm run pg:target:populate",
+    "pg:target:connect": "ts-node ./pg/query.ts target-connect",
+    "pg:target:populate": "ts-node ./pg/query.ts target-populate"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/geojson": "^7946.0.14",
     "@types/node": "^20.14.10",
+    "@types/pg": "^8.11.6",
+    "@types/pg-copy-streams": "^1.2.5",
+    "@types/pg-format": "^1.0.5",
+    "dotenv": "^16.4.5",
     "drizzle-kit": "^0.22.8",
     "drizzle-orm": "^0.31.2",
-    "pg": "^8.12.0"
+    "minio": "^8.0.1",
+    "pg": "^8.12.0",
+    "pg-copy-streams": "^6.0.6",
+    "pg-format": "^1.0.4",
+    "ts-node": "^10.9.2"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
