@@ -1,4 +1,9 @@
-TRUNCATE borough CASCADE;
+TRUNCATE 
+	borough
+	land_use 
+	tax_lot
+	CASCADE;
+
 INSERT INTO borough
 	SELECT
 		id,
@@ -6,7 +11,6 @@ INSERT INTO borough
 		abbr
 	FROM source_borough;
 
-TRUNCATE land_use CASCADE;
 INSERT INTO land_use
     SELECT
         id,
@@ -14,7 +18,6 @@ INSERT INTO land_use
         color
     FROM source_land_use;
 
-TRUNCATE tax_lot CASCADE;
 INSERT INTO tax_lot
 SELECT
 	SUBSTRING(bbl, 1, 10) as bbl,

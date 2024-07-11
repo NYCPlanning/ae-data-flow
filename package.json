@@ -18,7 +18,7 @@
     "pg:source:create": "ts-node ./pg/query.ts source-create",
     "pg:source:load": "ts-node ./pg/copy.ts",
     "pg:target:flow": "npm run pg:target:connect && npm run pg:target:populate",
-    "pg:target:connect": "ts-node ./pg/query.ts target-connect",
+    "pg:target:connect": "ts-node ./pg/connect.ts",
     "pg:target:populate": "ts-node ./pg/query.ts target-populate"
   },
   "author": "",

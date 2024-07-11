@@ -1,11 +1,10 @@
--- TODO: parameterize
 CREATE SERVER IF NOT EXISTS api_db
 	FOREIGN DATA WRAPPER postgres_fdw
-	OPTIONS (host 'ae-zoning-api-db-1', port '5432', dbname 'zoning');
+	OPTIONS (host %L, port %L, dbname %L);
 
 CREATE USER MAPPING IF NOT EXISTS FOR postgres
 	SERVER api_db
-	OPTIONS (user 'postgres', password 'postgres');
+	OPTIONS (user %L, password %L);
 
 IMPORT FOREIGN SCHEMA public
 	EXCEPT (
