@@ -17,7 +17,36 @@ import { pgPool } from "./pg-connector";
             table: "source_city_council_district",
             columns: ["coundist", "shape_leng", "shape_area", "wkt"],
             filePath: "data/convert",
-            fileName: "ccd.csv"
+            fileName: "dcp_city_council_districts.csv"
+        },
+        {
+            table: "source_capital_commitment",
+            columns: [
+                "ccp_version",
+                "m_agency",
+                "project_id",
+                "m_a_proj_id",
+                "budget_line",
+                "project_type",
+                "s_agency_acro",
+                "s_agency_name",
+                "plan_comm_date",
+                "project_description",
+                "commitment_description",
+                "commitment_code",
+                "typ_c",
+                "typ_c_name",
+                "plannedcommit_ccnonexempt",
+                "plannedcommit_ccexempt",
+                "plannedcommit_citycost",
+                "plannedcommit_nccstate",
+                "plannedcommit_nccfederal",
+                "plannedcommit_nccother",
+                "plannedcommit_noncitycost",
+                "plannedcommit_total"
+            ],
+            filePath: "data/download",
+            fileName: "cpdb_planned_commitments.csv"
         },
         {
             table: "source_land_use",
