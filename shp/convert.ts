@@ -2,6 +2,7 @@ import shpjs from "shpjs";
 import * as fs from "fs";
 import { FeatureCollection } from "geojson";
 import * as turf from "@turf/turf";
+import { geojsonToWKT } from "@terraformer/wkt";
 
 (async () => {
     const geogBuffer = fs.readFileSync("data/download/dcp_city_council_districts.zip");
@@ -14,6 +15,13 @@ import * as turf from "@turf/turf";
             const mp = turf.multiPolygon([feature.geometry.coordinates], feature.properties);
             geojson.features[index] =  mp;
         }
-    })
-    console.debug("geoj", geojson.features.filter(feature => feature.geometry.type === 'MultiPolygon').length);
+    });
+
+    const flatJson = geojson.features.map(feature => {
+        return {
+            ...feature.properties,
+            geom: geojsonToWKT(feature.geometry)
+        }
+    });
+
 })();

@@ -25,6 +25,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@terraformer/wkt": "^2.2.1",
     "@turf/turf": "^7.0.0",
     "@types/geojson": "^7946.0.14",
     "@types/node": "^20.14.10",
