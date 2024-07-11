@@ -12,7 +12,7 @@ import "dotenv/config";
     const targetPassword = process.env.TARGET_DATABASE_PASSWORD!;
 
     try{
-        const sql = fs.readFileSync('pg/query/target-connect.sql').toString();
+        const sql = fs.readFileSync('pg/query/target-wrap.sql').toString();
         const sqlFormat = format(sql, targetHost, targetPort, targetName, targetUser, targetPassword);
         await pgClient.connect();
         await pgClient.query("BEGIN");

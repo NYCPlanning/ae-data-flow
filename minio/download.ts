@@ -26,7 +26,6 @@ import { exit } from "process";
     const backupFilePaths = [
         'zoning-api/pluto.csv',
         'zoning-api/zoning_districts.csv',
-        'zoning-api/source_data_versions.csv'
     ] 
     const downloadsBackups = backupFilePaths.map(filePath =>
         {

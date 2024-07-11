@@ -25,7 +25,12 @@ import { pgPool } from "./pg-connector";
             filePath: "data/download",
             fileName: "pluto.csv"
         },
-        
+        {
+            table: "source_zoning_district",
+            columns: ["wkt", "zonedist", "shape_leng", "shape_area"],
+            filePath: "data/download",
+            fileName: "zoning_districts.csv"
+        }
     ]
 
     const sql = fs.readFileSync(`pg/query/source-load.sql`).toString();
