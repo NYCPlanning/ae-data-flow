@@ -6,7 +6,7 @@ import { pipeline } from "stream/promises";
 import { pgPool } from "./pg-connector";
 
 (async () => {
-    const sources: Array<{table: string, columns: Array<string>, filePath: 'data' | 'data/download', fileName: string}> = [
+    const sources: Array<{table: string, columns: Array<string>, filePath: 'data' | 'data/download' | 'data/convert', fileName: string}> = [
         { 
             table: "source_borough",
             columns: ["id", "title", "abbr"],
@@ -14,17 +14,23 @@ import { pgPool } from "./pg-connector";
             fileName: "borough.csv"
         },
         {
+            table: "source_city_council_district",
+            columns: ["coundist", "shape_leng", "shape_area", "wkt"],
+            filePath: "data/convert",
+            fileName: "ccd.csv"
+        },
+        {
             table: "source_land_use",
             columns: ["id", "description", "color"],
             filePath: "data",
             fileName: "land_use.csv"
         },
-        {
-            table: "source_pluto",
-            columns: ["wkt", "borough", "block", "lot", "address", "land_use", "bbl"],
-            filePath: "data/download",
-            fileName: "pluto.csv"
-        },
+        // {
+        //     table: "source_pluto",
+        //     columns: ["wkt", "borough", "block", "lot", "address", "land_use", "bbl"],
+        //     filePath: "data/download",
+        //     fileName: "pluto.csv"
+        // },
         {
             table: "source_zoning_district",
             columns: ["wkt", "zonedist", "shape_leng", "shape_area"],

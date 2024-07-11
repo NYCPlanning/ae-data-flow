@@ -1,5 +1,6 @@
 TRUNCATE 
 	borough,
+	city_council_district,
 	land_use,
 	tax_lot,
 	zoning_district
@@ -18,6 +19,14 @@ INSERT INTO land_use
         description,
         color
     FROM source_land_use;
+
+INSERT INTO city_council_district
+SELECT
+  coundist AS id,
+  ST_Transform(wkt, 2263) AS li_ft,
+  ST_Transform(wkt, 3857) AS mercator_fill,
+  ST_Transform((ST_MaximumInscribedCircle(wkt)).center, 3857) AS mercator_label
+FROM source_city_council_district;
 
 -- INSERT INTO tax_lot
 -- SELECT

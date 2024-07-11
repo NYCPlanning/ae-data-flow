@@ -8,7 +8,10 @@ import { exit } from "process";
     const publishingFilePaths = [
         'db-cpdb/publish/latest/cpdb_planned_commitments.csv',
         'db-cpdb/publish/latest/cpdb_projects.csv',
-        'datasets/dcp_city_council_districts/24B/dcp_city_council_districts.zip'
+        'db-cpdb/publish/latest/cpdb_dcpattributes_pts.shp.zip',
+        'db-cpdb/publish/latest/cpdb_dcpattributes_poly.shp.zip',
+        'datasets/dcp_city_council_districts/24B/dcp_city_council_districts.zip',
+        'datasets/dcp_community_districts/24B/dcp_community_districts.zip'
     ] 
 
     const downloadsPublishing = publishingFilePaths.map(filePath =>

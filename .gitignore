@@ -27,6 +27,9 @@ target/
 data/download/*
 !data/download/.gitkeep
 
+data/convert/*
+!data/convert/.gitkeep
+
 # drizzle sql migrations
 drizzle/migration/meta/*
 drizzle/migration/*.sql

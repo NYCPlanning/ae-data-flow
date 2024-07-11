@@ -1,14 +1,22 @@
 DROP TABLE IF EXISTS 
 	source_borough,
+	source_city_council_district,
 	source_land_use,
 	source_pluto,
-	source_zoning_district
+	source_zoning_district,
 	CASCADE;
 
 CREATE TABLE IF NOT EXISTS source_borough (
 	"id" char(1) PRIMARY KEY NOT NULL,
 	"title" text,
 	"abbr" char(2)
+);
+
+CREATE TABLE IF NOT EXISTS source_city_council_district (
+	"coundist" text NOT NULL,
+	"shape_leng" float,
+	"shape_area" float,
+	"wkt" geometry(MULTIPOLYGON, 4326)
 );
 
 CREATE TABLE IF NOT EXISTS source_land_use (
