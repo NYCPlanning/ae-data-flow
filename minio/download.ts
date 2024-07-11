@@ -7,7 +7,8 @@ import { exit } from "process";
     const bucketPublishing = 'edm-publishing';
     const publishingFilePaths = [
         'db-cpdb/publish/latest/cpdb_planned_commitments.csv',
-        'db-cpdb/publish/latest/cpdb_projects.csv'
+        'db-cpdb/publish/latest/cpdb_projects.csv',
+        'datasets/dcp_city_council_districts/24B/dcp_city_council_districts.zip'
     ] 
 
     const downloadsPublishing = publishingFilePaths.map(filePath =>
