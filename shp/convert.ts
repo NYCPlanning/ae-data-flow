@@ -4,9 +4,12 @@ import { FeatureCollection } from "geojson";
 import * as turf from "@turf/turf";
 import { geojsonToWKT } from "@terraformer/wkt";
 import { stringify } from "csv-stringify/sync";
+import { exit } from "process";
 
 (async () => {
-  const sources: Array<{ fileName: string; promoteToMulti: boolean }> = [
+  type Source = { fileName: string; promoteToMulti: boolean };
+  const sources: Array<Source> = [
+
     {
       fileName: "dcp_city_council_districts",
       promoteToMulti: true,
@@ -25,7 +28,7 @@ import { stringify } from "csv-stringify/sync";
     },
   ];
 
-  sources.forEach(async (source) => {
+  const conversion = async (source: Source) => {
     const geogBuffer = fs.readFileSync(`data/download/${source.fileName}.zip`);
     const geojson = (await shpjs(geogBuffer)) as FeatureCollection;
     geojson.features.forEach((feature, index) => {
@@ -66,5 +69,10 @@ import { stringify } from "csv-stringify/sync";
     const output = stringify(flatJson, { header: true });
 
     fs.writeFileSync(`data/convert/${source.fileName}.csv`, output);
-  });
+
+  }
+  const conversions: Array<Promise<void>> = [];
+  sources.forEach(async (source) => conversions.push(conversion(source)));
+  await Promise.all(conversions);
+  exit();
 })();
