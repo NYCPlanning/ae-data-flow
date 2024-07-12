@@ -1,3 +1,5 @@
+DROP SERVER IF EXISTS api_db CASCADE;
+
 CREATE SERVER IF NOT EXISTS api_db
 	FOREIGN DATA WRAPPER postgres_fdw
 	OPTIONS (host %L, port %L, dbname %L);
