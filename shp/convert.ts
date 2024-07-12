@@ -9,7 +9,6 @@ import { exit } from "process";
 (async () => {
   type Source = { fileName: string; promoteToMulti: boolean };
   const sources: Array<Source> = [
-
     {
       fileName: "dcp_city_council_districts",
       promoteToMulti: true,
@@ -69,8 +68,7 @@ import { exit } from "process";
     const output = stringify(flatJson, { header: true });
 
     fs.writeFileSync(`data/convert/${source.fileName}.csv`, output);
-
-  }
+  };
   const conversions: Array<Promise<void>> = [];
   sources.forEach(async (source) => conversions.push(conversion(source)));
   await Promise.all(conversions);

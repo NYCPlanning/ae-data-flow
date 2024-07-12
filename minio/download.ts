@@ -3,41 +3,85 @@ import { exit } from "process";
 
 (async () => {
   console.debug("start download");
-  const destinationFolder = "data/download";
-  const bucketPublishing = "edm-publishing";
-  const publishingFilePaths = [
-    "db-cpdb/publish/latest/cpdb_planned_commitments.csv",
-    "db-cpdb/publish/latest/cpdb_projects.csv",
-    "db-cpdb/publish/latest/cpdb_dcpattributes_pts.shp.zip",
-    "db-cpdb/publish/latest/cpdb_dcpattributes_poly.shp.zip",
-    "datasets/dcp_city_council_districts/24B/dcp_city_council_districts.zip",
-    "datasets/dcp_community_districts/24B/dcp_community_districts.zip",
+
+  type Source = {
+    fileName: string;
+    fileExtension: "csv" | "zip";
+  } & (
+    | {
+        bucketName: "edm-publishing";
+        bucketSubPath:
+          | "db-cpdb/publish/latest"
+          | "datasets/dcp_city_council_districts/24B"
+          | "datasets/dcp_community_districts/24B";
+      }
+    | {
+        bucketName: "ae-data-backups";
+        bucketSubPath: "zoning-api";
+      }
+  );
+
+  const sources: Array<Source> = [
+    {
+      fileName: "cpdb_planned_commitments",
+      fileExtension: "csv",
+      bucketName: "edm-publishing",
+      bucketSubPath: "db-cpdb/publish/latest",
+    },
+    {
+      fileName: "cpdb_projects",
+      fileExtension: "csv",
+      bucketName: "edm-publishing",
+      bucketSubPath: "db-cpdb/publish/latest",
+    },
+    {
+      fileName: "cpdb_dcpattributes_pts.shp",
+      fileExtension: "zip",
+      bucketName: "edm-publishing",
+      bucketSubPath: "db-cpdb/publish/latest",
+    },
+    {
+      fileName: "cpdb_dcpattributes_poly.shp",
+      fileExtension: "zip",
+      bucketName: "edm-publishing",
+      bucketSubPath: "db-cpdb/publish/latest",
+    },
+    {
+      fileName: "dcp_city_council_districts",
+      fileExtension: "zip",
+      bucketName: "edm-publishing",
+      bucketSubPath: "datasets/dcp_city_council_districts/24B",
+    },
+    {
+      fileName: "dcp_community_districts",
+      fileExtension: "zip",
+      bucketName: "edm-publishing",
+      bucketSubPath: "datasets/dcp_community_districts/24B",
+    },
+    {
+      fileName: "pluto",
+      fileExtension: "csv",
+      bucketName: "ae-data-backups",
+      bucketSubPath: "zoning-api",
+    },
+    {
+      fileName: "zoning_districts",
+      fileExtension: "csv",
+      bucketName: "ae-data-backups",
+      bucketSubPath: "zoning-api",
+    },
   ];
 
-  const downloadsPublishing = publishingFilePaths.map((filePath) => {
-    const filePathParts = filePath.split("/");
-    const fileName = filePathParts[filePathParts.length - 1];
+  const downloads = sources.map((source) => {
+    const file = `${source.fileName}.${source.fileExtension}`;
+    const filePath = `${source.bucketSubPath}/${file}`;
     return minioClient.fGetObject(
-      bucketPublishing,
+      source.bucketName,
       filePath,
-      `${destinationFolder}/${fileName}`,
+      `data/download/${file}`,
     );
   });
 
-  const bucketBackups = "ae-data-backups";
-  const backupFilePaths = [
-    "zoning-api/pluto.csv",
-    "zoning-api/zoning_districts.csv",
-  ];
-  const downloadsBackups = backupFilePaths.map((filePath) => {
-    const filePathParts = filePath.split("/");
-    const fileName = filePathParts[filePathParts.length - 1];
-    return minioClient.fGetObject(
-      bucketBackups,
-      filePath,
-      `${destinationFolder}/${fileName}`,
-    );
-  });
-  await Promise.all([...downloadsPublishing, ...downloadsBackups]);
+  await Promise.all(downloads);
   exit();
 })();
