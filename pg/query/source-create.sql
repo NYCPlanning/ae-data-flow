@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS
 	source_capital_commitment, 
 	source_capital_project,
 	source_capital_project_m_poly, 
-	source_capital_project_m_pt,
+	source_capital_project_m_pnt,
 	source_city_council_district,
   source_community_district,
 	source_land_use,
@@ -13,15 +13,15 @@ DROP TABLE IF EXISTS
 	CASCADE;
 
 CREATE TABLE IF NOT EXISTS source_borough (
-	id char(1) PRIMARY KEY NOT NULL,
+	id char(1) PRIMARY KEY NOT NULL CHECK (id SIMILAR TO '[1-9]'),
 	title text,
 	abbr char(2)
 );
 
 CREATE TABLE IF NOT EXISTS source_capital_commitment (
   ccp_version text,
-  m_agency text,
-  project_id text,
+  m_agency char(3) NOT NULL CHECK (m_agency SIMILAR TO '[0-9]{3}'),
+  project_id text NOT NULL,
   m_a_proj_id text,
   budget_line text,
   project_type text,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS source_capital_commitment (
   plan_comm_date text,
   project_description text,
   commitment_description text,
-  commitment_code char(4),
+  commitment_code char(4) NOT NULL,
   typ_c char(3),
   typ_c_name text,
   plannedcommit_ccnonexempt numeric,
@@ -48,12 +48,14 @@ CREATE TABLE IF NOT EXISTS  source_capital_project (
   ccp_version text,
   m_a_proj_id text,
   m_agency_acro text,
-  m_agency char(3),
+  m_agency char(3) NOT NULL CHECK (m_agency SIMILAR TO '[0-9]{3}'),
   m_agency_name text,
   description text,
-  proj_id text,
+  proj_id text NOT NULL,
   min_date date,
   max_date date,
+  -- TODO: check that it satisfies the capital_project_category enum,
+  -- once the enum is fixed
   type_category text,
   plannedcommit_ccnonexempt numeric,
   plannedcommit_ccexempt numeric,
@@ -129,46 +131,46 @@ CREATE TABLE IF NOT EXISTS source_capital_project_m_pnt (
 );
 
 CREATE TABLE IF NOT EXISTS source_city_council_district (
-	coundist text NOT NULL,
+	coundist text PRIMARY KEY CHECK (coundist SIMILAR TO '[0-9]{1,2}'),
 	shape_leng float,
 	shape_area float,
-	wkt geometry(MULTIPOLYGON, 4326)
+	wkt geometry(MULTIPOLYGON, 4326) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS source_community_district (
-	borocd char(3) PRIMARY KEY,
+	borocd char(3) PRIMARY KEY CHECK (borocd SIMILAR TO '[1-9][0-9]{2}'),
 	shape_leng float,
 	shape_area float,
-	wkt geometry(MULTIPOLYGON, 4326)
+	wkt geometry(MULTIPOLYGON, 4326) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS source_land_use (
-	id char(2) PRIMARY KEY NOT NULL,
+	id char(2) PRIMARY KEY NOT NULL CHECK (id SIMILAR TO '[0-9]{2}'),
 	description text,
-	color char(9)
+	color char(9) NOT NULL CHECK (color SIMILAR TO '#([A-Fa-f0-9]{8})')
 );
 
 CREATE TABLE IF NOT EXISTS source_pluto (
-	bbl text PRIMARY KEY NOT NULL,
+	bbl text PRIMARY KEY NOT NULL CHECK (bbl SIMILAR TO '[0-9]{10}\.00000000'),
 	borough char(2) NOT NULL,
-	block text NOT NULL,
-	lot text NOT NULL,
+	block text NOT NULL CHECK (block SIMILAR TO '[0-9]{1,5}'),
+	lot text NOT NULL CHECK (lot SIMILAR TO '[0-9]{1,4}'),
 	address text,
 	land_use char(2),
-	wkt geometry(MULTIPOLYGON, 2263)
+	wkt geometry(MULTIPOLYGON, 2263) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS source_zoning_district (
 	zonedist text NOT NULL,
 	shape_leng float,
 	shape_area float,
-	wkt geometry(MULTIPOLYGON, 4326)
+	wkt geometry(MULTIPOLYGON, 4326) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS source_zoning_district_class (
-	id text PRIMARY KEY,
-	category text,
+	id text PRIMARY KEY CHECK (id SIMILAR TO '[A-Z][0-9]+'),
+	category category NOT NULL,
 	description text,
 	url text,
-	color char(9)
+	color char(9) NOT NULL CHECK (color SIMILAR TO '#([A-Fa-f0-9]{8})')
 )
