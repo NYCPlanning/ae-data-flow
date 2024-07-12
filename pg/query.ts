@@ -4,13 +4,13 @@ import { exit } from "process";
 
 (async () => {
   const fileName = process.argv[2];
-  try{
+  try {
     const sql = fs.readFileSync(`pg/query/${fileName}.sql`).toString();
     await pgClient.connect();
-    await pgClient.query('BEGIN')
+    await pgClient.query("BEGIN");
     await pgClient.query(sql);
     await pgClient.query("COMMIT");
-  } catch ( e ) {
+  } catch (e) {
     await pgClient.query("ROLLBACK");
     console.error(e);
   } finally {

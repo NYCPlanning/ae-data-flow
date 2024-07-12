@@ -5,6 +5,7 @@ This is the primary repository for the data pipelines of the Application Enginee
 These pipelines are used to populate the databases used by our APIs and are called "data flows".
 
 ## Design
+
 For all AE data flows, there is an ephemeral database within a docker-ized runner
 
 For each API, there is a database cluster with a `data-qa` and a `prod` database. The only tables in those databases are those that an API uses. These are called API databases.
@@ -18,6 +19,7 @@ For each API and the relevant databases, this is the approach to updating data:
 The exact data flow steps are refined while working in a `local` docker environment. After the steps are stable, they are merged into `main`. From there, they are run first against a `data-qa` API database from within the `data-flow` GitHub action. After receiving quality checks, the `data-flow` GitHub Action is targeted against the `prod` API database.
 
 This is a more granular description of those steps:
+
 1. Download CSV files from Digital Ocean file storage
 2. Copy CSV files into source data tables
 3. Test source data tables
@@ -46,7 +48,7 @@ When an action attempts to use the `production` environment, specific people or 
 ## Local setup
 
 > [!NOTE]
-> These instructions depend on docker and docker compose 
+> These instructions depend on docker and docker compose
 > If you need to install docker compose, follow [these instructions](https://docs.docker.com/compose/install/).
 
 ### Set environment variables
@@ -56,10 +58,12 @@ Create a file called `.env` in the root folder of the project and copy the conte
 Next, fill in the blank values.
 
 ### Run the local zoning api database
+
 The `data-flow` steps are run against the `zoning-api` database. Locally, this relies on these two containers running on the same network. The zoning-api creates the `data` network, which the data-flow containers can then join.
 Before continuing with the `data-flow` setup, follow the steps within `nycplanning/ae-zoning-api` to get its database running in a container on a `data` docker network.
 
 ### Run the local data flow
+
 After setting up the zoning-api, return to this repository and run the data-flow docker compose
 
 ```bash
@@ -82,4 +86,3 @@ If you receive an error, make sure the script has the correct permissions:
 ```bash
 chmod 755 import.sh
 ```
-

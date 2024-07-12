@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier **/*.ts --write",
     "flow": "npm run drizzle:flow:push && npm run minio:download && npm run shp:convert && npm run pg:flow",
     "drizzle:api:pull": "drizzle-kit introspect --config ./drizzle/api.config.ts",
     "drizzle:flow:push": "drizzle-kit push --config ./drizzle/flow.config.ts",
@@ -33,7 +34,6 @@
     "@types/pg-copy-streams": "^1.2.5",
     "@types/pg-format": "^1.0.5",
     "@types/shpjs": "^3.4.7",
-    "csv-generate": "^4.4.1",
     "csv-stringify": "^6.5.0",
     "dotenv": "^16.4.5",
     "drizzle-kit": "^0.22.8",
@@ -42,6 +42,7 @@
     "pg": "^8.12.0",
     "pg-copy-streams": "^6.0.6",
     "pg-format": "^1.0.4",
+    "prettier": "3.3.2",
     "shpjs": "^5.0.2",
     "tsx": "^4.16.2"
   },
