@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "flow": "npm run drizzle:flow:push && npm run minio:download && npm run pg:flow",
+    "flow": "npm run drizzle:flow:push && npm run minio:download && npm run shp:convert && npm run pg:flow",
     "drizzle:api:pull": "drizzle-kit introspect --config ./drizzle/api.config.ts",
     "drizzle:flow:push": "drizzle-kit push --config ./drizzle/flow.config.ts",
     "minio:download": "tsx ./minio/download.ts",
@@ -18,7 +18,7 @@
     "pg:configure": "tsx ./pg/query.ts configure",
     "pg:source:create": "tsx ./pg/query.ts source-create",
     "pg:source:load": "tsx ./pg/copy.ts",
-    "pg:target:flow": "npm run pg:target:connect && npm run pg:target:populate",
+    "pg:target:flow": "npm run pg:target:wrap && npm run pg:target:populate",
     "pg:target:populate": "tsx ./pg/query.ts target-populate",
     "pg:target:wrap": "tsx ./pg/wrap.ts"
   },
