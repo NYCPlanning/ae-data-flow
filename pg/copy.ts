@@ -6,7 +6,8 @@ import { pipeline } from "stream/promises";
 import { pgPool } from "./pg-connector";
 
 (async () => {
-    const sources: Array<{table: string, columns: Array<string>, filePath: 'data' | 'data/download' | 'data/convert', fileName: string}> = [
+    type Source = {table: string, columns: Array<string>, filePath: 'data' | 'data/download' | 'data/convert', fileName: string}
+    const sources: Array<Source> = [
         { 
             table: "source_borough",
             columns: ["id", "title", "abbr"],
@@ -18,6 +19,12 @@ import { pgPool } from "./pg-connector";
             columns: ["coundist", "shape_leng", "shape_area", "wkt"],
             filePath: "data/convert",
             fileName: "dcp_city_council_districts.csv"
+        },
+        {
+            table: "source_community_district",
+            columns: ["borocd", "shape_leng", "shape_area", "wkt"],
+            filePath: "data/convert",
+            fileName: "dcp_community_districts.csv"
         },
         {
             table: "source_capital_commitment",
@@ -107,7 +114,7 @@ import { pgPool } from "./pg-connector";
             fileName: "cpdb_projects.csv" 
         },
         {
-            table: "source_capital_project_poly",
+            table: "source_capital_project_m_poly",
             columns: [
                 "ccpversion",
                 "maprojid",
@@ -126,7 +133,7 @@ import { pgPool } from "./pg-connector";
             fileName: "cpdb_dcpattributes_poly.shp.csv"
         },
         {
-            table: "source_capital_project_pt",
+            table: "source_capital_project_m_pnt",
             columns: [
                 "ccpversion",
                 "maprojid",
@@ -167,11 +174,12 @@ import { pgPool } from "./pg-connector";
             columns: ["id", "category", "description", "url", "color"],
             filePath: "data",
             fileName: "zoning_district_class.csv"
-        }
+        },
     ]
 
     const sql = fs.readFileSync(`pg/query/source-load.sql`).toString();
-    sources.forEach(async ( source ) => {
+
+    const copy = async (source: Source) => {
         const client = await pgPool.connect();
         try{
             const sqlFormat = format(sql, source.table, source.columns);
@@ -183,7 +191,11 @@ import { pgPool } from "./pg-connector";
         } finally {
             client.release();
         }
-    });
+    }
+
+    const copies: Array<Promise<void>> = []
+    sources.forEach(source => copies.push(copy(source)))
+    await Promise.all(copies);
     await pgPool.end();
     exit();
 })();

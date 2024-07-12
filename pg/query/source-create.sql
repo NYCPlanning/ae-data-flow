@@ -2,9 +2,10 @@ DROP TABLE IF EXISTS
 	source_borough,
 	source_capital_commitment, 
 	source_capital_project,
-	source_capital_project_poly, 
-	source_capital_project_pt,
+	source_capital_project_m_poly, 
+	source_capital_project_m_pt,
 	source_city_council_district,
+  source_community_district,
 	source_land_use,
 	source_pluto,
 	source_zoning_district,
@@ -97,7 +98,7 @@ CREATE TABLE IF NOT EXISTS  source_capital_project (
   spent_total_checkbooknyc numeric
 );
 
-CREATE TABLE IF NOT EXISTS source_capital_project_poly (
+CREATE TABLE IF NOT EXISTS source_capital_project_m_poly (
 	ccpversion text,
 	maprojid text,
 	magency text,
@@ -112,7 +113,7 @@ CREATE TABLE IF NOT EXISTS source_capital_project_poly (
 	wkt geometry(MULTIPOLYGON, 4326)
 );
 
-CREATE TABLE IF NOT EXISTS source_capital_project_pt (
+CREATE TABLE IF NOT EXISTS source_capital_project_m_pnt (
 	ccpversion text,
 	maprojid text,
 	magency text,
@@ -129,6 +130,13 @@ CREATE TABLE IF NOT EXISTS source_capital_project_pt (
 
 CREATE TABLE IF NOT EXISTS source_city_council_district (
 	coundist text NOT NULL,
+	shape_leng float,
+	shape_area float,
+	wkt geometry(MULTIPOLYGON, 4326)
+);
+
+CREATE TABLE IF NOT EXISTS source_community_district (
+	borocd char(3) PRIMARY KEY,
 	shape_leng float,
 	shape_area float,
 	wkt geometry(MULTIPOLYGON, 4326)
