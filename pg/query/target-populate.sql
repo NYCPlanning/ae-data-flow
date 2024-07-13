@@ -12,6 +12,7 @@ TRUNCATE
 	capital_project,
 	capital_project_fund,
 	capital_commitment_type,
+	capital_project_checkbook,
 	agency_budget,
 	budget_line,
 	capital_commitment,
