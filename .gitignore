@@ -30,6 +30,9 @@ data/download/*
 data/convert/*
 !data/convert/.gitkeep
 
+# TODO: move to under data folder
+data/transformed
+
 # drizzle sql migrations
 drizzle/migration/meta/*
 drizzle/migration/*.sql

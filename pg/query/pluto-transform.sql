@@ -1,24 +1,3 @@
-BEGIN;
-TRUNCATE 
-	borough,
-	city_council_district,
-	community_district,
-	land_use,
-	tax_lot,
-	zoning_district,
-  	zoning_district_class,
-	zoning_district_zoning_district_class,
-	managing_code,
-	agency,
-	capital_project,
-	capital_project_fund,
-	capital_commitment_type,
-	agency_budget,
-	budget_line,
-	capital_commitment,
-	capital_commitment_fund,
-	capital_project_checkbook
-	CASCADE;
 
 DROP TABLE IF EXISTS
 	flow_borough,
@@ -62,14 +41,20 @@ SELECT
 FROM source_pluto
 INNER JOIN flow_borough AS borough ON source_pluto.borough=borough.abbr;
 
-INSERT INTO borough
-	SELECT * FROM flow_borough;
+COMMIT;
+
+COPY flow_borough TO '/var/lib/postgresql/data/borough.csv';
+COPY flow_land_use TO '/var/lib/postgresql/data/land_use.csv';
+COPY flow_tax_lot TO '/var/lib/postgresql/data/tax_lot.csv';
+
+-- INSERT INTO borough
+-- 	SELECT * FROM flow_borough;
 	
-INSERT INTO land_use
-	SELECT * FROM flow_land_use;
+-- INSERT INTO land_use
+-- 	SELECT * FROM flow_land_use;
 	
-INSERT INTO tax_lot
-	SELECT * FROM flow_tax_lot;
+-- INSERT INTO tax_lot
+-- 	SELECT * FROM flow_tax_lot;
 
 COMMIT;
 
