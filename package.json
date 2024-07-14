@@ -20,8 +20,9 @@
     "pg:source:create": "tsx ./pg/query.ts source-create",
     "pg:source:load": "tsx ./pg/copy.ts",
     "pg:target:flow": "npm run pg:target:wrap && npm run pg:target:populate",
-    "pg:target:populate": "tsx ./pg/query.ts target-populate",
-    "pg:target:wrap": "tsx ./pg/wrap.ts"
+    "pg:pluto:transform": "tsx ./pg/query.ts pluto-transform",
+    "pg:target:wrap": "tsx ./pg/wrap.ts",
+    "psql:target:repopulate": "docker compose exec -it db bash repopulate/target-repopulate.sh"
   },
   "author": "",
   "license": "ISC",

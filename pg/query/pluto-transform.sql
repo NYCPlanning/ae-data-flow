@@ -46,28 +46,3 @@ COMMIT;
 COPY flow_borough TO '/var/lib/postgresql/data/borough.csv';
 COPY flow_land_use TO '/var/lib/postgresql/data/land_use.csv';
 COPY flow_tax_lot TO '/var/lib/postgresql/data/tax_lot.csv';
-
--- INSERT INTO borough
--- 	SELECT * FROM flow_borough;
-	
--- INSERT INTO land_use
--- 	SELECT * FROM flow_land_use;
-	
--- INSERT INTO tax_lot
--- 	SELECT * FROM flow_tax_lot;
-
-COMMIT;
-
-BEGIN;
-ALTER TABLE tax_lot
-	ADD CONSTRAINT bbl_check CHECK (bbl SIMILAR TO '[0-9]{10}');
-	
-COMMIT;
-
-BEGIN;
-
-UPDATE tax_lot
-	SET bbl = 100001001
-	WHERE bbl = '1000010010';
-
-ROLLBACK;
