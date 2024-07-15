@@ -86,7 +86,7 @@ import "dotenv/config";
   ];
 
   const buildSources =
-    build === 'all'
+    build === "all"
       ? sources
       : sources.filter((source) => source.builds.includes(build));
 
