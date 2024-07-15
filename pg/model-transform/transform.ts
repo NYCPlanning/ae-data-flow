@@ -2,9 +2,10 @@ import { exit } from "process";
 import { Build, buildSchema } from "../../schemas";
 import { pgClient } from "../pg-connector";
 import * as fs from "fs";
+import "dotenv/config";
 
 (async () => {
-  const build = buildSchema.optional().parse(process.argv[2]);
+  const build = buildSchema.parse(process.env.BUILD);
 
   type Source = {
     fileName: string;
@@ -36,7 +37,7 @@ import * as fs from "fs";
   ];
 
   const buildSources =
-    build === undefined
+    build === "all"
       ? sources
       : sources.filter((source) => source.builds.includes(build));
   buildSources.sort((a, b) => a.treeDepth - b.treeDepth);

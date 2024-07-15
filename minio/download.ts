@@ -2,11 +2,11 @@ import { Build } from "../schemas";
 import { minioClient } from "./minio-client";
 import { exit } from "process";
 import { buildSchema } from "../schemas";
+import "dotenv/config";
 
 (async () => {
   console.debug("start download");
-  const buildInput = process.argv[2];
-  const build = buildSchema.optional().parse(buildInput);
+  const build = buildSchema.parse(process.env.BUILD);
 
   type Source = {
     fileName: string;
@@ -86,7 +86,7 @@ import { buildSchema } from "../schemas";
   ];
 
   const buildSources =
-    build === undefined
+    build === 'all'
       ? sources
       : sources.filter((source) => source.builds.includes(build));
 

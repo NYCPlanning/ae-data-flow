@@ -9,6 +9,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier \"**/*.ts\" --write",
+    "flow": "npm run configure && npm run download && npm run seed && npm run populate",
+    "configure": "npm run drizzle:flow:push && npm run pg:configure",
+    "download": "npm run minio:download && npm run shp:convert",
+    "seed": "npm run pg-db:model:create && npm run pg:source:create && npm run pg:source:load",
+    "populate": "npm run pg:model:transform && npm run pg-db:target:populate",
     "drizzle:api:pull": "drizzle-kit introspect --config ./drizzle/api.config.ts",
     "drizzle:flow:push": "drizzle-kit push --config ./drizzle/flow.config.ts",
     "minio:download": "tsx ./minio/download.ts",
@@ -17,7 +22,6 @@
     "pg:source:create": "tsx ./pg/source-create/create.ts",
     "pg:source:load": "tsx ./pg/source-load/load.ts",
     "pg:model:transform": "tsx ./pg/model-transform/transform.ts",
-    "pg:target:wrap": "tsx ./pg/target-wrap/wrap.ts",
     "pg-db:target:populate": "docker compose exec -e BUILD=$BUILD -it db  bash flow/target-populate/populate.sh",
     "pg-db:model:create": "docker compose exec -it db bash flow/model-create/$BUILD.sh"
   },

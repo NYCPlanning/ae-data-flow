@@ -6,9 +6,11 @@ import { geojsonToWKT } from "@terraformer/wkt";
 import { stringify } from "csv-stringify/sync";
 import { exit } from "process";
 import { Build, buildSchema } from "../schemas";
+import "dotenv/config";
 
 (async () => {
-  const build = buildSchema.optional().parse(process.argv[2]);
+  const build = buildSchema.parse(process.env.BUILD);
+  console.debug("build", build);
 
   type Source = {
     fileName: string;
@@ -39,7 +41,7 @@ import { Build, buildSchema } from "../schemas";
   ];
 
   const buildSources =
-    build === undefined
+    build === "all"
       ? sources
       : sources.filter((source) => source.builds.includes(build));
 
