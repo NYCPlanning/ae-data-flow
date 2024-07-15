@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier **/*.ts --write",
+    "format": "prettier **/**/*.ts --write",
     "flow": "npm run drizzle:flow:push && npm run minio:download && npm run shp:convert && npm run pg:flow",
     "drizzle:api:pull": "drizzle-kit introspect --config ./drizzle/api.config.ts",
     "drizzle:flow:push": "drizzle-kit push --config ./drizzle/flow.config.ts",
@@ -17,7 +17,7 @@
     "pg:flow": "npm run pg:source:flow && npm run pg:target:flow",
     "pg:source:flow": "npm run pg:configure && npm run pg:source:create && npm run pg:source:load",
     "pg:configure": "tsx ./pg/query.ts configure",
-    "pg:source:create": "tsx ./pg/query.ts source-create",
+    "pg:source:create": "tsx ./pg/source-create/create.ts",
     "pg:source:load": "tsx ./pg/copy.ts",
     "pg:target:flow": "npm run pg:target:wrap && npm run pg:target:populate",
     "pg:pluto:transform": "tsx ./pg/query.ts pluto-transform",

@@ -1,22 +1,9 @@
 DROP TABLE IF EXISTS 
-	source_borough,
 	source_capital_commitment, 
 	source_capital_project,
 	source_capital_project_m_poly, 
-	source_capital_project_m_pnt,
-	source_city_council_district,
-  source_community_district,
-	source_land_use,
-	source_pluto,
-	source_zoning_district,
-	source_zoning_district_class
+	source_capital_project_m_pnt
 	CASCADE;
-
-CREATE TABLE IF NOT EXISTS source_borough (
-	id char(1) PRIMARY KEY NOT NULL CHECK (id SIMILAR TO '[1-9]'),
-	title text,
-	abbr char(2)
-);
 
 CREATE TABLE IF NOT EXISTS source_capital_commitment (
   ccp_version text,
@@ -129,48 +116,3 @@ CREATE TABLE IF NOT EXISTS source_capital_project_m_pnt (
 	datadate text,
 	wkt geometry(MULTIPOINT, 4326)
 );
-
-CREATE TABLE IF NOT EXISTS source_city_council_district (
-	coundist text PRIMARY KEY CHECK (coundist SIMILAR TO '[0-9]{1,2}'),
-	shape_leng float,
-	shape_area float,
-	wkt geometry(MULTIPOLYGON, 4326) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS source_community_district (
-	borocd char(3) PRIMARY KEY CHECK (borocd SIMILAR TO '[1-9][0-9]{2}'),
-	shape_leng float,
-	shape_area float,
-	wkt geometry(MULTIPOLYGON, 4326) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS source_land_use (
-	id char(2) PRIMARY KEY NOT NULL CHECK (id SIMILAR TO '[0-9]{2}'),
-	description text,
-	color char(9) NOT NULL CHECK (color SIMILAR TO '#([A-Fa-f0-9]{8})')
-);
-
-CREATE TABLE IF NOT EXISTS source_pluto (
-	bbl text PRIMARY KEY NOT NULL CHECK (bbl SIMILAR TO '[0-9]{10}\.00000000'),
-	borough char(2) NOT NULL,
-	block text NOT NULL CHECK (block SIMILAR TO '[0-9]{1,5}'),
-	lot text NOT NULL CHECK (lot SIMILAR TO '[0-9]{1,4}'),
-	address text,
-	land_use char(2),
-	wkt geometry(MULTIPOLYGON, 2263) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS source_zoning_district (
-	zonedist text NOT NULL,
-	shape_leng float,
-	shape_area float,
-	wkt geometry(MULTIPOLYGON, 4326) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS source_zoning_district_class (
-	id text PRIMARY KEY CHECK (id SIMILAR TO '[A-Z][0-9]+'),
-	category category NOT NULL,
-	description text,
-	url text,
-	color char(9) NOT NULL CHECK (color SIMILAR TO '#([A-Fa-f0-9]{8})')
-)
