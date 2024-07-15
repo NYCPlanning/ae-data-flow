@@ -8,24 +8,29 @@ import * as fs from "fs";
 
   type Source = {
     fileName: string;
+    treeDepth: number;
     builds: Array<Build>;
   };
 
   const sources: Array<Source> = [
     {
       fileName: "borough",
+      treeDepth: 0,
       builds: ["admin", "capital-planning", "pluto"],
     },
     {
       fileName: "admin",
+      treeDepth: 1,
       builds: ["admin"],
     },
     {
       fileName: "capital-planning",
+      treeDepth: 1,
       builds: ["capital-planning"],
     },
     {
       fileName: "pluto",
+      treeDepth: 1,
       builds: ["pluto"],
     },
   ];
@@ -34,16 +39,17 @@ import * as fs from "fs";
     build === undefined
       ? sources
       : sources.filter((source) => source.builds.includes(build));
+  buildSources.sort((a, b) => a.treeDepth - b.treeDepth);
 
   try {
     await pgClient.connect();
     await pgClient.query("BEGIN;");
     buildSources.forEach(async (source) => {
       const sql = fs
-        .readFileSync(`pg/source-create/${source.fileName}.sql`)
+        .readFileSync(`pg/target-transform/${source.fileName}.sql`)
         .toString();
-      await pgClient.query(sql);
       console.debug("source", source.fileName);
+      await pgClient.query(sql);
     });
     await pgClient.query("COMMIT;");
   } catch (e) {

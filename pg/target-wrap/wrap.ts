@@ -1,4 +1,4 @@
-import { pgClient } from "./pg-connector";
+import { pgClient } from "../pg-connector";
 import * as fs from "fs";
 import { exit } from "process";
 import format from "pg-format";
@@ -12,7 +12,7 @@ import "dotenv/config";
   const targetPassword = process.env.TARGET_DATABASE_PASSWORD!;
 
   try {
-    const sql = fs.readFileSync("pg/query/target-wrap.sql").toString();
+    const sql = fs.readFileSync("pg/target-wrap/wrap.sql").toString();
     const sqlFormat = format(
       sql,
       targetHost,
