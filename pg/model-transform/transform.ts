@@ -46,7 +46,7 @@ import * as fs from "fs";
     await pgClient.query("BEGIN;");
     buildSources.forEach(async (source) => {
       const sql = fs
-        .readFileSync(`pg/target-transform/${source.fileName}.sql`)
+        .readFileSync(`pg/model-transform/${source.fileName}.sql`)
         .toString();
       console.debug("source", source.fileName);
       await pgClient.query(sql);

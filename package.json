@@ -16,10 +16,10 @@
     "pg:configure": "tsx ./pg/configure/configure.ts",
     "pg:source:create": "tsx ./pg/source-create/create.ts",
     "pg:source:load": "tsx ./pg/source-load/load.ts",
-    "pg:target:transform": "tsx ./pg/target-transform/transform.ts",
+    "pg:model:transform": "tsx ./pg/model-transform/transform.ts",
     "pg:target:wrap": "tsx ./pg/target-wrap/wrap.ts",
-    "psql:target:repopulate": "docker compose exec -e BUILD=$BUILD -it db  bash repopulate/target-repopulate.sh",
-    "echo:build": "echo $BUILD"
+    "pg-db:target:populate": "docker compose exec -e BUILD=$BUILD -it db  bash flow/target-populate/populate.sh",
+    "pg-db:model:create": "docker compose exec -it db bash flow/model-create/$BUILD.sh"
   },
   "author": "",
   "license": "ISC",
