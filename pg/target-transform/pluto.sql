@@ -4,10 +4,10 @@ DROP TABLE IF EXISTS
 	CASCADE;
 
 CREATE TABLE IF NOT EXISTS flow_land_use 
-	(LIKE land_use INCLUDING ALL);
+	(LIKE land_use);
 
 CREATE TABLE IF NOT EXISTS flow_tax_lot
-	(LIKE tax_lot INCLUDING ALL);
+	(LIKE tax_lot);
 	
 INSERT INTO flow_land_use
     SELECT

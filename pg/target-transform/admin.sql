@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS flow_city_council_district
 CREATE TABLE IF NOT EXISTS flow_community_district 
 	(LIKE community_district INCLUDING ALL);
 
-INSERT INTO city_council_district
+INSERT INTO flow_city_council_district
 SELECT
   coundist AS id,
   ST_Transform(wkt, 2263) AS li_ft,
@@ -17,7 +17,7 @@ SELECT
   ST_Transform((ST_MaximumInscribedCircle(wkt)).center, 3857) AS mercator_label
 FROM source_city_council_district;
 
-INSERT INTO community_district
+INSERT INTO flow_community_district
 SELECT
   SUBSTRING(borocd::text, 1, 1) AS borough_id,
   SUBSTRING(borocd::text, 2, 3) AS id,
