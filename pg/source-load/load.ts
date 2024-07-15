@@ -223,9 +223,7 @@ import { Build, buildSchema } from "../../schemas";
 
   const copies: Array<Promise<void>> = [];
   buildSources.forEach((source) => copies.push(copy(source)));
-  console.debug("waiting");
   await Promise.all(copies);
   await pgPool.end();
-  console.debug("ending");
   exit();
 })();
