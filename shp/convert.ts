@@ -5,27 +5,43 @@ import * as turf from "@turf/turf";
 import { geojsonToWKT } from "@terraformer/wkt";
 import { stringify } from "csv-stringify/sync";
 import { exit } from "process";
+import { Build, buildSchema } from "../schemas";
 
 (async () => {
-  type Source = { fileName: string; promoteToMulti: boolean };
+  const build = buildSchema.optional().parse(process.argv[2]);
+
+  type Source = {
+    fileName: string;
+    builds: Array<Build>;
+    promoteToMulti: boolean;
+  };
   const sources: Array<Source> = [
     {
       fileName: "dcp_city_council_districts",
+      builds: ["admin"],
       promoteToMulti: true,
     },
     {
       fileName: "dcp_community_districts",
+      builds: ["admin"],
       promoteToMulti: true,
     },
     {
       fileName: "cpdb_dcpattributes_poly.shp",
+      builds: ["capital-planning"],
       promoteToMulti: true,
     },
     {
       fileName: "cpdb_dcpattributes_pts.shp",
+      builds: ["capital-planning"],
       promoteToMulti: true,
     },
   ];
+
+  const buildSources =
+    build === undefined
+      ? sources
+      : sources.filter((source) => source.builds.includes(build));
 
   const conversion = async (source: Source) => {
     const geogBuffer = fs.readFileSync(`data/download/${source.fileName}.zip`);
@@ -70,7 +86,7 @@ import { exit } from "process";
     fs.writeFileSync(`data/convert/${source.fileName}.csv`, output);
   };
   const conversions: Array<Promise<void>> = [];
-  sources.forEach(async (source) => conversions.push(conversion(source)));
+  buildSources.forEach(async (source) => conversions.push(conversion(source)));
   await Promise.all(conversions);
   exit();
 })();

@@ -8,8 +8,6 @@ import { buildSchema } from "../schemas";
   const buildInput = process.argv[2];
   const build = buildSchema.optional().parse(buildInput);
 
-  console.debug("build", build);
-
   type Source = {
     fileName: string;
     fileExtension: "csv" | "zip";
@@ -103,5 +101,6 @@ import { buildSchema } from "../schemas";
   });
 
   await Promise.all(downloads);
+  console.debug("end download");
   exit();
 })();
