@@ -1,6 +1,4 @@
-DROP TABLE IF EXISTS
-	flow_city_council_district,
-	flow_community_district,
+TRUNCATE
 	city_council_district,
 	community_district
     CASCADE;
