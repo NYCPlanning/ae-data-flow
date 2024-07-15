@@ -3,14 +3,18 @@ import * as fs from "fs";
 import format from "pg-format";
 import { from } from "pg-copy-streams";
 import { pipeline } from "stream/promises";
-import { pgPool } from "./pg-connector";
+import { pgPool } from "../pg-connector";
+import { Build, buildSchema } from "../../schemas";
 
 (async () => {
+  const build = buildSchema.optional().parse(process.argv[2]);
+
   type Source = {
     table: string;
     columns: Array<string>;
     filePath: "data" | "data/download" | "data/convert";
     fileName: string;
+    builds: Array<Build>;
   };
   const sources: Array<Source> = [
     {
@@ -18,18 +22,21 @@ import { pgPool } from "./pg-connector";
       columns: ["id", "title", "abbr"],
       filePath: "data",
       fileName: "borough.csv",
+      builds: ["admin", "capital-planning", "pluto"],
     },
     {
       table: "source_city_council_district",
       columns: ["coundist", "shape_leng", "shape_area", "wkt"],
       filePath: "data/convert",
       fileName: "dcp_city_council_districts.csv",
+      builds: ["admin"],
     },
     {
       table: "source_community_district",
       columns: ["borocd", "shape_leng", "shape_area", "wkt"],
       filePath: "data/convert",
       fileName: "dcp_community_districts.csv",
+      builds: ["admin"],
     },
     {
       table: "source_capital_commitment",
@@ -59,6 +66,7 @@ import { pgPool } from "./pg-connector";
       ],
       filePath: "data/download",
       fileName: "cpdb_planned_commitments.csv",
+      builds: ["capital-planning"],
     },
     {
       table: "source_capital_project",
@@ -117,6 +125,7 @@ import { pgPool } from "./pg-connector";
       ],
       filePath: "data/download",
       fileName: "cpdb_projects.csv",
+      builds: ["capital-planning"],
     },
     {
       table: "source_capital_project_m_poly",
@@ -136,6 +145,7 @@ import { pgPool } from "./pg-connector";
       ],
       filePath: "data/convert",
       fileName: "cpdb_dcpattributes_poly.shp.csv",
+      builds: ["capital-planning"],
     },
     {
       table: "source_capital_project_m_pnt",
@@ -155,43 +165,54 @@ import { pgPool } from "./pg-connector";
       ],
       filePath: "data/convert",
       fileName: "cpdb_dcpattributes_pts.shp.csv",
+      builds: ["capital-planning"],
     },
     {
       table: "source_land_use",
       columns: ["id", "description", "color"],
       filePath: "data",
       fileName: "land_use.csv",
+      builds: ["pluto"],
     },
     {
       table: "source_pluto",
       columns: ["wkt", "borough", "block", "lot", "address", "land_use", "bbl"],
       filePath: "data/download",
       fileName: "pluto.csv",
+      builds: ["pluto"],
     },
     {
       table: "source_zoning_district",
       columns: ["wkt", "zonedist", "shape_leng", "shape_area"],
       filePath: "data/download",
       fileName: "zoning_districts.csv",
+      builds: ["pluto"],
     },
     {
       table: "source_zoning_district_class",
       columns: ["id", "category", "description", "url", "color"],
       filePath: "data",
       fileName: "zoning_district_class.csv",
+      builds: ["pluto"],
     },
   ];
 
-  const sql = fs.readFileSync(`pg/query/source-load.sql`).toString();
+  const buildSources =
+    build === undefined
+      ? sources
+      : sources.filter((source) => source.builds.includes(build));
+
+  const sqlTemplate = fs.readFileSync(`pg/source-load/load.sql`).toString();
 
   const copy = async (source: Source) => {
     const client = await pgPool.connect();
     try {
-      const sqlFormat = format(sql, source.table, source.columns);
+      const sqlFormat = format(sqlTemplate, source.table, source.columns);
       const ingestStream = client.query(from(sqlFormat));
       const sourceStream = fs.createReadStream(
         `${source.filePath}/${source.fileName}`,
       );
+      console.debug("source", source.fileName);
       await pipeline(sourceStream, ingestStream);
     } catch (e) {
       console.error(e);
@@ -201,8 +222,10 @@ import { pgPool } from "./pg-connector";
   };
 
   const copies: Array<Promise<void>> = [];
-  sources.forEach((source) => copies.push(copy(source)));
+  buildSources.forEach((source) => copies.push(copy(source)));
+  console.debug("waiting");
   await Promise.all(copies);
   await pgPool.end();
+  console.debug("ending");
   exit();
 })();

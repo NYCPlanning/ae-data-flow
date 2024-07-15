@@ -18,7 +18,7 @@
     "pg:source:flow": "npm run pg:configure && npm run pg:source:create && npm run pg:source:load",
     "pg:configure": "tsx ./pg/query.ts configure",
     "pg:source:create": "tsx ./pg/source-create/create.ts",
-    "pg:source:load": "tsx ./pg/copy.ts",
+    "pg:source:load": "tsx ./pg/source-load/load.ts",
     "pg:target:flow": "npm run pg:target:wrap && npm run pg:target:populate",
     "pg:pluto:transform": "tsx ./pg/query.ts pluto-transform",
     "pg:target:wrap": "tsx ./pg/wrap.ts",

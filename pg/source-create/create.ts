@@ -39,13 +39,15 @@ import * as fs from "fs";
     await pgClient.connect();
     await pgClient.query("BEGIN;");
     buildSources.forEach(async (source) => {
-        const sql = fs.readFileSync(`pg/source-create/${source.fileName}.sql`).toString();
-        console.debug("source", source.fileName);
-        pgClient.query(sql);
-    })
-    await pgClient.query("COMMIT;")
+      const sql = fs
+        .readFileSync(`pg/source-create/${source.fileName}.sql`)
+        .toString();
+      console.debug("source", source.fileName);
+      pgClient.query(sql);
+    });
+    await pgClient.query("COMMIT;");
   } catch (e) {
-    await pgClient.query("ROLLBACK;")
+    await pgClient.query("ROLLBACK;");
     console.error(e);
   } finally {
     console.debug("ending");
