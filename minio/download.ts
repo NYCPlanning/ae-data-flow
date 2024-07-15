@@ -1,12 +1,19 @@
+import { Build } from "../schemas";
 import { minioClient } from "./minio-client";
 import { exit } from "process";
+import { buildSchema } from "../schemas";
 
 (async () => {
   console.debug("start download");
+  const buildInput = process.argv[2];
+  const build = buildSchema.optional().parse(buildInput);
+
+  console.debug("build", build);
 
   type Source = {
     fileName: string;
     fileExtension: "csv" | "zip";
+    builds: Array<Build>;
   } & (
     | {
         bucketName: "edm-publishing";
@@ -27,52 +34,65 @@ import { exit } from "process";
       fileExtension: "csv",
       bucketName: "edm-publishing",
       bucketSubPath: "db-cpdb/publish/latest",
+      builds: ["capital-planning"],
     },
     {
       fileName: "cpdb_projects",
       fileExtension: "csv",
       bucketName: "edm-publishing",
       bucketSubPath: "db-cpdb/publish/latest",
+      builds: ["capital-planning"],
     },
     {
       fileName: "cpdb_dcpattributes_pts.shp",
       fileExtension: "zip",
       bucketName: "edm-publishing",
       bucketSubPath: "db-cpdb/publish/latest",
+      builds: ["capital-planning"],
     },
     {
       fileName: "cpdb_dcpattributes_poly.shp",
       fileExtension: "zip",
       bucketName: "edm-publishing",
       bucketSubPath: "db-cpdb/publish/latest",
+      builds: ["capital-planning"],
     },
     {
       fileName: "dcp_city_council_districts",
       fileExtension: "zip",
       bucketName: "edm-publishing",
       bucketSubPath: "datasets/dcp_city_council_districts/24B",
+      builds: ["admin"],
     },
     {
       fileName: "dcp_community_districts",
       fileExtension: "zip",
       bucketName: "edm-publishing",
       bucketSubPath: "datasets/dcp_community_districts/24B",
+      builds: ["admin"],
     },
     {
       fileName: "pluto",
       fileExtension: "csv",
       bucketName: "ae-data-backups",
       bucketSubPath: "zoning-api",
+      builds: ["pluto"],
     },
     {
       fileName: "zoning_districts",
       fileExtension: "csv",
       bucketName: "ae-data-backups",
       bucketSubPath: "zoning-api",
+      builds: ["pluto"],
     },
   ];
 
-  const downloads = sources.map((source) => {
+  const buildSources =
+    build === undefined
+      ? sources
+      : sources.filter((source) => source.builds.includes(build));
+
+  const downloads = buildSources.map((source) => {
     const file = `${source.fileName}.${source.fileExtension}`;
     const filePath = `${source.bucketSubPath}/${file}`;
     return minioClient.fGetObject(
