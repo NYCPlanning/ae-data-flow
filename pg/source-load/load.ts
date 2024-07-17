@@ -23,7 +23,7 @@ import "dotenv/config";
       columns: ["id", "title", "abbr"],
       filePath: "data",
       fileName: "borough.csv",
-      builds: ["admin", "capital-planning", "pluto"],
+      builds: ["admin", "pluto"],
     },
     {
       table: "source_city_council_district",

@@ -13,7 +13,6 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -d $TARGET_DATABASE_NAME \
     -s \
     --no-owner \
-    -t borough \
 	-t managing_code \
 	-t agency \
 	-t capital_project \

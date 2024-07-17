@@ -17,7 +17,7 @@ import "dotenv/config";
     {
       fileName: "borough",
       treeDepth: 0,
-      builds: ["admin", "capital-planning", "pluto"],
+      builds: ["admin", "pluto"],
     },
     {
       fileName: "admin",
@@ -26,7 +26,7 @@ import "dotenv/config";
     },
     {
       fileName: "capital-planning",
-      treeDepth: 1,
+      treeDepth: 0,
       builds: ["capital-planning"],
     },
     {

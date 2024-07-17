@@ -15,7 +15,7 @@ import "dotenv/config";
   const sources: Array<Source> = [
     {
       fileName: "borough",
-      builds: ["admin", "capital-planning", "pluto"],
+      builds: ["admin", "pluto"],
     },
     {
       fileName: "admin",
