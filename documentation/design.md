@@ -19,45 +19,82 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
 0) Pull custom types from target database
    - Command: `drizzle:api:pull`
    - Group: none
-   - Description: The API schemas include several custom enum types. These types need to be defined in the data flow database before it can replicate the API schema. Drizzle introspection is performed against the api database, looking only at the custom types. The resulting introspection is saved in the `drizzle/migrations` folder in the `schema.ts` file. There are a few things to note. First, the introspection also produces meta and sql files. However, the data flow does not use these files and they are ignored by source control. Second, Drizzle does not automatically import the `pgEnum` function in the `schema.ts`; any developer that reruns the introspection needs to manually import this method. Third, this step should only need to be run when there are changes to the custom types. Consequently, it is excluded from the `flow` command. Finally, changes to the custom types should happen rarely. When they do happen, they will require updates to the `drizzle/migrations/schema.ts` file. These files will need to be committed an integrated to the `main` branch.
+   - Tool: Drizzle
+   - Run from: Runner, [drizzle (api config)](../drizzle/api.config.ts)
+   - Run against: API database
+   - Description: The API schemas include several custom enum types. These types need to be defined in the data flow database before it can replicate the API schema. Drizzle introspection is performed against the api database, looking only at the custom types. The resulting introspection is saved in the `drizzle/migrations` folder in the `schema.ts` file. There are a few things to note. First, the introspection also produces meta and sql files. However, the data flow does not use these files and they are ignored by source control. Second, Drizzle does not automatically import the `pgEnum` function in the `schema.ts`; any developer that reruns the introspection needs to manually import this method. Third, this step should only need to be run when there are changes to the custom types. Consequently, it is excluded from the `flow` command. Finally, changes to the custom types should happen rarely. When they do happen, they will require updates to the [drizzle/migration/schema.ts](../drizzle/migration/schema.ts) file. These files will need to be committed an integrated to the `main` branch.
 
 1) Download source files from Digital Ocean Spaces
    - Command: `minio:download`
    - Group: `download`
+   - Tool: minio.js
+   - Run from: Data flow runner, [minio/download.ts](../minio/download.ts)
+   - Run against: S3 storage
+   - Description: Use the minio node module to download source files from Digital Ocean. Files are saved on the Data flow runner in the [data/download](../data/download/) folder.
 
 2) Convert shapefiles into csv files
   - Command: `shp:convert`    
   - Group: `download`
+  - Tool: shapefile.js
+  - Run from: Data flow runner, [shp/convert.ts](../shp/convert.ts)
+  - Run against: Data flow runner
+  - Description: Several source files are stored as shapefiles. However, the database copy functions better handle csv files. In this step, we use the shapefile node module to convert the shapefiles to csvs. The resulting files are stored in [data/convert](../data/convert/)
 
 3) Activate PostGIS and other necessary extensions
   - Command: `pg:flow:configure`
   - Group: `configure`
+  - Tool: pg.js
+  - Run from: Data flow runner, [pg/configure](../pg/configure/configure.ts)
+  - Run against: Data flow database
+  - Description: Run a sql command against the data flow database to [activate PostGIS](../pg/configure/configure.sql)
 
 4) Push custom types and enums to the flow database
-  - Command: `pg:flow:push`
+  - Command: `drizzle:flow:push`
   - Group: `configure`
+  - Tool: drizzle
+  - Run from: Data flow runner, [drizzle (flow config)](../drizzle/flow.config.ts)
+  - Run against: Flow database
+  - Description: Push the enums stored in [drizzle/migration/]
 
 5) Create tables in flow database to hold source data
   - Command: `pg:source:create`
   - Group: `seed`
+  - Tool: pg.js [pg/source-create](../pg/source-create/create.ts)
+  - Run from: Data flow runner
+  - Run against: Flow database
 
 6) Load source tables with source data
   - Command: `pg:source:load`
   - Group: `seed`
+  - Tool: pg.js [pg/source-load](../pg/source-load/load.ts)
+  - Run from: Data flow runner
+  - Run against: Flow database
 
 7) Create tables in the flow database that model the api database tables
-  - Command: `pg:model:create`
+  - Command: `db:pg:model:create`
   - Group: `seed`
+  - Tool: pg_dump and psql, [db/pg/model-create](../db/pg/model-create/all.sh)
+  - Run from: Flow database
+  - Run against: Flow database
 
 8) Transform the source data and insert it into the model tables
   - Command: `pg:model:transform`
   - Group: `populate`
+  - Tool: pg.js, [pg/model-transform](../pg/model-transform/transform.ts)
+  - Run from: Data flow runner
+  - Run against: Flow database
 
 9) Move the data from the model tables in the flow database to their corresponding target tables in the api database
- - Command: `pg:target:populate`
+ - Command: `db:pg:target:populate`
+ - Group: `populate`
+ - Tool: psql, [db/pg/target-populate](../db/pg/target-populate/populate.sh)
+- Run from: Flow database
+- Run against: API database
 
 ## Domains
-- All
-- Admin
-- Capital Planning
-- Pluto
+
+The data flow can be used to either initialize a full data suite or update a portion of the full suite. These portions are group into "Domains". The data flow is divided into four Domains- "all", "admin", "capital-planning", and "pluto". They are visualized in the [domains diagram](./diagrams/domains.drawio.png).  
+
+The "all" domain contains every other domain plus "Boroughs". The "admin" domain contains administrative boundaries, other than Boroughs. Boroughs are excluded from the "admin" domain because tax lots depend on the Borough Ids existing. Rebuilding Boroughs would require also require rebuilding tax lots.
+
+The "capital-planning" domain applies to tables derived from the capital planning database. The "pluto" domain applies to tables derived from the "pluto" dataset.
