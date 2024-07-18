@@ -1,15 +1,20 @@
-# TBD
-Design documentation
+# Documentation
 
 ## Components
-- Spaces file storage
-- Data flow runner
-- Data flow database
-- API database
+- S3-compatible storage (Digital Ocean Spaces)
+- Data flow runner (GitHub Runner or Local Machine)
+- Data flow database (Docker Container within the Runner)
+  - Flow
+- API database (Docker container on the Local Machine or Digital Ocean Postgres Cluster)
+  - API or Target
 
 ## Steps
-### Format
-`<tool>:<target>:<operation>`
+
+The entire data flow contains 10 steps. They are found in the `scripts` section of the [package.json](../package.json). With some exceptions, they follow the format `<tool used>:<targeted resource>:<operation performed>`. In the [flow steps diagram](./diagrams/flow_steps.drawio.png), they are numbered 0 through 9. They are described in greater detail in the list below.
+
+Steps 1 through 9 can be run with no configuration. They are part of the `flow` command listed in the [README](../README.md#run-the-local-data-flow). Step 0 requires some configuration and is not part of the `flow` command; more context is listed in the step 0 description. Of the remaining steps, they can be run individually using their listed `Command`. This is helpful when a step fails. After fixing the failure, the next steps of the flow can be run without rerunning the steps that already succeeded. In addition to the individual commands, multiple commands can be run together as a `Group`. 
+
+The available groups are `download`, `configure`, `seed`, and `populate`. `download` will retrieve the source files and convert the shapefiles to csvs. `configure` will install dependencies on the flow database. `seed` will initialize the source tables in the flow database and fill them with source data. `populate` will transform the source data within the flow database and then transfer the transformed data to the target database.
 
 0) Pull custom types from target database
    - Command: `drizzle:api:pull`
@@ -52,3 +57,7 @@ Design documentation
  - Command: `pg:target:populate`
 
 ## Domains
+- All
+- Admin
+- Capital Planning
+- Pluto
