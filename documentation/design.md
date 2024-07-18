@@ -1,13 +1,18 @@
 # Documentation
 
 ## Components
-- S3-compatible storage (Digital Ocean Spaces)
-- Data flow runner (GitHub Runner or Local Machine)
-- Data flow database (Docker Container within the Runner)
-  - Flow
-- API database (Docker container on the Local Machine or Digital Ocean Postgres Cluster)
-  - API or Target
+The data flow coordinates data across a few resource. These resource are:
 
+- S3-compatible storage (Digital Ocean Spaces)
+  - Data are managed mostly by the Data Engineering team. Though, the Application Engineering team manages a few of its own resources.
+- Data flow runner (GitHub Runner or Local Machine)
+  - The data flow is coordinated from this service. During development, it is run on a developer's machine. In staging and production, it is a GitHub Action Runner.
+- Data flow database (Docker Container within the Runner)
+  - The Data flow runner (both the GitHub Action and Local Machine) version contains a Database within a Docker container.
+  - It is referred to as the "Flow" database 
+- API database (Docker container on the Local Machine or Digital Ocean Postgres Cluster)
+  - This the database that actually serves the data to applications. Locally, it exists within a Docker container. In live environments, it exists on a Digital Ocean Postgres cluster. There are two steps which are run from the "Flow" database against the "API" database. When running locally, these database communicate via a docker network. When run against the Digital Ocean cluster, it runs through the internet.
+  - It is referred to as the "API" or "Target" database
 ## Steps
 
 The entire data flow contains 10 steps. They are found in the `scripts` section of the [package.json](../package.json). With some exceptions, they follow the format `<tool used>:<targeted resource>:<operation performed>`. In the [flow steps diagram](./diagrams/flow_steps.drawio.png), they are numbered 0 through 9. They are described in greater detail in the list below.
@@ -98,3 +103,5 @@ The data flow can be used to either initialize a full data suite or update a por
 The "all" domain contains every other domain plus "Boroughs". The "admin" domain contains administrative boundaries, other than Boroughs. Boroughs are excluded from the "admin" domain because tax lots depend on the Borough Ids existing. Rebuilding Boroughs would require also require rebuilding tax lots.
 
 The "capital-planning" domain applies to tables derived from the capital planning database. The "pluto" domain applies to tables derived from the "pluto" dataset.
+
+A domain must be specified with a `BUILD` environment variable when running the data-flow
