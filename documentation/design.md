@@ -67,6 +67,7 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
   - Tool: pg.js [pg/source-create](../pg/source-create/create.ts)
   - Run from: Data flow runner
   - Run against: Flow database
+  - Description: Run sql commands to [create tables](../pg/source-create/borough.sql) that hold data as they are stored in their source files.
 
 6) Load source tables with source data
   - Command: `pg:source:load`
