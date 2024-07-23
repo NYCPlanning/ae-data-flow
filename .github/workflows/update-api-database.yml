@@ -1,0 +1,61 @@
+name: ♻️ Update api database
+run-name: "♻️ Update $${{ inputs.build }} in ${{ inputs.environment }}"
+
+on:
+    workflow_dispatch:
+        inputs:
+            build:
+                description: "The data domain to update"
+                type: choice
+                required: true
+                options:
+                    - all
+                    - admin
+                    - capital-planning
+                    - pluto
+            environment:
+                description: "The database environment to update"
+                type: choice
+                required: true
+                options:
+                    - staging
+                    - production
+
+jobs:
+    update:
+        environment:
+            name: ${{ inputs.environment }}
+        name: Update database
+        runs-on: ubuntu-latest
+        services:
+            postgres:
+                image: postgis/postgis:15-3.4-alpine
+                env:
+                    POSTGRES_USER: ${{ secrets.FLOW_DATABASE_USER }}
+                    POSTGRES_PASSWORD: ${{ secrets.FLOW_DATABASE_PASSWORD }}
+                    POSTGRES_DB: ${{ secrets.FLOW_DATABASE_NAME }}
+                    LOCAL_POSTGRES_HOST: localhost
+                    LOCAL_POSTGRES_PORT: 5432
+                    TARGET_DATABASE_USER: ${{ secrets.TARGET_DATABASE_USER }}
+                    TARGET_DATABASE_PASSWORD: ${{ secrets.TARGET_DATABASE_PASSWORD }}
+                    TARGET_DATABASE_NAME: ${{ secrets.TARGET_DATABASE_NAME }}
+                    TARGET_DATABASE_PORT: ${{ secrets.TARGET_DATABASE_PORT }}
+                    TARGET_DATABASE_HOST: ${{ secrets.TARGET_DATABASE_HOST }}
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+                ports:
+                    - 5432:5432
+        steps:
+            - name: checkout code
+              uses: actions/checkout@v4
+            - name: install node
+              uses: actions/setup-node@v4  
+              with:
+                node-version: '20.x'
+            - name: install node dependencies
+              run: npm ci
+            - name: run flow
+              run: BUILD=${{ inputs.build }} npm run flow
