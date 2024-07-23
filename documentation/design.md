@@ -59,7 +59,7 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
    - Tool: drizzle
    - Run from: Data flow runner, [drizzle (flow config)](../drizzle/flow.config.ts)
    - Run against: Flow database
-   - Description: Push the enums stored in [drizzle/migration/]
+   - Description: Push the enums stored in [drizzle/migration/schema.ts](../drizzle/migration/schema.ts)
 
 5) Create tables in flow database to hold source data
    - Command: `pg:source:create`
@@ -67,7 +67,8 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
    - Tool: pg.js [pg/source-create](../pg/source-create/create.ts)
    - Run from: Data flow runner
    - Run against: Flow database
-   - Description: Run sql commands to [create tables](../pg/source-create/borough.sql) that hold data as they are stored in their source files.
+   - Description: Run sql commands to [create tables](../pg/source-create/borough.sql) that hold data as they are stored in their source files. The source tables also create constraints that will check data validity as it is copied into the source tables. 
+   If any source tables already existed, drop them before adding them again.
 
 6) Load source tables with source data
    - Command: `pg:source:load`
@@ -75,6 +76,7 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
    - Tool: pg.js [pg/source-load](../pg/source-load/load.ts)
    - Run from: Data flow runner
    - Run against: Flow database
+   - Description: Copy the source data from the `data` folder to the source tables within the flow database.
 
 7) Create tables in the flow database that model the api database tables
    - Command: `db:pg:model:create`
@@ -82,6 +84,10 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
    - Tool: pg_dump and psql, [db/pg/model-create](../db/pg/model-create/all.sh)
    - Run from: Flow database
    - Run against: Flow database
+   - Description: Run `pg_dump` and `psql` from the flow database docker container. 
+   Use `pg_dump` to extract the API Table Schemas into a `sql` file stored in the flow database docker container.
+   Use `psql` to read the `sql` file of the dump into the flow database. 
+   If any model tables already existed in the flow database, drop them before adding them again.
 
 8) Transform the source data and insert it into the model tables
    - Command: `pg:model:transform`
@@ -89,6 +95,7 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
    - Tool: pg.js, [pg/model-transform](../pg/model-transform/transform.ts)
    - Run from: Data flow runner
    - Run against: Flow database
+   - Description: Use pg node to run the [`sql` files](../pg/model-transform/capital-planning.sql) that transform the `source` columns into their respective `model` columns. Export the populated `model` tables to `.csv` files within the flow database docker container. Truncate any data that may already exist in the `model` tables before inserting the data again.
 
 9) Move the data from the model tables in the flow database to their corresponding target tables in the api database
    - Command: `db:pg:target:populate`
@@ -96,6 +103,7 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
    - Tool: psql, [db/pg/target-populate](../db/pg/target-populate/populate.sh)
    - Run from: Flow database
    - Run against: API database
+   - Description: Use `psql` to truncate the target tables in the api database and then copy data from the `csv` files into the target tables. Perform the truncation and copy as a single transaction, allowing it to ROLLBACK under failures.
 
 ## Domains
 
