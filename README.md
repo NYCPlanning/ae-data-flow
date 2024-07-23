@@ -52,3 +52,11 @@ BUILD=all npm run flow
 
 The "BUILD" environment variable specifies which domain to update. Initial database seeding should use "all".
 Subsequent runs may want to only update specific domains. The `BUILD` domain options are: `admin`, `pluto`, and `capital-planning`.
+
+### Run pieces of the local data flow
+
+The data flow may fail at one of the steps. To pick up the data flow from an intermediate step, reference the [design](/documentation/design.md#steps) to run individual steps or groups of steps. 
+
+If the data flow database is in a confused or irreparable state, it can be wiped using `docker compose down`. 
+
+If the data flow is incomplete but it's necessary to pause and restart later, the database can be paused and saved with `docker compose stop`
