@@ -27,7 +27,7 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
    - Tool: Drizzle
    - Run from: Runner, [drizzle (api config)](../drizzle/api.config.ts)
    - Run against: API database
-   - Description: The API schemas include several custom enum types. These types need to be defined in the data flow database before it can replicate the API schema. Drizzle introspection is performed against the api database, looking only at the custom types. The resulting introspection is saved in the `drizzle/migrations` folder in the `schema.ts` file. There are a few things to note. First, the introspection also produces meta and sql files. However, the data flow does not use these files and they are ignored by source control. Second, Drizzle does not automatically import the `pgEnum` function in the `schema.ts`; any developer that reruns the introspection needs to manually import this method. Third, this step should only need to be run when there are changes to the custom types. Consequently, it is excluded from the `flow` command. Finally, changes to the custom types should happen rarely. When they do happen, they will require updates to the [drizzle/migration/schema.ts](../drizzle/migration/schema.ts) file. These files will need to be committed an integrated to the `main` branch.
+   - Description: The API schemas include several custom enum types. These types need to be defined in the data flow database before it can replicate the API schema. Drizzle introspection is performed against the api database, looking only at the custom types. The resulting introspection is saved in the `drizzle/migrations` folder in the `schema.ts` file. There are a few things to note. First, the introspection also produces meta and sql files. However, the data flow does not use these files and they are ignored by source control. Second, Drizzle does not automatically import the `pgEnum` function in the `schema.ts`; any developer that reruns the introspection needs to manually import this method. Third, this step should only need to be run when there are changes to the custom types. Consequently, it is excluded from the `flow` command. Finally, changes to the custom types should happen rarely. When they do happen, they will require updates to the [drizzle/migration/schema.ts](../drizzle/migration/schema.ts) file. These files will need to be committed and integrated into the `main` branch.
 
 1) Download source files from Digital Ocean Spaces
    - Command: `minio:download`
@@ -38,64 +38,64 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
    - Description: Use the minio node module to download source files from Digital Ocean. Files are saved on the Data flow runner in the [data/download](../data/download/) folder.
 
 2) Convert shapefiles into csv files
-  - Command: `shp:convert`    
-  - Group: `download`
-  - Tool: shapefile.js
-  - Run from: Data flow runner, [shp/convert.ts](../shp/convert.ts)
-  - Run against: Data flow runner
-  - Description: Several source files are stored as shapefiles. However, the database copy functions better handle csv files. In this step, we use the shapefile node module to convert the shapefiles to csvs. The resulting files are stored in [data/convert](../data/convert/)
+   - Command: `shp:convert`    
+   - Group: `download`
+   - Tool: shapefile.js
+   - Run from: Data flow runner, [shp/convert.ts](../shp/convert.ts)
+   - Run against: Data flow runner
+   - Description: Several source files are stored as shapefiles. However, the database copy functions better handle csv files. In this step, we use the shapefile node module to convert the shapefiles to csvs. The resulting files are stored in [data/convert](../data/convert/)
 
 3) Activate PostGIS and other necessary extensions
-  - Command: `pg:flow:configure`
-  - Group: `configure`
-  - Tool: pg.js
-  - Run from: Data flow runner, [pg/configure](../pg/configure/configure.ts)
-  - Run against: Data flow database
-  - Description: Run a sql command against the data flow database to [activate PostGIS](../pg/configure/configure.sql)
+   - Command: `pg:flow:configure`
+   - Group: `configure`
+   - Tool: pg.js
+   - Run from: Data flow runner, [pg/configure](../pg/configure/configure.ts)
+   - Run against: Data flow database
+   - Description: Run a sql command against the data flow database to [activate PostGIS](../pg/configure/configure.sql)
 
 4) Push custom types and enums to the flow database
-  - Command: `drizzle:flow:push`
-  - Group: `configure`
-  - Tool: drizzle
-  - Run from: Data flow runner, [drizzle (flow config)](../drizzle/flow.config.ts)
-  - Run against: Flow database
-  - Description: Push the enums stored in [drizzle/migration/]
+   - Command: `drizzle:flow:push`
+   - Group: `configure`
+   - Tool: drizzle
+   - Run from: Data flow runner, [drizzle (flow config)](../drizzle/flow.config.ts)
+   - Run against: Flow database
+   - Description: Push the enums stored in [drizzle/migration/]
 
 5) Create tables in flow database to hold source data
-  - Command: `pg:source:create`
-  - Group: `seed`
-  - Tool: pg.js [pg/source-create](../pg/source-create/create.ts)
-  - Run from: Data flow runner
-  - Run against: Flow database
-  - Description: Run sql commands to [create tables](../pg/source-create/borough.sql) that hold data as they are stored in their source files.
+   - Command: `pg:source:create`
+   - Group: `seed`
+   - Tool: pg.js [pg/source-create](../pg/source-create/create.ts)
+   - Run from: Data flow runner
+   - Run against: Flow database
+   - Description: Run sql commands to [create tables](../pg/source-create/borough.sql) that hold data as they are stored in their source files.
 
 6) Load source tables with source data
-  - Command: `pg:source:load`
-  - Group: `seed`
-  - Tool: pg.js [pg/source-load](../pg/source-load/load.ts)
-  - Run from: Data flow runner
-  - Run against: Flow database
+   - Command: `pg:source:load`
+   - Group: `seed`
+   - Tool: pg.js [pg/source-load](../pg/source-load/load.ts)
+   - Run from: Data flow runner
+   - Run against: Flow database
 
 7) Create tables in the flow database that model the api database tables
-  - Command: `db:pg:model:create`
-  - Group: `seed`
-  - Tool: pg_dump and psql, [db/pg/model-create](../db/pg/model-create/all.sh)
-  - Run from: Flow database
-  - Run against: Flow database
+   - Command: `db:pg:model:create`
+   - Group: `seed`
+   - Tool: pg_dump and psql, [db/pg/model-create](../db/pg/model-create/all.sh)
+   - Run from: Flow database
+   - Run against: Flow database
 
 8) Transform the source data and insert it into the model tables
-  - Command: `pg:model:transform`
-  - Group: `populate`
-  - Tool: pg.js, [pg/model-transform](../pg/model-transform/transform.ts)
-  - Run from: Data flow runner
-  - Run against: Flow database
+   - Command: `pg:model:transform`
+   - Group: `populate`
+   - Tool: pg.js, [pg/model-transform](../pg/model-transform/transform.ts)
+   - Run from: Data flow runner
+   - Run against: Flow database
 
 9) Move the data from the model tables in the flow database to their corresponding target tables in the api database
- - Command: `db:pg:target:populate`
- - Group: `populate`
- - Tool: psql, [db/pg/target-populate](../db/pg/target-populate/populate.sh)
-- Run from: Flow database
-- Run against: API database
+   - Command: `db:pg:target:populate`
+   - Group: `populate`
+   - Tool: psql, [db/pg/target-populate](../db/pg/target-populate/populate.sh)
+   - Run from: Flow database
+   - Run against: API database
 
 ## Domains
 
