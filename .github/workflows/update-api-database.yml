@@ -1,5 +1,5 @@
 name: ♻️ Update api database
-run-name: "♻️ Update $${{ inputs.build }} in ${{ inputs.environment }}"
+run-name: "♻️ Update ${{ inputs.build }} in ${{ inputs.environment }}"
 
 on:
     workflow_dispatch:
@@ -33,14 +33,12 @@ jobs:
                 env:
                     POSTGRES_USER: ${{ secrets.FLOW_DATABASE_USER }}
                     POSTGRES_PASSWORD: ${{ secrets.FLOW_DATABASE_PASSWORD }}
-                    POSTGRES_DB: ${{ secrets.FLOW_DATABASE_NAME }}
-                    LOCAL_POSTGRES_HOST: localhost
-                    LOCAL_POSTGRES_PORT: 5432
+                    POSTGRES_DB: ${{ vars.FLOW_DATABASE_NAME }}
                     TARGET_DATABASE_USER: ${{ secrets.TARGET_DATABASE_USER }}
                     TARGET_DATABASE_PASSWORD: ${{ secrets.TARGET_DATABASE_PASSWORD }}
-                    TARGET_DATABASE_NAME: ${{ secrets.TARGET_DATABASE_NAME }}
-                    TARGET_DATABASE_PORT: ${{ secrets.TARGET_DATABASE_PORT }}
-                    TARGET_DATABASE_HOST: ${{ secrets.TARGET_DATABASE_HOST }}
+                    TARGET_DATABASE_NAME: ${{ vars.TARGET_DATABASE_NAME }}
+                    TARGET_DATABASE_PORT: ${{ vars.TARGET_DATABASE_PORT }}
+                    TARGET_DATABASE_HOST: ${{ vars.TARGET_DATABASE_HOST }}
                 options: >-
                     --health-cmd pg_isready
                     --health-interval 10s
