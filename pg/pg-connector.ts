@@ -7,6 +7,9 @@ const credentials = {
   user: process.env.FLOW_DATABASE_USER,
   password: process.env.FLOW_DATABASE_PASSWORD,
   database: process.env.FLOW_DATABASE_NAME!,
+  ssl: process.env.FLOW_DATABASE_ENV !== "development" && {
+    rejectUnauthorized: false,
+  },
 };
 
 export const pgClient = new Client(credentials);
