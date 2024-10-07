@@ -20,35 +20,35 @@ on:
                 options:
                     - staging
                     - production
-
 jobs:
     update:
         environment:
             name: ${{ inputs.environment }}
+        env:
+            DO_SPACES_ACCESS_KEY: ${{ secrets.DO_SPACES_ACCESS_KEY }}
+            DO_SPACES_ENDPOINT: ${{ secrets.DO_SPACES_ENDPOINT }}
+            DO_SPACES_SECRET_KEY: ${{ secrets.DO_SPACES_SECRET_KEY }}
+            FLOW_DATABASE_ENV: ${{ secrets.FLOW_DATABASE_ENV }}
+            FLOW_DATABASE_HOST: ${{ secrets.FLOW_DATABASE_HOST }}
+            FLOW_DATABASE_NAME: ${{ secrets.FLOW_DATABASE_NAME }}
+            FLOW_DATABASE_PASSWORD: ${{ secrets.FLOW_DATABASE_PASSWORD }}
+            FLOW_DATABASE_PORT: ${{ secrets.FLOW_DATABASE_PORT }}
+            FLOW_DATABASE_USER: ${{ secrets.FLOW_DATABASE_USER }}
+            TARGET_DATABASE_HOST: ${{ secrets.TARGET_DATABASE_HOST }}
+            TARGET_DATABASE_NAME: ${{ secrets.TARGET_DATABASE_NAME }}
+            TARGET_DATABASE_PASSWORD: ${{ secrets.TARGET_DATABASE_PASSWORD }}
+            TARGET_DATABASE_PORT: ${{ secrets.TARGET_DATABASE_PORT }}
+            TARGET_DATABASE_USER: ${{ secrets.TARGET_DATABASE_USER }}
+            
         name: Update database
         runs-on: ubuntu-latest
-        services:
-            postgres:
-                image: postgis/postgis:15-3.4-alpine
-                env:
-                    POSTGRES_USER: ${{ secrets.FLOW_DATABASE_USER }}
-                    POSTGRES_PASSWORD: ${{ secrets.FLOW_DATABASE_PASSWORD }}
-                    POSTGRES_DB: ${{ secrets.FLOW_DATABASE_NAME }}
-                    TARGET_DATABASE_USER: ${{ secrets.TARGET_DATABASE_USER }}
-                    TARGET_DATABASE_PASSWORD: ${{ secrets.TARGET_DATABASE_PASSWORD }}
-                    TARGET_DATABASE_NAME: ${{ secrets.TARGET_DATABASE_NAME }}
-                    TARGET_DATABASE_PORT: ${{ secrets.TARGET_DATABASE_PORT }}
-                    TARGET_DATABASE_HOST: ${{ secrets.TARGET_DATABASE_HOST }}
-                options: >-
-                    --health-cmd pg_isready
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
-                ports:
-                    - 5432:5432
         steps:
             - name: checkout code
               uses: actions/checkout@v4
+            - name: Initialize database service from compose
+              uses: hoverkraft-tech/compose-action@v2.0.2
+              with:
+                compose-file: "compose.ci.yml"
             - name: install node
               uses: actions/setup-node@v4  
               with:

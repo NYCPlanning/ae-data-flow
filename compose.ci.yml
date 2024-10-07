@@ -1,0 +1,5 @@
+services:
+  db:
+    extends:
+      file: common-services.yml
+      service: postgis
