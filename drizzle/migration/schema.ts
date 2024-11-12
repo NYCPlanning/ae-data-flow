@@ -15,12 +15,6 @@ export const capital_project_category = pgEnum("capital_project_category", [
   "Lump Sum",
   "ITT, Vehicles and Equipment",
 ]);
-export const capital_project_fund_stage = pgEnum("capital_project_fund_stage", [
-  "adopt",
-  "allocate",
-  "commit",
-  "spent",
-]);
 export const category = pgEnum("category", [
   "Residential",
   "Commercial",
