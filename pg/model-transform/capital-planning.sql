@@ -69,7 +69,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-non-exempt'::capital_fund_category AS category,
+	'city-non-exempt' AS category,
 	'adopt' AS stage,
 	adopt_ccnonexempt AS value
 FROM source_capital_project;
@@ -79,7 +79,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-exempt'::capital_fund_category AS category,
+	'city-exempt' AS category,
 	'adopt' AS stage,
 	adopt_ccexempt AS value
 FROM source_capital_project;
@@ -89,7 +89,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-cost'::capital_fund_category AS category,
+	'city-cost' AS category,
 	'adopt' AS stage,
 	adopt_citycost AS value
 FROM source_capital_project;
@@ -99,7 +99,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-state'::capital_fund_category AS category,
+	'non-city-state' AS category,
 	'adopt' AS stage,
 	adopt_nccstate AS value
 FROM source_capital_project;
@@ -109,7 +109,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-federal'::capital_fund_category AS category,
+	'non-city-federal' AS category,
 	'adopt' AS stage,
 	adopt_nccfederal AS value
 FROM source_capital_project;
@@ -119,7 +119,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-other'::capital_fund_category AS category,
+	'non-city-other' AS category,
 	'adopt' AS stage,
 	adopt_nccother AS value
 FROM source_capital_project;
@@ -129,7 +129,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-cost'::capital_fund_category AS category,
+	'non-city-cost' AS category,
 	'adopt' AS stage,
 	adopt_noncitycost AS value
 FROM source_capital_project;
@@ -140,7 +140,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-non-exempt'::capital_fund_category AS category,
+	'city-non-exempt' AS category,
 	'allocate' AS stage,
 	allocate_ccnonexempt AS value
 FROM source_capital_project;
@@ -150,7 +150,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-exempt'::capital_fund_category AS category,
+	'city-exempt' AS category,
 	'allocate' AS stage,
 	allocate_ccexempt AS value
 FROM source_capital_project;
@@ -160,7 +160,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-cost'::capital_fund_category AS category,
+	'city-cost' AS category,
 	'allocate' AS stage,
 	allocate_citycost AS value
 FROM source_capital_project;
@@ -170,7 +170,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-state'::capital_fund_category AS category,
+	'non-city-state' AS category,
 	'allocate' AS stage,
 	allocate_nccstate AS value
 FROM source_capital_project;
@@ -180,7 +180,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-federal'::capital_fund_category AS category,
+	'non-city-federal' AS category,
 	'allocate' AS stage,
 	allocate_nccfederal AS value
 FROM source_capital_project;
@@ -190,7 +190,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-other'::capital_fund_category AS category,
+	'non-city-other' AS category,
 	'allocate' AS stage,
 	allocate_nccother AS value
 FROM source_capital_project;
@@ -201,7 +201,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-non-exempt'::capital_fund_category AS category,
+	'city-non-exempt' AS category,
 	'commit' AS stage,
 	commit_ccnonexempt AS value
 FROM source_capital_project;
@@ -211,7 +211,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-exempt'::capital_fund_category AS category,
+	'city-exempt' AS category,
 	'commit' AS stage,
 	commit_ccexempt AS value
 FROM source_capital_project;
@@ -221,7 +221,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-cost'::capital_fund_category AS category,
+	'city-cost' AS category,
 	'commit' AS stage,
 	commit_citycost AS value
 FROM source_capital_project;
@@ -231,7 +231,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-state'::capital_fund_category AS category,
+	'non-city-state' AS category,
 	'commit' AS stage,
 	commit_nccstate AS value
 FROM source_capital_project;
@@ -241,7 +241,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-federal'::capital_fund_category AS category,
+	'non-city-federal' AS category,
 	'commit' AS stage,
 	commit_nccfederal AS value
 FROM source_capital_project;
@@ -251,7 +251,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-other'::capital_fund_category AS category,
+	'non-city-other' AS category,
 	'commit' AS stage,
 	commit_nccother AS value
 FROM source_capital_project;
@@ -261,7 +261,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-cost'::capital_fund_category AS category,
+	'non-city-cost' AS category,
 	'commit' AS stage,
 	commit_noncitycost AS value
 FROM source_capital_project;
@@ -272,7 +272,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-non-exempt'::capital_fund_category AS category,
+	'city-non-exempt' AS category,
 	'spent' AS stage,
 	spent_ccnonexempt AS value
 FROM source_capital_project;
@@ -282,7 +282,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-exempt'::capital_fund_category AS category,
+	'city-exempt' AS category,
 	'spent' AS stage,
 	spent_ccexempt AS value
 FROM source_capital_project;
@@ -292,7 +292,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'city-cost'::capital_fund_category AS category,
+	'city-cost' AS category,
 	'spent' AS stage,
 	spent_citycost AS value
 FROM source_capital_project;
@@ -302,7 +302,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-state'::capital_fund_category AS category,
+	'non-city-state' AS category,
 	'spent' AS stage,
 	spent_nccstate AS value
 FROM source_capital_project;
@@ -312,7 +312,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-federal'::capital_fund_category AS category,
+	'non-city-federal' AS category,
 	'spent' AS stage,
 	spent_nccfederal AS value
 FROM source_capital_project;
@@ -322,7 +322,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-other'::capital_fund_category AS category,
+	'non-city-other' AS category,
 	'spent' AS stage,
 	spent_nccother AS value
 FROM source_capital_project;
@@ -332,7 +332,7 @@ SELECT
 	gen_random_uuid() AS id,
 	m_agency AS managing_code,
 	proj_id AS capital_project_id,
-	'non-city-cost'::capital_fund_category AS category,
+	'non-city-cost' AS category,
 	'spent' AS stage,
 	spent_noncitycost AS value
 FROM source_capital_project;
@@ -381,7 +381,7 @@ INSERT INTO capital_commitment_fund
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
-	'city-non-exempt'::capital_fund_category AS category,
+	'city-non-exempt' AS category,
 	plannedcommit_ccnonexempt AS value
 FROM source_capital_commitment_id;
 
@@ -389,7 +389,7 @@ INSERT INTO capital_commitment_fund
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
-	'city-exempt'::capital_fund_category AS category,
+	'city-exempt' AS category,
 	plannedcommit_ccexempt AS value
 FROM source_capital_commitment_id;
 
@@ -397,7 +397,7 @@ INSERT INTO capital_commitment_fund
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
-	'non-city-state'::capital_fund_category AS category,
+	'non-city-state' AS category,
 	plannedcommit_nccstate AS value
 FROM source_capital_commitment_id;
 
@@ -405,7 +405,7 @@ INSERT INTO capital_commitment_fund
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
-	'non-city-federal'::capital_fund_category AS category,
+	'non-city-federal' AS category,
 	plannedcommit_nccfederal AS value
 FROM source_capital_commitment_id;
 
@@ -413,7 +413,7 @@ INSERT INTO capital_commitment_fund
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
-	'non-city-other'::capital_fund_category AS category,
+	'non-city-other' AS category,
 	plannedcommit_nccother AS value
 FROM source_capital_commitment_id;
 
@@ -421,7 +421,7 @@ INSERT INTO capital_commitment_fund
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
-	'non-city-cost'::capital_fund_category AS category,
+	'non-city-cost' AS category,
 	plannedcommit_noncitycost AS value
 FROM source_capital_commitment_id;
 
@@ -429,7 +429,7 @@ INSERT INTO capital_commitment_fund
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
-	'total'::capital_fund_category AS category,
+	'total' AS category,
 	plannedcommit_total AS value
 FROM source_capital_commitment_id;
 
