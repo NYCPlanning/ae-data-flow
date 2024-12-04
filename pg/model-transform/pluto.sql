@@ -15,15 +15,14 @@ INSERT INTO land_use
 
 INSERT INTO tax_lot
 SELECT
-	SUBSTRING(bbl, 1, 10) as bbl,
 	borough.id as borough_id,
-	block,
-	lot,
 	address,
 	land_use as land_use_id,
 	ST_Transform(wkt, 4326) as wgs84,
-	wkt as li_ft
-FROM source_pluto
+	wkt as li_ft,
+	SUBSTRING("bbl", 2, 5) as block_id,
+	SUBSTRING("bbl", 7, 4) as lot_id
+	FROM source_pluto
 INNER JOIN borough ON source_pluto.borough=borough.abbr;
 
 INSERT INTO zoning_district
