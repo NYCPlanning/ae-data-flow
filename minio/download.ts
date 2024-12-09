@@ -17,8 +17,9 @@ import "dotenv/config";
         bucketName: "edm-publishing";
         bucketSubPath:
           | "db-cpdb/publish/latest"
-          | "datasets/dcp_city_council_districts/24B"
-          | "datasets/dcp_community_districts/24B";
+          | "datasets/dcp_borough_boundary/production"
+          | "datasets/dcp_city_council_districts/production"
+          | "datasets/dcp_community_districts/production";
       }
     | {
         bucketName: "ae-data-backups";
@@ -56,17 +57,24 @@ import "dotenv/config";
       builds: ["capital-planning"],
     },
     {
+      fileName: "dcp_borough_boundary",
+      fileExtension: "zip",
+      bucketName: "edm-publishing",
+      bucketSubPath: "datasets/dcp_borough_boundary/production",
+      builds: ["admin"],
+    },
+    {
       fileName: "dcp_city_council_districts",
       fileExtension: "zip",
       bucketName: "edm-publishing",
-      bucketSubPath: "datasets/dcp_city_council_districts/24B",
+      bucketSubPath: "datasets/dcp_city_council_districts/production",
       builds: ["admin"],
     },
     {
       fileName: "dcp_community_districts",
       fileExtension: "zip",
       bucketName: "edm-publishing",
-      bucketSubPath: "datasets/dcp_community_districts/24B",
+      bucketSubPath: "datasets/dcp_community_districts/production",
       builds: ["admin"],
     },
     {

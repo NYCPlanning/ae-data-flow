@@ -19,6 +19,11 @@ import "dotenv/config";
   };
   const sources: Array<Source> = [
     {
+      fileName: "dcp_borough_boundary",
+      builds: ["admin", "pluto"],
+      promoteToMulti: true,
+    },
+    {
       fileName: "dcp_city_council_districts",
       builds: ["admin"],
       promoteToMulti: true,

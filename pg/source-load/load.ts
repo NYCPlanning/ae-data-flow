@@ -20,9 +20,9 @@ import "dotenv/config";
   const sources: Array<Source> = [
     {
       table: "source_borough",
-      columns: ["id", "title", "abbr"],
-      filePath: "data",
-      fileName: "borough.csv",
+      columns: ["borocode", "boroname", "shape_leng", "shape_area", "wkt"],
+      filePath: "data/convert",
+      fileName: "dcp_borough_boundary.csv",
       builds: ["admin", "pluto"],
     },
     {
