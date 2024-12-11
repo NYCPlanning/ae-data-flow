@@ -41,7 +41,15 @@ SELECT
 	m_agency_acro AS managing_agency,
 	description,
 	min_date,
-	max_date
+	max_date,
+	-- spatial columns will be updated later
+	-- need their places held here to update category
+	null AS li_ft_m_pnt,
+	null AS li_ft_m_poly,
+	null AS mercator_label,
+	null AS mercator_fill_m_pnt,
+	null AS mercator_fill_m_poly,
+	type_category AS category
 FROM  source_capital_project;
 
 -- I know what you're thinking; this is a lot of repeated code.
