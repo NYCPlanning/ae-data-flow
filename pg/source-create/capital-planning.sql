@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS 
-	source_capital_commitment, 
+DROP TABLE IF EXISTS
+	source_capital_commitment,
 	source_capital_project,
-	source_capital_project_m_poly, 
+	source_capital_project_m_poly,
 	source_capital_project_m_pnt
 	CASCADE;
 
@@ -41,9 +41,11 @@ CREATE TABLE IF NOT EXISTS  source_capital_project (
   proj_id text NOT NULL,
   min_date date,
   max_date date,
-  -- TODO: check that it satisfies the capital_project_category enum,
-  -- once the enum is fixed
-  type_category text,
+  type_category text CHECK (type_category IN (
+            'Fixed Asset',
+            'Lump Sum',
+            'ITT, Vehicles, and Equipment'
+            )),
   plannedcommit_ccnonexempt numeric,
   plannedcommit_ccexempt numeric,
   plannedcommit_citycost numeric,

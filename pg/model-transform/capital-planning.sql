@@ -42,18 +42,14 @@ SELECT
 	description,
 	min_date,
 	max_date,
-  -- The enum in the API database drops the oxford comma
-  -- This was unintentional but the simplest way to rectify
-  -- the data source with the API database is to coerce the
-  -- source value to drop the oxford comma
-  CASE
-	 WHEN type_category = 'Fixed Asset' OR
-	 	type_category = 'Fixed Asset' OR
-		type_category IS NULL
-		THEN type_category::capital_project_category
-	 WHEN type_category = 'ITT, Vehicles, and Equipment'
-		THEN 'ITT, Vehicles and Equipment'::capital_project_category
-  END AS category
+	-- spatial columns will be updated later
+	-- need their places held here to update category
+	null AS li_ft_m_pnt,
+	null AS li_ft_m_poly,
+	null AS mercator_label,
+	null AS mercator_fill_m_pnt,
+	null AS mercator_fill_m_poly,
+	type_category AS category
 FROM  source_capital_project;
 
 -- I know what you're thinking; this is a lot of repeated code.
