@@ -40,7 +40,7 @@ WHERE
 INSERT INTO zoning_district_class
 SELECT
 	id,
-	category::category,
+	category,
 	description,
 	url,
 	color

@@ -16,7 +16,7 @@ logs
 # database volume
 db-volume
 
-# dbt files 
+# dbt files
 **/.user.yml
 dbt_packages/
 target/
@@ -29,7 +29,3 @@ data/download/*
 
 data/convert/*
 !data/convert/.gitkeep
-
-# drizzle sql migrations
-drizzle/migration/meta/*
-drizzle/migration/*.sql
