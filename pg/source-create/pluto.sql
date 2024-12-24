@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS 
+DROP TABLE IF EXISTS
 	source_land_use,
 	source_pluto,
 	source_zoning_district,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS source_zoning_district (
 
 CREATE TABLE IF NOT EXISTS source_zoning_district_class (
 	id text PRIMARY KEY CHECK (id SIMILAR TO '[A-Z][0-9]+'),
-	category category NOT NULL,
+	category text NOT NULL CHECK ("category" IN ('Residential', 'Commercial', 'Manufacturing')),
 	description text,
 	url text,
 	color char(9) NOT NULL CHECK (color SIMILAR TO '#([A-Fa-f0-9]{8})')
