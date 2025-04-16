@@ -8,6 +8,7 @@ tippecanoe \
     --force
 
 tippecanoe \
+    -B4 \
     -z13 \
     --projection=EPSG:4326 \
     -o data/convert/community-district-label.pmtiles \
