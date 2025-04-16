@@ -35,3 +35,9 @@ services:
     volumes:
       - ./data:/data
       - ./minio/scripts:/scripts
+  tippecanoe:
+    build:
+      context: tippecanoe/.
+    volumes:
+      - ./data:/data
+      - ./tippecanoe/scripts:/scripts
