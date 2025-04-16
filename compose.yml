@@ -5,6 +5,10 @@ services:
       service: postgis
     networks:
       - data
+  minio:
+    extends:
+      file: common-services.yml
+      service: minio
 networks:
   data:
     name: ae-zoning-api_data
