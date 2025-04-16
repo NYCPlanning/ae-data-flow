@@ -5,6 +5,10 @@ services:
       service: postgis
     networks:
       - data
+  gdal:
+    extends:
+      file: common-services.yml
+      service: gdal
   minio:
     extends:
       file: common-services.yml
