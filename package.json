@@ -19,6 +19,8 @@
     "pg:flow:configure": "tsx ./pg/configure/configure.ts",
     "pg:source:create": "tsx ./pg/source-create/create.ts",
     "pg:source:load": "tsx ./pg/source-load/load.ts",
+    "pg:tile:create": "tsx ./pg/tile-create/create.ts",
+    "pg:tile:transform": "tsx ./pg/tile-transform/transform.ts",
     "pg:model:transform": "tsx ./pg/model-transform/transform.ts",
     "db:pg:target:populate": "docker compose exec -e BUILD=$BUILD -it db  bash flow/target-populate/populate.sh",
     "db:pg:model:create": "docker compose exec -it db bash flow/model-create/$BUILD.sh"
