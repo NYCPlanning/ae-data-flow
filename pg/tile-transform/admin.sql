@@ -5,9 +5,11 @@ TRUNCATE
 INSERT INTO tile_community_district
 SELECT
     source_community_district.borocd AS borough_id_community_district_id,
-	source_borough.abbr AS borough_abbr,
+		source_borough.abbr AS borough_abbr,
+		source_borough.title || ' ' || SUBSTRING(source_community_district.borocd, 2, 3) AS boro_district,
     ST_Transform(source_community_district.wkt, 4326) AS fill,
     ST_Transform((ST_MaximumInscribedCircle(source_community_district.wkt)).center, 4326) AS label
 FROM source_community_district
 LEFT JOIN source_borough
-	ON SUBSTRING(source_community_district.borocd, 1,1) = source_borough.id;
+		ON SUBSTRING(source_community_district.borocd, 1,1) = source_borough.id
+WHERE SUBSTRING(source_community_district.borocd, 2,3)::numeric < 19;
