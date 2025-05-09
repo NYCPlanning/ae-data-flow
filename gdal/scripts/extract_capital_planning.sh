@@ -1,11 +1,11 @@
 #! /bin/sh
 
-LABEL=data/convert/capital-planning-label.json
+LABEL=data/convert/capital-project-label.json
 if test -f "$LABEL"; then
     rm $LABEL
 fi
 
-FILL=data/convert/capital-planning-fill.json
+FILL=data/convert/capital-project-fill.json
 if test -f "$FILL"; then
     rm $FILL
 fi

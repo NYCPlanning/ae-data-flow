@@ -1,23 +1,23 @@
 #! /bin/sh
 
 tippecanoe \
-    -z14 \
+    -z20 \
     --projection=EPSG:4326 \
-    -o data/convert/capital-planning-fill.pmtiles \
-    -l capital-planning-fill data/convert/capital-planning-fill.json \
+    -o data/convert/capital-project-fill.pmtiles \
+    -l capital-project-fill data/convert/capital-project-fill.json \
     --force
 
 tippecanoe \
     -B4 \
-    -z14 \
+    -z20 \
     --projection=EPSG:4326 \
-    -o data/convert/capital-planning-label.pmtiles \
-    -l capital-planning-label data/convert/capital-planning-label.json \
+    -o data/convert/capital-project-label.pmtiles \
+    -l capital-project-label data/convert/capital-project-label.json \
     --force
 
 
 tile-join \
-    -o data/convert/capital-planning \
-    data/convert/capital-planning-fill.pmtiles \
-    data/convert/capital-planning-label.pmtiles \
+    -o data/convert/capital-projects.pmtiles \
+    data/convert/capital-project-fill.pmtiles \
+    data/convert/capital-project-label.pmtiles \
     --force
