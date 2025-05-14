@@ -5,5 +5,6 @@ export const buildSchema = z.enum([
   "admin",
   "capital-planning",
   "pluto",
+  "cbbr",
 ]);
 export type Build = z.infer<typeof buildSchema>;

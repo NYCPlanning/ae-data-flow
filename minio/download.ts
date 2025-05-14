@@ -18,7 +18,8 @@ import "dotenv/config";
         bucketSubPath:
           | "db-cpdb/publish/latest"
           | "datasets/dcp_city_council_districts/24B"
-          | "datasets/dcp_community_districts/24B";
+          | "datasets/dcp_community_districts/24B"
+          | "db-cbbr/publish/FY2025";
       }
     | {
         bucketName: "ae-data-backups";
@@ -82,6 +83,13 @@ import "dotenv/config";
       bucketName: "ae-data-backups",
       bucketSubPath: "zoning-api",
       builds: ["pluto"],
+    },
+    {
+      fileName: "cbbr_export",
+      fileExtension: "csv",
+      bucketName: "edm-publishing",
+      bucketSubPath: "db-cbbr/publish/FY2025",
+      builds: ["cbbr"],
     },
   ];
 
