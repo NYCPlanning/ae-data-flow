@@ -29,6 +29,10 @@ import "dotenv/config";
       fileName: "pluto",
       builds: ["pluto"],
     },
+    {
+      fileName: "budget-request",
+      builds: ["budget-request"]
+    }
   ];
 
   const buildSources =

@@ -89,7 +89,7 @@ import "dotenv/config";
       fileExtension: "csv",
       bucketName: "edm-publishing",
       bucketSubPath: "db-cbbr/publish/FY2025",
-      builds: ["cbbr"],
+      builds: ["budget-request"],
     },
   ];
 
