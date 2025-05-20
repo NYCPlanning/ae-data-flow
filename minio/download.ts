@@ -19,7 +19,7 @@ import "dotenv/config";
           | "db-cpdb/publish/latest"
           | "datasets/dcp_city_council_districts/24B"
           | "datasets/dcp_community_districts/24B"
-          | "db-cbbr/publish/FY2025";
+          | "db-cbbr/draft/FY2026/2-fixed-manual-mappings";
       }
     | {
         bucketName: "ae-data-backups";
@@ -88,7 +88,7 @@ import "dotenv/config";
       fileName: "cbbr_export",
       fileExtension: "csv",
       bucketName: "edm-publishing",
-      bucketSubPath: "db-cbbr/publish/FY2025",
+      bucketSubPath: "db-cbbr/draft/FY2026/2-fixed-manual-mappings",
       builds: ["budget-request"],
     },
   ];
