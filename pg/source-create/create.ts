@@ -22,6 +22,10 @@ import "dotenv/config";
       builds: ["admin"],
     },
     {
+      fileName: "community-board-budget-request",
+      builds: ["community-board-budget-requests"]
+    },
+    {
       fileName: "capital-planning",
       builds: ["capital-planning"],
     },
