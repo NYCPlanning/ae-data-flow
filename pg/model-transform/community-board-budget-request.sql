@@ -10,5 +10,7 @@ SELECT
 	CASE
 		WHEN type_br = 'C' THEN 'CAPITAL'
 		WHEN type_br = 'E' THEN 'EXPENSE'
-	END AS type
+	END AS type,
+	priority,
+	explanation
 FROM source_community_board_budget_request;
