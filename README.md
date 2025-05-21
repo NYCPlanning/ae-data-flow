@@ -6,7 +6,7 @@ These pipelines are used to populate the databases used by our APIs and are call
 
 ## Documentation
 
-An overview of the data flow design is in the [documentation](documentation/design.md) folder. 
+An overview of the data flow design is in the [documentation](documentation/design.md) folder.
 
 ## Local setup
 
@@ -36,7 +36,7 @@ Before continuing with the `data-flow` setup, follow the steps within `nycplanni
 
 ### Run the local data flow
 
-After setting up the zoning-api, return to this repository and run the data-flow 
+After setting up the zoning-api, return to this repository and run the data-flow
 
 Build and run the flow database container
 ```bash
@@ -55,8 +55,15 @@ Subsequent runs may want to only update specific domains. The `BUILD` domain opt
 
 ### Run pieces of the local data flow
 
-The data flow may fail at one of the steps. To pick up the data flow from an intermediate step, reference the [design](/documentation/design.md#steps) to run individual steps or groups of steps. 
+The data flow may fail at one of the steps. To pick up the data flow from an intermediate step, reference the [design](/documentation/design.md#steps) to run individual steps or groups of steps.
 
-If the data flow database is in a confused or irreparable state, it can be wiped using `docker compose down`. 
+If the data flow database is in a confused or irreparable state, it can be wiped using `docker compose down`.
 
 If the data flow is incomplete but it's necessary to pause and restart later, the database can be paused and saved with `docker compose stop`
+
+### Agency data source
+
+(from project root)
+```sh
+curl -o data/agency.csv https://raw.githubusercontent.com/NYCPlanning/data-engineering/a6e4ede09526a460003c42a27477536ddbe7ba72/products/cpdb/data/agencylookup.csv
+```

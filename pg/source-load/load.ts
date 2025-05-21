@@ -19,6 +19,28 @@ import "dotenv/config";
   };
   const sources: Array<Source> = [
     {
+      table: "source_comp_agency",
+      columns: ["Agency Code", "Agency Name", "Agency Short Name"],
+      filePath: "data",
+      fileName: "comptroller_agency.csv",
+      builds: ["capital-planning", "community-board-budget-requests"],
+    },
+    {
+      table: "source_de_agency",
+      columns: [
+        "facdb_level",
+        "facdb_agencyname_revised",
+        "facdb_agencyname",
+        "facdb_agencyabbrev",
+        "cape_agencycode",
+        "cape_agencyacronym",
+        "cape_agency",
+      ],
+      filePath: "data",
+      fileName: "de_agency.csv",
+      builds: ["capital-planning", "community-board-budget-requests"],
+    },
+    {
       table: "source_borough",
       columns: ["id", "title", "abbr"],
       filePath: "data",

@@ -1,0 +1,70 @@
+facdb_level,facdb_agencyname_revised,facdb_agencyname,facdb_agencyabbrev,cape_agencycode,cape_agencyacronym,cape_agency
+City,City University of New York,City University of New York,CUNY,42,CUNY,City University of New York
+City,NYC Administration for Childrens Services,New York City Administration for Childrens Services,NYCACS,68,ACS,Administration for Childrens Services
+City,NYC Board of Elections,New York City Board of Elections,NYCBOE,3,BOE,Board of Elections
+City,NYC Board of Standards and Appeals,New York City Board of Standards and Appeals,NYCBSA,59,BSA,Board of Standards and Appeals
+City,NYC Business Integrity Commission,New York City Business Integrity Commission,NYCBIC,831,BIC,Business Integrity Commission
+City,NYC Campaign Finance Board,New York City Campaign Finance Board,NYCCFB,4,CFB,Campaign Finance Board
+City,NYC Center for Economic Opportunity,New York City Center for Economic Opportunity,NYCCEO,,CEO,Center for Economic Opportunity
+City,NYC Civil Service Commission,New York City Civil Service Commission,NYCCSC,134,CSC,Civil Service Commission
+City,NYC Civilian Complaint Review Board,New York City Civilian Complaint Review Board,NYCCCRB,54,CCRB,Civilian Complaint Review Board
+City,NYC Commission on Human Rights,New York City Commission on Human Rights,NYCCCHR,226,CCHR,Commission on Human Rights
+City,NYC City Council,New York City Council,NYCCOUNCIL,102,COUNCIL,Council
+City,NYC Department for the Aging,New York City Department for the Aging,NYCDFTA,125,DFTA,Department for the Aging
+City,NYC Department of Buildings,New York City Department of Buildings,NYCDOB,810,DOB,Department of Buildings
+City,NYC Department of City Planning,New York City Department of City Planning,NYCDCP,30,DCP,Department of City Planning
+City,NYC Department of Citywide Administrative Services,New York City Department of Citywide Administrative Services,NYCDCAS,856,DCAS,Department of Citywide Administrative Services
+City,NYC Department of Consumer Affairs,New York City Department of Consumer Affairs,NYCDCA,866,DCA,Department of Consumer Affairs
+City,NYC Department of Correction,New York City Department of Correction,NYCDOC,72,DOC,Department of Correction
+City,NYC Department of Cultural Affairs,New York City Department of Cultural Affairs,NYCDCLA,126,DCLA,Department of Cultural Affairs
+City,NYC Department of Design and Construction,New York City Department of Design and Construction,NYCDDC,850,DDC,Department of Design and Construction
+City,NYC Department of Education,New York City Department of Education,NYCDOE,40,DOE/SCA,Department of Education/School Construction Authority
+City,NYC Department of Environmental Protection,New York City Department of Environmental Protection,NYCDEP,826,DEP,Department of Environmental Protection
+City,NYC Department of Finance,New York City Department of Finance,NYCDOF,836,DOF,Department of Finance
+City,NYC Department of Health and Mental Hygiene,New York City Department of Health and Mental Hygiene,NYCDOHMH,816,DOHMH,Department of Health and Mental Hygiene
+City,NYC Department of Homeless Services,New York City Department of Homeless Services,NYCDHS,71,DHS,Department of Homeless Services
+City,NYC Department of Housing Preservation and Development,New York City Department of Housing Preservation and Development,NYCHPD,806,HPD,Department of Housing Preservation and Development
+City,NYC Department of Information Technology and Telecommunications,New York City Department of Information Technology and Telecommunications,NYCDOITT,858,DOITT,Department of Information Technology and Telecommunications
+City,NYC Department of Investigation,New York City Department of Investigation,NYCDOI,32,DOI,Department of Investigation
+City,NYC Department of Parks and Recreation,New York City Department of Parks and Recreation,NYCDPR,846,DPR,Department of Parks and Recreation
+City,NYC Department of Probation,New York City Department of Probation,NYCDOP,781,DOP,Department of Probation
+City,NYC Department of Records and Information Services,New York City Department of Records and Information Services,NYCDORIS,860,DORIS,Department of Records and Information Services
+City,NYC Department of Sanitation,New York City Department of Sanitation,NYCDSNY,827,DSNY,Department of Sanitation
+City,NYC Department of Small Business Services,New York City Department of Small Business Services,NYCSBS,801,EDC,Economic Development Corporation
+City,NYC Department of Transportation,New York City Department of Transportation,NYCDOT,841,DOT,Department of Transportation
+City,NYC Department of Youth and Community Development,New York City Department of Youth and Community Development,NYCDYCD,260,DYCD,Department of Youth and Community Development
+City,NYC Economic Development Corporation,New York City Economic Development Corporation,NYCEDC,998,EDC,Economic Development Corporation
+City,NYC Fire Department,New York City Fire Department,NYCFDNY,57,FDNY,Fire Department
+City,NYC Health and Hospitals Corporation,New York City Health and Hospitals Corporation,NYCHHC,819,HHC,Health and Hospitals Corporation
+City,NYC Human Resources Administration/Department of Social Services,New York City Human Resources Administration/Department of Social Services,NYCHRA/DSS,69,HRA/DSS,Human Resources Administration/Department of Social Services
+City,NYC Independent Budget Office,New York City Independent Budget Office,NYCIBO,132,IBO,Independent Budget Office
+City,NYC Landmarks Preservation Commission,New York City Landmarks Preservation Commission,NYCLPC,136,LPC,Landmarks Preservation Commission
+City,NYC Law Department,New York City Law Department,NYCLAW,25,LAW,Law Department
+City,NYC Office of Administrative Trials and Hearings,New York City Office of Administrative Trials and Hearings,NYCOATH,,OATH,Office of Administrative Trials and Hearings
+City,NYC Office of Collective Bargaining,New York City Office of Collective Bargaining,NYCOCB,313,OCB,Office of Collective Bargaining
+City,NYC Office of Court Administration,New York City Office of Court Administration,NYCOCA,,OCA,Office of Court Administration
+City,NYC Office of Emergency Management,New York City Office of Emergency Management,NYCEM,17,EM,Office of Emergency Management
+City,NYC Office of Labor Relations,New York City Office of Labor Relations,NYCOLR,214,OLR,Office of Labor Relations
+City,NYC Office of Management and Budget,New York City Office of Management and Budget,NYCOMB,19,OMB,Office of Management and Budget
+City,NYC Office of Payroll Administration,New York City Office of Payroll Administration,NYCOPA,131,OPA,Office of Payroll Administration
+City,NYC Office of Public Advocate,New York City Office of Public Advocate,NYCPA,101,PA,Office of Public Advocate
+City,NYC Office of the Actuary,New York City Office of the Actuary,NYCACT,,ACT,Office of the Actuary
+City,NYC Office of the City Clerk,New York City Office of the City Clerk,NYCCLERK,103,CLERK,Office of the City Clerk
+City,NYC Office of the Comptroller,New York City Office of the Comptroller,NYCCOMP,15,COMP,Office of the Comptroller
+City,NYC Office of the Mayor,New York City Office of the Mayor,NYCMO,2,MO,Office of the Mayor
+City,NYC Office of the Medical Examiner,New York City Office of the Medical Examiner,NYCOCME,,OCME,Office of the Medical Examiner
+City,NYC Police Department,New York City Police Department,NYPD,56,NYPD,Police Department
+City,NYC Tax Commission,New York City Tax Commission,NYCTAXCM,21,TAXCM,Tax Commission
+City,NYC Taxi and Limousine Commission,New York City Taxi and Limousine Commission,NYCTLC,156,TLC,Taxi and Limousine Commission
+City,NYC Unknown,New York City Unknown,NYCUNKN,,UNKN,Unknown
+City-State,Brooklyn Bridge Park Corporation,Brooklyn Bridge Park Corporation,BBPC,,BBPC,Brooklyn Bridge Park Corporation
+City-State,Hudson River Park Trust,Hudson River Park Trust,HRPT,,HRPT,Hudson River Park Trust
+City-State,Hudson Yards Development Corporation,Hudson Yards Development Corporation,HYDC,,HYDC,Hudson Yards Development Corporation
+City-State,Roosevelt Island Operating Corporation,Roosevelt Island Operating Corporation,RIOC,,RIOC,Roosevelt Island Operating Corporation
+City-State,Trust for Governors Island,Trust for Governors Island,TGI,,TGI,Trust for Governors Island
+Non-public,Brooklyn Public Library,Brooklyn Public Library,BPL,38,BPL,Brooklyn Public Library
+Non-public,New York Public Library,New York Public Library,NYPL,37,NYPL,New York Public Library
+Non-public,Queens Public Library,Queens Public Library,QPL,39,QBPL,Queens Public Library
+,,,,111,UK,Unknown
+,,,,35,NYRL,New York Research Libraries
+,,,,96,UK,Unknown
