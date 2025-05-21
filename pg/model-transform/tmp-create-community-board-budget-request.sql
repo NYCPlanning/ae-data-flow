@@ -15,5 +15,6 @@ CREATE TABLE IF NOT EXISTS community_board_budget_request (
 	type text NOT NULL CHECK (type IN ('CAPITAL', 'EXPENSE')),
 	priority smallint NOT NULL,
 	agency_response_id integer REFERENCES community_board_budget_request_agency_response,
-	explanation text
+	explanation text,
+	supporters text ARRAY[2]
 );

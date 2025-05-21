@@ -7,7 +7,7 @@ SELECT DISTINCT ON (agency_response)
 	DENSE_RANK() OVER (ORDER BY agency_response) AS id,
 	agency_response
 FROM
-source_community_board_budget_request;
+	source_community_board_budget_request;
 
 INSERT INTO community_board_budget_request
 SELECT
@@ -20,7 +20,8 @@ SELECT
 	END AS type,
 	source_community_board_budget_request.priority,
 	community_board_budget_request_agency_response.id AS agency_response_id,
-	source_community_board_budget_request.explanation
+	source_community_board_budget_request.explanation,
+	ARRAY[supporters_1, supporters_2]
 FROM source_community_board_budget_request
 LEFT JOIN community_board_budget_request_agency_response
-ON (community_board_budget_request_agency_response.value = source_community_board_budget_request.agency_response);
+	ON (community_board_budget_request_agency_response.value = source_community_board_budget_request.agency_response);
