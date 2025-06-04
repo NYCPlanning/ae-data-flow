@@ -1,0 +1,10 @@
+{
+    "editor.fontLigatures": false,
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#e1ed04",
+        "titleBar.activeBackground": "#e1ed04",
+        "activityBar.inactiveForeground": "#2bb175",
+        "activityBar.foreground": "#0B4A2E",
+        "titleBar.activeForeground": "#0B4A2E"
+    }
+}

@@ -206,7 +206,7 @@ import "dotenv/config";
         "cd",
         "commdist",
         "cb_label",
-        "type_br",
+        "type",
         "priority",
         "need",
         "request",
@@ -229,11 +229,38 @@ import "dotenv/config";
         "geo_function",
         "geom"
       ],
-      
       filePath: "data/download",
       fileName: "cbbr_export.csv",
       builds: ["budget-request"]
     },
+    {
+      table: "source_cbbr_options_cascade",
+      columns: [
+        "policy_area",
+        "need_group",
+        "agency",
+        "type",
+        "need",
+        "request"
+      ],
+      filePath: "data",
+      fileName: "cbbr_cascade.csv",
+      builds: ["budget-request"]
+    },
+    {
+      table: "source_cbbr_options",
+      columns: [
+        "policy_area",
+        "need_group",
+        "agency",
+        "type",
+        "need",
+        "request"
+      ],
+      filePath: "data",
+      fileName: "cbbr_full_options.csv",
+      builds: ["budget-request"]
+    }
   ];
 
   const buildSources =

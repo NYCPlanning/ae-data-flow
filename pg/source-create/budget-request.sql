@@ -1,6 +1,25 @@
-DROP TABLE IF EXISTS 
+DROP TABLE IF EXISTS
+	source_cbbr_options,
 	source_budget_request
 	CASCADE;
+
+CREATE TABLE IF NOT EXISTS source_cbbr_options_cascade (
+	policy_area text,
+	need_group text,
+	agency text,
+	type text,
+	need text,
+	request text
+);
+
+CREATE TABLE IF NOT EXISTS source_cbbr_options (
+	policy_area text,
+	need_group text,
+	agency text,
+	type text,
+	need text,
+	request text
+);
 
 CREATE TABLE IF NOT EXISTS source_budget_request (
 	unique_id text,
@@ -10,7 +29,7 @@ CREATE TABLE IF NOT EXISTS source_budget_request (
 	cd char(2),
 	commdist char(3),
 	cb_label text,
-	type_br char(1),
+	type char(1),
 	priority text,
 	need text,
 	request text,
@@ -33,4 +52,4 @@ CREATE TABLE IF NOT EXISTS source_budget_request (
 	geo_function text,
 	-- what projection is the geom in? Ans: 2263
 	geom geometry
-)
+);
