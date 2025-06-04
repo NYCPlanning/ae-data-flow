@@ -1,6 +1,7 @@
 TRUNCATE
     policy_area,
     need_group,
+    cbbr_agency,
     type,
     need,
     request
