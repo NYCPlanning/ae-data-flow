@@ -10,7 +10,9 @@ on:
                 required: true
                 options:
                     - all
-                    - admin
+                    - boroughs
+                    - community-districts
+                    - city-council-districts
                     - capital-planning
                     - pluto
             environment:
