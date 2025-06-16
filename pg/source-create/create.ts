@@ -1,51 +1,21 @@
 import { exit } from "process";
-import { Build, buildSchema } from "../../schemas";
 import { pgClient } from "../pg-connector";
 import * as fs from "fs";
 import "dotenv/config";
+import { buildSources } from "../../build/parse-build";
 
-(async () => {
-  const build = buildSchema.parse(process.env.BUILD);
-
-  type Source = {
-    fileName: string;
-    builds: Array<Build>;
-  };
-
-  const sources: Array<Source> = [
-    {
-      fileName: "borough",
-      builds: ["admin", "pluto"],
-    },
-    {
-      fileName: "admin",
-      builds: ["admin"],
-    },
-    {
-      fileName: "capital-planning",
-      builds: ["capital-planning"],
-    },
-    {
-      fileName: "pluto",
-      builds: ["pluto"],
-    },
-  ];
-
-  const buildSources =
-    build === "all"
-      ? sources
-      : sources.filter((source) => source.builds.includes(build));
-
+(async () => {  
   try {
     await pgClient.connect();
     await pgClient.query("BEGIN;");
+
     buildSources.forEach(async (source) => {
       const sql = fs
-        .readFileSync(`pg/source-create/${source.fileName}.sql`)
+        .readFileSync(`pg/source-create/${source}.sql`)
         .toString();
       await pgClient.query(sql);
-      console.debug("source", source.fileName);
     });
+
     await pgClient.query("COMMIT;");
   } catch (e) {
     await pgClient.query("ROLLBACK;");

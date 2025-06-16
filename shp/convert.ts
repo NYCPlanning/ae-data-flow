@@ -5,45 +5,40 @@ import * as turf from "@turf/turf";
 import { geojsonToWKT } from "@terraformer/wkt";
 import { stringify } from "csv-stringify/sync";
 import { exit } from "process";
-import { Build, buildSchema } from "../schemas";
+import { Build } from "../build/schemas";
 import "dotenv/config";
+import { buildSources } from "../build/parse-build";
 
 (async () => {
-  const build = buildSchema.parse(process.env.BUILD);
   console.debug("convert csvs to shapefiles");
 
   type Source = {
     fileName: string;
-    builds: Array<Build>;
+    build: Build;
     promoteToMulti: boolean;
   };
-  const sources: Array<Source> = [
+  const sourcesToConvert: Array<Source> = [
     {
       fileName: "dcp_city_council_districts",
-      builds: ["admin"],
+      build: "city-council-districts",
       promoteToMulti: true,
     },
     {
       fileName: "dcp_community_districts",
-      builds: ["admin"],
+      build: "community-districts",
       promoteToMulti: true,
     },
     {
       fileName: "cpdb_dcpattributes_poly.shp",
-      builds: ["capital-planning"],
+      build: "capital-planning",
       promoteToMulti: true,
     },
     {
       fileName: "cpdb_dcpattributes_pts.shp",
-      builds: ["capital-planning"],
+      build: "capital-planning",
       promoteToMulti: true,
     },
   ];
-
-  const buildSources =
-    build === "all"
-      ? sources
-      : sources.filter((source) => source.builds.includes(build));
 
   const conversion = async (source: Source) => {
     const geogBuffer = fs.readFileSync(`data/download/${source.fileName}.zip`);
@@ -88,7 +83,14 @@ import "dotenv/config";
     fs.writeFileSync(`data/convert/${source.fileName}.csv`, output);
   };
   const conversions: Array<Promise<void>> = [];
-  buildSources.forEach(async (source) => conversions.push(conversion(source)));
+  buildSources.forEach(async (buildSource) => {
+    sourcesToConvert.forEach((source) => {
+      if (source.build === buildSource) {
+        conversions.push(conversion(source)); 
+      }
+    })
+  }); 
+  
   await Promise.all(conversions);
   exit();
 })();
