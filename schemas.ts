@@ -99,4 +99,4 @@ export const buildMap = new Map<Build, BuildDefmap>(
       }
     ],
   ]
-)
+);
