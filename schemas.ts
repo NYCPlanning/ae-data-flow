@@ -100,3 +100,22 @@ export const buildMap = new Map<Build, BuildDefmap>(
     ],
   ]
 );
+
+
+
+export function searchDependencies(build: BuildDef, buildAllSources: Array<string>) {
+  if (!build.dependencies) {
+    buildAllSources.push(build.name);
+  }
+
+  build.dependencies.forEach((dependency) => {
+    const currBuild = buildArrayExample.find((build) => build.name === dependency);
+    if (!currBuild) {
+      return;
+    }
+    searchDependencies(currBuild, buildAllSources);
+  }
+  );
+  buildAllSources.push(build.name);
+  // console.log(buildAllSources);
+}
