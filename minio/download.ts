@@ -60,14 +60,14 @@ import "dotenv/config";
       fileExtension: "zip",
       bucketName: "edm-publishing",
       bucketSubPath: "datasets/dcp_city_council_districts/24B",
-      builds: ["admin"],
+      builds: ["city-council-districts"],
     },
     {
       fileName: "dcp_community_districts",
       fileExtension: "zip",
       bucketName: "edm-publishing",
       bucketSubPath: "datasets/dcp_community_districts/24B",
-      builds: ["admin"],
+      builds: ["community-districts"],
     },
     {
       fileName: "pluto",
