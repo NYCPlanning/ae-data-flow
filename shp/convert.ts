@@ -5,11 +5,10 @@ import * as turf from "@turf/turf";
 import { geojsonToWKT } from "@terraformer/wkt";
 import { stringify } from "csv-stringify/sync";
 import { exit } from "process";
-import { Build, buildSchema, buildSources } from "../schemas";
+import { Build, buildSources } from "../schemas";
 import "dotenv/config";
 
 (async () => {
-  const build = buildSchema.parse(process.env.BUILD);
   console.debug("convert csvs to shapefiles");
 
   type Source = {
@@ -39,15 +38,6 @@ import "dotenv/config";
       promoteToMulti: true,
     },
   ];
-
-  // const buildSources =
-  //   build === "all"
-  //     ? sources
-  //     : sources.filter((source) => source.build === build);
-
-  // const convertSources = buildSources.forEach((buildSource) => {
-  //   sources.filter
-  // })
 
   const conversion = async (source: Source) => {
     const geogBuffer = fs.readFileSync(`data/download/${source.fileName}.zip`);
@@ -95,14 +85,10 @@ import "dotenv/config";
   buildSources.forEach(async (buildSource) => {
     sources.forEach((source) => {
       if (source.build === buildSource) {
-        console.log("converting the following", source.fileName);
         conversions.push(conversion(source)); 
       }
     })
   }); 
-  
-  //conversions.push(conversion(source)));
-  
   
   await Promise.all(conversions);
   exit();

@@ -7,9 +7,9 @@ export const buildSchema = z.enum([
   "pluto",
   "community-districts",
   "city-council-districts",
-  "borough",
-  "cbbr",
-  "agencies",
+  "boroughs",
+  // "cbbr",
+  // "agencies",
 ]);
 export type Build = z.infer<typeof buildSchema>;
 
@@ -22,7 +22,7 @@ export type BuildDef = z.infer<typeof buildDef>;
 
 export const buildList: Array<BuildDef> = [
   {
-    name: "borough",
+    name: "boroughs",
     dependencies: [],
     dependents: ["community-districts", "pluto"]
   },
@@ -33,12 +33,12 @@ export const buildList: Array<BuildDef> = [
   // },
   {
     name: "pluto",
-    dependencies: ["borough"],
+    dependencies: ["boroughs"],
     dependents: [],
   },
   {
     name: "community-districts",
-    dependencies: ["borough"],
+    dependencies: ["boroughs"],
     // dependents: ["cbbr"],
     dependents: [],
   },
@@ -104,7 +104,6 @@ function searchDependents(build: BuildDef) {
 }
 
 const build = buildSchema.parse(process.env.BUILD);
-console.log("build from schema", build);
 if (build === "all") {
   buildList.forEach((b) => {
     searchDependencies(b);
@@ -119,6 +118,3 @@ if (build === "all") {
     console.error("Build not found");
   }
 }
-
-console.log("all sources walk", buildSources);
-console.log("dependents walk", buildDependentSources);
