@@ -224,8 +224,10 @@ import "dotenv/config";
 
   const copies: Array<Promise<void>> = [];
   buildSources.forEach((buildSource) => {
+    console.log("LOAD buildSource", buildSource);
     sourceTables.forEach((sourceTable) => {
       if (sourceTable.build === buildSource) {
+        console.log("LOAD source table", sourceTable);
         copies.push(copy(sourceTable));
       }
     })
