@@ -26,11 +26,11 @@ export const buildList: Array<BuildDef> = [
     dependencies: [],
     dependents: ["community-districts", "pluto"]
   },
-  {
-    name: "agencies",
-    dependencies: [],
-    dependents: ["cbbr", "capital-planning"],
-  },
+  // {
+  //   name: "agencies",
+  //   dependencies: [],
+  //   dependents: ["cbbr", "capital-planning"],
+  // },
   {
     name: "pluto",
     dependencies: ["borough"],
@@ -39,13 +39,14 @@ export const buildList: Array<BuildDef> = [
   {
     name: "community-districts",
     dependencies: ["borough"],
-    dependents: ["cbbr"],
-  },
-  {
-    name: "cbbr",
-    dependencies: ["community-districts", "agencies"],
+    // dependents: ["cbbr"],
     dependents: [],
   },
+  // {
+  //   name: "cbbr",
+  //   dependencies: ["community-districts", "agencies"],
+  //   dependents: [],
+  // },
   {
     name: "city-council-districts",
     dependencies: [],
@@ -53,7 +54,8 @@ export const buildList: Array<BuildDef> = [
   },
   {
     name: "capital-planning",
-    dependencies: ["agencies"],
+    // dependencies: ["agencies"],
+    dependencies: [],
     dependents: [],
   }
 ];
