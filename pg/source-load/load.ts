@@ -4,12 +4,10 @@ import format from "pg-format";
 import { from } from "pg-copy-streams";
 import { pipeline } from "stream/promises";
 import { pgPool } from "../pg-connector";
-import { Build, buildSchema, buildSources } from "../../schemas";
+import { Build, buildSources } from "../../schemas";
 import "dotenv/config";
 
 (async () => {
-  // const build = buildSchema.parse(process.env.BUILD);
-
   type Source = {
     table: string;
     columns: Array<string>;
@@ -23,7 +21,7 @@ import "dotenv/config";
       columns: ["id", "title", "abbr"],
       filePath: "data",
       fileName: "borough.csv",
-      build: "borough",
+      build: "boroughs",
     },
     {
       table: "source_city_council_district",
@@ -197,11 +195,6 @@ import "dotenv/config";
       build: "pluto",
     },
   ];
-
-  // const buildSources =
-  //   build === "all"
-  //     ? sources
-  //     : sources.filter((source) => source.builds.includes(build));
 
   const sqlTemplate = fs.readFileSync(`pg/source-load/load.sql`).toString();
 

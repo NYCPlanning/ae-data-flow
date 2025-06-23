@@ -16,7 +16,7 @@ import "dotenv/config";
     build: Build;
     promoteToMulti: boolean;
   };
-  const sources: Array<Source> = [
+  const sourcesToConvert: Array<Source> = [
     {
       fileName: "dcp_city_council_districts",
       build: "city-council-districts",
@@ -83,7 +83,7 @@ import "dotenv/config";
   };
   const conversions: Array<Promise<void>> = [];
   buildSources.forEach(async (buildSource) => {
-    sources.forEach((source) => {
+    sourcesToConvert.forEach((source) => {
       if (source.build === buildSource) {
         conversions.push(conversion(source)); 
       }
