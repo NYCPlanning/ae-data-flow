@@ -8,36 +8,28 @@ export const buildSchema = z.enum([
   "community-districts",
   "city-council-districts",
   "borough",
+  "cbbr",
+  "agencies",
 ]);
 export type Build = z.infer<typeof buildSchema>;
 
-
 export const buildDef = z.object({
-  name: z.string(),
+  name: buildSchema,
   dependencies: z.array(buildSchema),
   dependents: z.array(buildSchema)
 });
 export type BuildDef = z.infer<typeof buildDef>;
 
-export const buildDefmap = z.object({
-  dependencies: z.array(buildSchema),
-  dependents: z.array(buildSchema)
-});
-export type BuildDefmap = z.infer<typeof buildDefmap>;
-
-// make a map of 
-const mybuilddef: BuildDef = {
-  name: "hi",
-  dependencies: ["all", "admin"],
-  dependents: ["pluto"]
-}
-
-
-export const buildArrayExample: Array<BuildDef> = [
+export const buildList: Array<BuildDef> = [
   {
     name: "borough",
     dependencies: [],
     dependents: ["community-districts", "pluto"]
+  },
+  {
+    name: "agencies",
+    dependencies: [],
+    dependents: ["cbbr", "capital-planning"],
   },
   {
     name: "pluto",
@@ -47,6 +39,11 @@ export const buildArrayExample: Array<BuildDef> = [
   {
     name: "community-districts",
     dependencies: ["borough"],
+    dependents: ["cbbr"],
+  },
+  {
+    name: "cbbr",
+    dependencies: ["community-districts", "agencies"],
     dependents: [],
   },
   {
@@ -56,66 +53,70 @@ export const buildArrayExample: Array<BuildDef> = [
   },
   {
     name: "capital-planning",
-    dependencies: [],
+    dependencies: ["agencies"],
     dependents: [],
   }
 ];
 
-export const buildMap = new Map<Build, BuildDefmap>(
-  [
-    [
-      "borough", 
-      {
-        dependencies: [],
-        dependents: ["community-districts", "pluto"]
-      }
-    ],
-    [
-      "pluto", 
-      {
-        dependencies: ["borough"],
-        dependents: []
-      }
-    ],
-    [
-      "community-districts", 
-      {
-        dependencies: ["borough"],
-        dependents: []
-      }
-    ],
-    [
-      "city-council-districts", 
-      {
-        dependencies: [],
-        dependents: []
-      }
-    ],
-    [
-      "capital-planning", 
-      {
-        dependencies: [],
-        dependents: []
-      }
-    ],
-  ]
-);
+export let buildSources: string[] = [];
+export let buildDependentSources: string[] = [];
 
-
-
-export function searchDependencies(build: BuildDef, buildAllSources: Array<string>) {
-  if (!build.dependencies) {
-    buildAllSources.push(build.name);
+function searchDependencies(build: BuildDef) {
+  if (build.dependencies.length === 0 && !buildSources.includes(build.name)) {
+    buildSources.push(build.name);
+    return;
   }
 
   build.dependencies.forEach((dependency) => {
-    const currBuild = buildArrayExample.find((build) => build.name === dependency);
+    const currBuild = buildList.find((build) => build.name === dependency);
     if (!currBuild) {
+      console.error("No such build");
       return;
     }
-    searchDependencies(currBuild, buildAllSources);
+    searchDependencies(currBuild);
+  });
+
+  if (!buildSources.includes(build.name)) {
+    buildSources.push(build.name);
   }
-  );
-  buildAllSources.push(build.name);
-  // console.log(buildAllSources);
 }
+
+function searchDependents(build: BuildDef) {
+  if (!buildDependentSources.includes(build.name)) {
+    buildDependentSources.push(build.name);
+  }
+  
+  if (!buildSources.includes(build.name)) {
+    buildSources.push(build.name);
+  }
+
+  if (build.dependents.length > 0) {
+    build.dependents.forEach((dependent) => {
+      const currentBuild = buildList.find((build) => build.name === dependent);
+      if (!currentBuild) {
+        return;
+      }
+      searchDependents(currentBuild);
+    });
+  }
+}
+
+const build = buildSchema.parse(process.env.BUILD);
+console.log("build from schema", build);
+if (build === "all") {
+  buildList.forEach((b) => {
+    searchDependencies(b);
+    searchDependents(b)
+  })
+} else {
+  const inputBuild = buildList.find((b) => b.name === build);
+  if (inputBuild) {
+    searchDependencies(inputBuild);
+    searchDependents(inputBuild);
+  } else {
+    console.error("Build not found");
+  }
+}
+
+console.log("all sources walk", buildSources);
+console.log("dependents walk", buildDependentSources);
