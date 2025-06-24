@@ -1,8 +1,8 @@
 import { exit } from "process";
-import { buildSources } from "../../schemas";
 import { pgClient } from "../pg-connector";
 import * as fs from "fs";
 import "dotenv/config";
+import { buildSources } from "../../build/parse-build";
 
 (async () => {  
   try {

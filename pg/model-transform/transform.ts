@@ -1,5 +1,5 @@
 import { exit } from "process";
-import { buildSources } from "../../schemas";
+import { buildSources } from "../../build/parse-build";
 import { pgClient } from "../pg-connector";
 import * as fs from "fs";
 import "dotenv/config";

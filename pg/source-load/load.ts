@@ -4,8 +4,9 @@ import format from "pg-format";
 import { from } from "pg-copy-streams";
 import { pipeline } from "stream/promises";
 import { pgPool } from "../pg-connector";
-import { Build, buildSources } from "../../schemas";
+import { buildSources } from "../../build/parse-build";
 import "dotenv/config";
+import { Build } from "../../build/schemas";
 
 (async () => {
   type Source = {

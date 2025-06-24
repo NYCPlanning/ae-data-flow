@@ -1,7 +1,7 @@
-import { Build } from "../schemas";
+import { Build } from "../build/schemas";
 import { minioClient } from "./minio-client";
 import { exit } from "process";
-import { buildSchema } from "../schemas";
+import { buildSchema } from "../build/schemas";
 import "dotenv/config";
 
 (async () => {

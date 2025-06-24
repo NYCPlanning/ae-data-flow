@@ -5,8 +5,9 @@ import * as turf from "@turf/turf";
 import { geojsonToWKT } from "@terraformer/wkt";
 import { stringify } from "csv-stringify/sync";
 import { exit } from "process";
-import { Build, buildSources } from "../schemas";
+import { Build } from "../build/schemas";
 import "dotenv/config";
+import { buildSources } from "../build/parse-build";
 
 (async () => {
   console.debug("convert csvs to shapefiles");
