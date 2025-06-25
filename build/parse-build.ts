@@ -1,11 +1,11 @@
 import { BuildNode, buildSchema, buildTree } from "./schemas";
 
 export let buildSources: string[] = [];
-export let buildDependentSources: string[] = [];
 
 function searchDependencies(build: BuildNode) {
   if (build.dependencies.length === 0 && !buildSources.includes(build.name)) {
     buildSources.push(build.name);
+    searchDependents(build);
     return;
   }
 
@@ -16,7 +16,6 @@ function searchDependencies(build: BuildNode) {
       return;
     }
     searchDependencies(currBuild);
-    searchDependents(currBuild);
   });
 
   if (!buildSources.includes(build.name)) {
@@ -25,12 +24,12 @@ function searchDependencies(build: BuildNode) {
 }
 
 function searchDependents(build: BuildNode) {
-  if (!buildDependentSources.includes(build.name)) {
-    buildDependentSources.push(build.name);
-  }
-  
   if (!buildSources.includes(build.name)) {
     buildSources.push(build.name);
+  }
+
+  if (build.dependents.length === 0) {
+    return;
   }
 
   if (build.dependents.length > 0) {
@@ -61,4 +60,3 @@ if (build === "all") {
 }
 
 console.log("Build step: buildSources", buildSources);
-console.log("Build step: buildDependentSources", buildDependentSources);
