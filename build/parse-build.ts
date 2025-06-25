@@ -16,6 +16,7 @@ function searchDependencies(build: BuildNode) {
       return;
     }
     searchDependencies(currBuild);
+    searchDependents(currBuild);
   });
 
   if (!buildSources.includes(build.name)) {
@@ -58,3 +59,6 @@ if (build === "all") {
     console.error("Build not found");
   }
 }
+
+console.log("Build step: buildSources", buildSources);
+console.log("Build step: buildDependentSources", buildDependentSources);

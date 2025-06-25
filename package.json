@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier \"**/*.ts\" --write",
     "flow": "npm run build && npm run download && npm run configure && npm run seed && npm run populate",
-    "build": "tsx ./schemas.ts",
+    "build": "tsx ./build/parse-build.ts",
     "configure": "npm run pg:flow:configure",
     "download": "npm run minio:download && npm run shp:convert",
     "seed": "npm run pg:source:create && npm run pg:source:load && npm run db:pg:model:create ",
