@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS 
-	source_city_council_district,
 	source_community_district
 	CASCADE;
 
