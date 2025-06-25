@@ -47,13 +47,11 @@ const build = buildSchema.parse(process.env.BUILD);
 if (build === "all") {
   buildTree.forEach((b) => {
     searchDependencies(b);
-    searchDependents(b)
   })
 } else {
   const inputBuild = buildTree.find((b) => b.name === build);
   if (inputBuild) {
     searchDependencies(inputBuild);
-    searchDependents(inputBuild);
   } else {
     console.error("Build not found");
   }
