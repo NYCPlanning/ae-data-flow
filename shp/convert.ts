@@ -86,11 +86,11 @@ import { buildSources } from "../build/parse-build";
   buildSources.forEach(async (buildSource) => {
     sourcesToConvert.forEach((source) => {
       if (source.build === buildSource) {
-        conversions.push(conversion(source)); 
+        conversions.push(conversion(source));
       }
-    })
-  }); 
-  
+    });
+  });
+
   await Promise.all(conversions);
   exit();
 })();

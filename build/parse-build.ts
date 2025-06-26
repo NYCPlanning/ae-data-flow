@@ -1,60 +1,94 @@
-import { BuildNode, buildSchema, buildTree } from "./schemas";
+import { Build, buildSchema, buildTree } from "./schemas";
+import cloneDeep from "lodash.clonedeep";
 
-export let buildSources: string[] = [];
+function compileBuilds({
+  buildName,
+  selectedBuilds,
+  searchedBuilds,
+  searchParents,
+  searchChildren,
+}: {
+  buildName: Build;
+  selectedBuilds: Array<Build>;
+  searchedBuilds: Array<Build>;
+  searchParents: boolean;
+  searchChildren: boolean;
+}) {
+  let nextSelectedBuilds = cloneDeep(selectedBuilds);
+  let nextSearchedBuilds = cloneDeep(searchedBuilds);
+  if (searchedBuilds.includes(buildName))
+    return [nextSelectedBuilds, nextSearchedBuilds];
+  nextSearchedBuilds = searchedBuilds.concat([buildName]);
 
-function searchDependencies(build: BuildNode) {
-  if (build.dependencies.length === 0 && !buildSources.includes(build.name)) {
-    buildSources.push(build.name);
-    searchDependents(build);
-    return;
+  const buildNode = buildTree.find((build) => build.name === buildName);
+  if (buildNode === undefined) throw new Error();
+  const { name, parents, children } = buildNode;
+
+  if (searchParents)
+    parents.forEach((parent) => {
+      [nextSelectedBuilds] = compileBuilds({
+        buildName: parent,
+        selectedBuilds: nextSelectedBuilds,
+        searchedBuilds: nextSearchedBuilds,
+        searchParents: true,
+        searchChildren: false,
+      });
+    });
+
+  if (!nextSelectedBuilds.includes(name)) {
+    nextSelectedBuilds = nextSelectedBuilds.concat([name]);
   }
 
-  build.dependencies.forEach((dependency) => {
-    const currBuild = buildTree.find((build) => build.name === dependency);
-    if (!currBuild) {
-      console.error("No such build");
-      return;
-    }
-    searchDependencies(currBuild);
+  if (searchChildren)
+    children.forEach((child) => {
+      [nextSelectedBuilds] = compileBuilds({
+        buildName: child,
+        selectedBuilds: nextSelectedBuilds,
+        searchedBuilds: nextSearchedBuilds,
+        searchParents: searchParents,
+        searchChildren: true,
+      });
+    });
+  return [nextSelectedBuilds, nextSearchedBuilds];
+}
+
+export let buildSources: Array<Build> = [];
+export let buildTargets: Array<Build> = [];
+
+const buildName = buildSchema.parse(process.env.BUILD);
+if (buildName === "all") {
+  let selectedSources: Array<Build> = [];
+  let searchedSources: Array<Build> = [];
+  buildTree.forEach((build) => {
+    const prevSelectedSources = cloneDeep(selectedSources);
+    const prevSearchSources = cloneDeep(searchedSources);
+    [selectedSources, searchedSources] = compileBuilds({
+      buildName: build.name,
+      selectedBuilds: prevSelectedSources,
+      searchedBuilds: prevSearchSources,
+      searchParents: true,
+      searchChildren: true,
+    });
+  });
+  buildSources = cloneDeep(selectedSources);
+  buildTargets = cloneDeep(selectedSources);
+} else {
+  [buildSources] = compileBuilds({
+    buildName: buildName,
+    selectedBuilds: [],
+    searchedBuilds: [],
+    searchParents: true,
+    searchChildren: true,
   });
 
-  if (!buildSources.includes(build.name)) {
-    buildSources.push(build.name);
-  }
-}
-
-function searchDependents(build: BuildNode) {
-  if (!buildSources.includes(build.name)) {
-    buildSources.push(build.name);
-  }
-
-  if (build.dependents.length === 0) {
-    return;
-  }
-
-  if (build.dependents.length > 0) {
-    build.dependents.forEach((dependent) => {
-      const currentBuild = buildTree.find((build) => build.name === dependent);
-      if (!currentBuild) {
-        return;
-      }
-      searchDependents(currentBuild);
-    });
-  }
-}
-
-const build = buildSchema.parse(process.env.BUILD);
-if (build === "all") {
-  buildTree.forEach((b) => {
-    searchDependencies(b);
-  })
-} else {
-  const inputBuild = buildTree.find((b) => b.name === build);
-  if (inputBuild) {
-    searchDependencies(inputBuild);
-  } else {
-    console.error("Build not found");
-  }
+  [buildTargets] = compileBuilds({
+    buildName: buildName,
+    selectedBuilds: [],
+    searchedBuilds: [],
+    searchParents: false,
+    searchChildren: true,
+  });
 }
 
 console.log("Build step: buildSources", buildSources);
+console.log("Build step: buildTargets", buildTargets);

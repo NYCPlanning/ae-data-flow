@@ -2,7 +2,9 @@ import { z } from "zod";
 
 export const buildSchema = z.enum([
   "all",
+  "agencies",
   "boroughs",
+  "community-board-budget-requests",
   "community-districts",
   "pluto",
   "city-council-districts",
@@ -12,35 +14,45 @@ export type Build = z.infer<typeof buildSchema>;
 
 export const buildNode = z.object({
   name: buildSchema,
-  dependencies: z.array(buildSchema),
-  dependents: z.array(buildSchema)
+  parents: z.array(buildSchema),
+  children: z.array(buildSchema),
 });
 export type BuildNode = z.infer<typeof buildNode>;
 
 export const buildTree: Array<BuildNode> = [
   {
+    name: "agencies",
+    parents: [],
+    children: ["capital-planning", "community-board-budget-requests"],
+  },
+  {
     name: "boroughs",
-    dependencies: [],
-    dependents: ["community-districts", "pluto"]
-  },
-  {
-    name: "pluto",
-    dependencies: ["boroughs"],
-    dependents: [],
-  },
-  {
-    name: "community-districts",
-    dependencies: ["boroughs"],
-    dependents: [],
-  },
-  {
-    name: "city-council-districts",
-    dependencies: [],
-    dependents: [],
+    parents: [],
+    children: ["community-districts", "pluto"],
   },
   {
     name: "capital-planning",
-    dependencies: [],
-    dependents: [],
-  }
+    parents: ["agencies"],
+    children: [],
+  },
+  {
+    name: "city-council-districts",
+    parents: [],
+    children: [],
+  },
+  {
+    name: "community-board-budget-requests",
+    parents: ["agencies", "community-districts"],
+    children: [],
+  },
+  {
+    name: "community-districts",
+    parents: ["boroughs"],
+    children: ["community-board-budget-requests"],
+  },
+  {
+    name: "pluto",
+    parents: ["boroughs"],
+    children: [],
+  },
 ];
