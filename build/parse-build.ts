@@ -1,60 +1,37 @@
-import { BuildNode, buildSchema, buildTree } from "./schemas";
+import { Build, BuildNode, buildSchema, buildTree } from "./schemas";
 
-export let buildSources: string[] = [];
+function compileBuilds(buildName: Build, buildSources: Array<Build>, searchedBuilds: Array<Build>) {
+  if (searchedBuilds.includes(buildName)) return [buildSources, searchedBuilds];
+  searchedBuilds = searchedBuilds.concat([buildName])
 
-function searchDependencies(build: BuildNode) {
-  if (build.dependencies.length === 0 && !buildSources.includes(build.name)) {
-    buildSources.push(build.name);
-    searchDependents(build);
-    return;
-  }
+  const buildNode = buildTree.find((build) => build.name === buildName)
+  if (buildNode === undefined) throw new Error();
+  const { name, dependencies, dependents } = buildNode
 
-  build.dependencies.forEach((dependency) => {
-    const currBuild = buildTree.find((build) => build.name === dependency);
-    if (!currBuild) {
-      console.error("No such build");
-      return;
-    }
-    searchDependencies(currBuild);
-  });
-
-  if (!buildSources.includes(build.name)) {
-    buildSources.push(build.name);
-  }
-}
-
-function searchDependents(build: BuildNode) {
-  if (!buildSources.includes(build.name)) {
-    buildSources.push(build.name);
-  }
-
-  if (build.dependents.length === 0) {
-    return;
-  }
-
-  if (build.dependents.length > 0) {
-    build.dependents.forEach((dependent) => {
-      const currentBuild = buildTree.find((build) => build.name === dependent);
-      if (!currentBuild) {
-        return;
-      }
-      searchDependents(currentBuild);
-    });
-  }
-}
-
-const build = buildSchema.parse(process.env.BUILD);
-if (build === "all") {
-  buildTree.forEach((b) => {
-    searchDependencies(b);
+  dependencies.forEach((dependency) => {
+    [buildSources] = compileBuilds(dependency, buildSources, searchedBuilds)
   })
-} else {
-  const inputBuild = buildTree.find((b) => b.name === build);
-  if (inputBuild) {
-    searchDependencies(inputBuild);
-  } else {
-    console.error("Build not found");
+
+  if (!buildSources.includes(name)) {
+    buildSources = buildSources.concat([name])
   }
+
+  dependents.forEach((dependent) => {
+    [buildSources] = compileBuilds(dependent, buildSources, searchedBuilds)
+  })
+  return [buildSources, searchedBuilds];
+}
+
+export let buildSources: Array<Build> = [];
+let searchedBuilds: Array<Build> = []
+
+const buildName = buildSchema.parse(process.env.BUILD);
+if (buildName === "all") {
+  buildTree.forEach((build) => {
+    [buildSources, searchedBuilds] = compileBuilds(build.name, buildSources, searchedBuilds);
+  });
+} else {
+  [buildSources] = compileBuilds(buildName, buildSources, searchedBuilds);
 }
 
 console.log("Build step: buildSources", buildSources);
