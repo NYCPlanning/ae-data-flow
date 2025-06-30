@@ -1,37 +1,92 @@
-import { Build, BuildNode, buildSchema, buildTree } from "./schemas";
+import { Build, buildSchema, buildTree } from "./schemas";
+import cloneDeep from "lodash.clonedeep";
 
-function compileBuilds(buildName: Build, buildSources: Array<Build>, searchedBuilds: Array<Build>) {
-  if (searchedBuilds.includes(buildName)) return [buildSources, searchedBuilds];
-  searchedBuilds = searchedBuilds.concat([buildName])
+function compileBuilds({
+  buildName,
+  selectedBuilds,
+  searchedBuilds,
+  searchParents,
+  searchChildren,
+}: {
+  buildName: Build;
+  selectedBuilds: Array<Build>;
+  searchedBuilds: Array<Build>;
+  searchParents: boolean;
+  searchChildren: boolean;
+}) {
+  let nextSelectedBuilds = cloneDeep(selectedBuilds);
+  let nextSearchedBuilds = cloneDeep(searchedBuilds);
+  if (searchedBuilds.includes(buildName))
+    return [nextSelectedBuilds, nextSearchedBuilds];
+  nextSearchedBuilds = searchedBuilds.concat([buildName]);
 
-  const buildNode = buildTree.find((build) => build.name === buildName)
+  const buildNode = buildTree.find((build) => build.name === buildName);
   if (buildNode === undefined) throw new Error();
-  const { name, dependencies, dependents } = buildNode
+  const { name, parents, children } = buildNode;
 
-  dependencies.forEach((dependency) => {
-    [buildSources] = compileBuilds(dependency, buildSources, searchedBuilds)
-  })
+  if (searchParents)
+    parents.forEach((parent) => {
+      [nextSelectedBuilds] = compileBuilds({
+        buildName: parent,
+        selectedBuilds: nextSelectedBuilds,
+        searchedBuilds: nextSearchedBuilds,
+        searchParents: true,
+        searchChildren: false,
+      });
+    });
 
-  if (!buildSources.includes(name)) {
-    buildSources = buildSources.concat([name])
+  if (!nextSelectedBuilds.includes(name)) {
+    nextSelectedBuilds = nextSelectedBuilds.concat([name]);
   }
 
-  dependents.forEach((dependent) => {
-    [buildSources] = compileBuilds(dependent, buildSources, searchedBuilds)
-  })
-  return [buildSources, searchedBuilds];
+  if (searchChildren)
+    children.forEach((child) => {
+      [nextSelectedBuilds] = compileBuilds({
+        buildName: child,
+        selectedBuilds: nextSelectedBuilds,
+        searchedBuilds: nextSearchedBuilds,
+        searchParents: searchParents,
+        searchChildren: true,
+      });
+    });
+  return [nextSelectedBuilds, nextSearchedBuilds];
 }
 
 export let buildSources: Array<Build> = [];
-let searchedBuilds: Array<Build> = []
+export let buildTargets: Array<Build> = [];
 
 const buildName = buildSchema.parse(process.env.BUILD);
 if (buildName === "all") {
+  let selectedSources: Array<Build> = [];
+  let searchedSources: Array<Build> = [];
   buildTree.forEach((build) => {
-    [buildSources, searchedBuilds] = compileBuilds(build.name, buildSources, searchedBuilds);
+    [searchedSources, searchedSources] = compileBuilds({
+      buildName: build.name,
+      selectedBuilds: selectedSources,
+      searchedBuilds: searchedSources,
+      searchParents: true,
+      searchChildren: true,
+    });
   });
+  buildSources = selectedSources;
+  buildTargets = selectedSources;
 } else {
-  [buildSources] = compileBuilds(buildName, buildSources, searchedBuilds);
+  [buildSources] = compileBuilds({
+    buildName: buildName,
+    selectedBuilds: [],
+    searchedBuilds: [],
+    searchParents: true,
+    searchChildren: true,
+  });
+
+  [buildTargets] = compileBuilds({
+    buildName: buildName,
+    selectedBuilds: [],
+    searchedBuilds: [],
+    searchParents: false,
+    searchChildren: true,
+  });
 }
 
 console.log("Build step: buildSources", buildSources);
+console.log("Build step: buildTargets", buildTargets);

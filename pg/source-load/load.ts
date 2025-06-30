@@ -222,7 +222,7 @@ import { Build } from "../../build/schemas";
       if (sourceTable.build === buildSource) {
         copies.push(copy(sourceTable));
       }
-    })
+    });
   });
   await Promise.all(copies);
   await pgPool.end();

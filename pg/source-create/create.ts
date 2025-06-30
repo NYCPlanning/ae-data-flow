@@ -4,15 +4,13 @@ import * as fs from "fs";
 import "dotenv/config";
 import { buildSources } from "../../build/parse-build";
 
-(async () => {  
+(async () => {
   try {
     await pgClient.connect();
     await pgClient.query("BEGIN;");
 
     buildSources.forEach(async (source) => {
-      const sql = fs
-        .readFileSync(`pg/source-create/${source}.sql`)
-        .toString();
+      const sql = fs.readFileSync(`pg/source-create/${source}.sql`).toString();
       await pgClient.query(sql);
     });
 
