@@ -4,7 +4,7 @@ psql --host=localhost \
     -U $POSTGRES_USER \
     -d $POSTGRES_DB \
     --single-transaction \
-    --file ./flow/model-create/borough.sql
+    --file ./flow/model-create/boroughs.sql
 
 PGPASSWORD=$TARGET_DATABASE_PASSWORD \
 pg_dump --host=$TARGET_DATABASE_HOST  \
@@ -14,6 +14,12 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -s \
     --no-owner \
     -t borough \
+    -t community_district \
+    -t land_use \
+    -t tax_lot \
+    -t zoning_district \
+    -t zoning_district_class \
+    -t zoning_district_zoning_district_class \
     --file ./data/borough_dump.sql
 
 PGPASSWORD=$POSTGRES_PASSWORD \

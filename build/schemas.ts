@@ -21,18 +21,13 @@ export type BuildNode = z.infer<typeof buildNode>;
 
 export const buildTree: Array<BuildNode> = [
   {
-    name: "agencies",
-    parents: [],
-    children: ["capital-planning", "community-board-budget-requests"],
-  },
-  {
     name: "boroughs",
     parents: [],
     children: ["community-districts", "pluto"],
   },
   {
     name: "capital-planning",
-    parents: ["agencies"],
+    parents: [],
     children: [],
   },
   {
@@ -41,14 +36,9 @@ export const buildTree: Array<BuildNode> = [
     children: [],
   },
   {
-    name: "community-board-budget-requests",
-    parents: ["agencies", "community-districts"],
-    children: [],
-  },
-  {
     name: "community-districts",
     parents: ["boroughs"],
-    children: ["community-board-budget-requests"],
+    children: [],
   },
   {
     name: "pluto",
