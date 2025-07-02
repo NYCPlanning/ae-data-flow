@@ -83,14 +83,12 @@ import { buildSources } from "../build/parse-build";
     fs.writeFileSync(`data/convert/${source.fileName}.csv`, output);
   };
   const conversions: Array<Promise<void>> = [];
-  buildSources.forEach(async (buildSource) => {
-    sourcesToConvert.forEach((source) => {
-      if (source.build === buildSource) {
-        conversions.push(conversion(source));
-      }
-    });
+  sourcesToConvert.forEach(async (source) => {
+    if (buildSources.includes(source.build)) {
+      conversions.push(conversion(source));
+    }
   });
-
+  
   await Promise.all(conversions);
   exit();
 })();

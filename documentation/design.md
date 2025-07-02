@@ -15,18 +15,11 @@ The data flow coordinates data across a few resource. These resource are:
   - It is referred to as the "API" or "Target" database
 ## Steps
 
-The entire data flow contains 9 steps. They are found in the `scripts` section of the [package.json](../package.json). With some exceptions, they follow the format `<tool used>:<targeted resource>:<operation performed>`. In the [flow steps diagram](./diagrams/flow_steps.drawio.png), they are numbered 1 through 9. They are described in greater detail in the list below.
+The entire data flow contains 8 steps. They are found in the `scripts` section of the [package.json](../package.json). With some exceptions, they follow the format `<tool used>:<targeted resource>:<operation performed>`. In the [flow steps diagram](./diagrams/flow_steps.drawio.png), they are numbered 1 through 8. They are described in greater detail in the list below.
 
 These steps are part of the `flow` command listed in the [README](../README.md#run-the-local-data-flow).They can be run individually using their listed `Command`. This is helpful when a step fails. After fixing the failure, the next steps of the flow can be run without rerunning the steps that already succeeded. In addition to the individual commands, multiple commands can be run together as a `Group`.
 
-The available groups are `build`, `download`, `configure`, `seed`, and `populate`. `build` will generate the order in which tables are created and transformed and updated. `download` will retrieve the source files and convert the shapefiles to csvs. `configure` will install dependencies on the flow database. `seed` will initialize the source tables in the flow database and fill them with source data. `populate` will transform the source data within the flow database and then transfer the transformed data to the target database.
-
-1) Generate the build order given the input 
-   - Command: `build`
-   - Group: `build`
-   - Run from: Data flow runner, [build/parse-build.ts](../build/parse-build.ts)
-   - Run against: Data flow runner
-   - Description: Use the type definitions of builds and the build tree defined in [build/schemas.ts](../build/schemas.ts) to create a list of builds which dictates the order in which the associated tables are transformed and updated
+The available groups are `download`, `configure`, `seed`, and `populate`. `download` will retrieve the source files and convert the shapefiles to csvs. `configure` will install dependencies on the flow database. `seed` will initialize the source tables in the flow database and fill them with source data. `populate` will transform the source data within the flow database and then transfer the transformed data to the target database.
 
 1) Download source files from Digital Ocean Spaces
    - Command: `minio:download`
@@ -98,10 +91,10 @@ The available groups are `build`, `download`, `configure`, `seed`, and `populate
 
 ## Domains
 
-The data flow can be used to either initialize a full data suite or update a portion of the full suite. These portions are group into "Domains". The data flow is divided into four Domains- "all", "admin", "capital-planning", and "pluto". They are visualized in the [domains diagram](./diagrams/domains.drawio.png).
+The data flow can be used to either initialize a full data suite or update a portion of the full suite. These portions are group into "Domains". The data flow is divided into the following Domains: "all", "boroughs", "community-districts", "city-council-districts", "capital-planning", and "pluto". They are visualized in the [domains diagram](./diagrams/build_table_relationship.drawio.png).
 
-The "all" domain contains every other domain plus "Boroughs". The "admin" domain contains administrative boundaries, other than Boroughs. Boroughs are excluded from the "admin" domain because tax lots depend on the Borough Ids existing. Rebuilding Boroughs would require also require rebuilding tax lots.
+The domains pertain to a set of tables that are derived from a database or dataset. Domains may have other domains as dependencies (in which they generate tables that are needed for the current domain) and/or dependents (in which the  current domain's tables impact tables in anotehr domain). These are defined as parent/child arrays in the [schema](../build/schemas.ts).
 
-The "capital-planning" domain applies to tables derived from the capital planning database. The "pluto" domain applies to tables derived from the "pluto" dataset.
+The "capital-planning" and "pluto" domains apply to tables derived from the capital planning database and pluto dataset respectively. The "boroughs" domain is responsible for the borough table. The "community-districts" and "city-council-districts" domains are responsible for those respective administrative boundaries. The "all" domain contains every other domain. 
 
 A domain must be specified with a `BUILD` environment variable when running the data-flow
