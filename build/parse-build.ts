@@ -60,16 +60,18 @@ if (buildName === "all") {
   let selectedSources: Array<Build> = [];
   let searchedSources: Array<Build> = [];
   buildTree.forEach((build) => {
-    [searchedSources, searchedSources] = compileBuilds({
+    const prevSelectedSources = cloneDeep(selectedSources);
+    const prevSearchSources = cloneDeep(searchedSources);
+    [selectedSources, searchedSources] = compileBuilds({
       buildName: build.name,
-      selectedBuilds: selectedSources,
-      searchedBuilds: searchedSources,
+      selectedBuilds: prevSelectedSources,
+      searchedBuilds: prevSearchSources,
       searchParents: true,
       searchChildren: true,
     });
   });
-  buildSources = selectedSources;
-  buildTargets = selectedSources;
+  buildSources = cloneDeep(selectedSources);
+  buildTargets = cloneDeep(selectedSources);
 } else {
   [buildSources] = compileBuilds({
     buildName: buildName,
