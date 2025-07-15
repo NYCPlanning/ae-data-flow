@@ -18,6 +18,18 @@ import { Build } from "../../build/schemas";
   };
   const sourceTables: Array<Source> = [
     {
+      table: "source_agency",
+      columns: [
+        "agency_code",
+        "source",
+        "managing_agency_acronym",
+        "managing_agency" 
+        ],
+      filePath: "data/download",
+      fileName: "dcp_managing_agencies_lookup.csv",
+      build: "agencies",
+    },
+    {
       table: "source_borough",
       columns: ["id", "title", "abbr"],
       filePath: "data",

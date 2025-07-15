@@ -23,6 +23,10 @@ import "dotenv/config";
         bucketName: "ae-data-backups";
         bucketSubPath: "zoning-api";
       }
+    | {
+        bucketName: "edm-recipes";
+        bucketSubPath: "inbox/dcp/dcp_managing_agencies_lookup/20250725"
+    }
   );
 
   const sourcesToDownload: Array<Source> = [
@@ -82,6 +86,13 @@ import "dotenv/config";
       bucketSubPath: "zoning-api",
       build: "pluto",
     },
+    {
+      fileName: "dcp_managing_agencies_lookup",
+      fileExtension: "csv",
+      bucketName: "edm-recipes",
+      bucketSubPath: "inbox/dcp/dcp_managing_agencies_lookup/20250725",
+      build: "agencies",
+    }
   ];
 
   const downloads: Array<Promise<void>> = [];
