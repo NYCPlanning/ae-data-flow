@@ -18,6 +18,20 @@ import { Build } from "../../build/schemas";
   };
   const sourceTables: Array<Source> = [
     {
+      table: "source_agency",
+      columns: [
+        "agency_code",
+        "source",
+        "agency_name",
+        "proposed_agency_name",
+        "proposed_initial",
+        "ad_edit"
+        ],
+      filePath: "data",
+      fileName: "agency.csv",
+      build: "agencies",
+    },
+    {
       table: "source_borough",
       columns: ["id", "title", "abbr"],
       filePath: "data",
