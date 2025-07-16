@@ -24,7 +24,7 @@ import { Build } from "../../build/schemas";
         "source",
         "agency_name",
         "proposed_agency_name",
-        "proposed_initial",
+        "proposed_initials",
         "ad_edit"
         ],
       filePath: "data",
