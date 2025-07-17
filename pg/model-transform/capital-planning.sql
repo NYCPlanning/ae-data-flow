@@ -1,6 +1,5 @@
 TRUNCATE
 	managing_code,
-	agency,
 	capital_project,
 	capital_project_fund,
 	capital_commitment_type,
@@ -17,21 +16,6 @@ INSERT INTO managing_code
 SELECT DISTINCT
 	m_agency as id
 FROM source_capital_project;
-
--- Move managing agencies from project table into agency table
-INSERT INTO agency
-SELECT DISTINCT
-	m_agency_acro as initials,
-	m_agency_name as name
-FROM source_capital_project;
-
--- Move sponsoring agencies from commitment table into agency table
-INSERT INTO agency
-SELECT DISTINCT
-	s_agency_acro as initials,
-	s_agency_name as name
-FROM source_capital_commitment
-WHERE s_agency_acro NOT IN (SELECT initials FROM agency);
 
 -- Move project source into project target
 INSERT INTO capital_project
