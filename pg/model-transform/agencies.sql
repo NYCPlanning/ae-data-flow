@@ -3,13 +3,9 @@ TRUNCATE
     CASCADE;
 
 INSERT INTO agency
-SELECT
-    agency_code,
-    source,
-    agency_name,
-    proposed_agency_name,
-    proposed_initials,
-    ad_edit
+SELECT DISTINCT
+    proposed_agency_name as name,
+    proposed_initials as initials
 FROM source_agency;
 
 COPY agency TO '/var/lib/postgresql/data/agency.csv';

@@ -1,6 +1,5 @@
 TRUNCATE 
 	managing_code,
-	agency,
 	capital_project,
 	capital_project_fund,
 	capital_commitment_type,
@@ -12,7 +11,6 @@ TRUNCATE
 	CASCADE;
 	
 \copy managing_code FROM '/var/lib/postgresql/data/managing_code.csv';
-\copy agency FROM '/var/lib/postgresql/data/agency.csv';
 \copy capital_project FROM '/var/lib/postgresql/data/capital_project.csv';
 \copy capital_project_fund FROM '/var/lib/postgresql/data/capital_project_fund.csv';
 \copy capital_commitment_type FROM '/var/lib/postgresql/data/capital_commitment_type.csv';
