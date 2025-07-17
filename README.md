@@ -51,7 +51,7 @@ BUILD=all npm run flow
 ```
 
 The "BUILD" environment variable specifies which domain to update. Initial database seeding should use "all".
-Subsequent runs may want to only update specific domains. The `BUILD` domain options are: `boroughs`, `community-districts`, `city-council-districts`, `pluto`, and `capital-planning`.
+Subsequent runs may want to only update specific domains. The `BUILD` domain options are: `agencies`, `boroughs`, `community-districts`, `city-council-districts`, `pluto`, and `capital-planning`.
 
 ### Run pieces of the local data flow
 
