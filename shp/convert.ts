@@ -88,7 +88,7 @@ import { buildSources } from "../build/parse-build";
       conversions.push(conversion(source));
     }
   });
-  
+
   await Promise.all(conversions);
   exit();
 })();

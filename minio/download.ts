@@ -89,11 +89,13 @@ import "dotenv/config";
     if (buildSources.includes(source.build)) {
       const file = `${source.fileName}.${source.fileExtension}`;
       const filePath = `${source.bucketSubPath}/${file}`;
-      downloads.push(minioClient.fGetObject(
-        source.bucketName,
-        filePath,
-        `data/download/${file}`,
-      ));
+      downloads.push(
+        minioClient.fGetObject(
+          source.bucketName,
+          filePath,
+          `data/download/${file}`,
+        ),
+      );
     }
   });
 
