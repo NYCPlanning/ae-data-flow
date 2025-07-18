@@ -44,6 +44,20 @@ import { Build } from "../../build/schemas";
       build: "city-council-districts",
     },
     {
+      table: "source_community_board_budget_request_options",
+      columns: [
+        "Policy Area",
+        "Need Group",
+        "Agency",
+        "Type",
+        "Need",
+        "Request",
+      ],
+      filePath: "data",
+      fileName: "community_board_budget_request_cascade.csv",
+      build: "community-board-budget-requests",
+    },
+    {
       table: "source_community_district",
       columns: ["borocd", "shape_leng", "shape_area", "wkt"],
       filePath: "data/convert",
