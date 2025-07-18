@@ -91,10 +91,10 @@ The available groups are `download`, `configure`, `seed`, and `populate`. `downl
 
 ## Domains
 
-The data flow can be used to either initialize a full data suite or update a portion of the full suite. These portions are group into "Domains". The data flow is divided into the following Domains: "all", "agencies", "boroughs", "community-districts", "city-council-districts", "capital-planning", and "pluto". They are visualized in the [domains diagram](./diagrams/build_table_relationship.drawio.png).
+The data flow can be used to either initialize a full data suite or update a portion of the full suite. These portions are group into "Domains". The data flow is divided into the following Domains: "all", "agencies", "boroughs", "community-board-budget-requests", "community-districts", "city-council-districts", "capital-planning", and "pluto". They are visualized in the [domains diagram](./diagrams/build_table_relationship.drawio.png).
 
 The domains pertain to a set of tables that are derived from a database or dataset. Domains may have other domains as dependencies (in which they generate tables that are needed for the current domain) and/or dependents (in which the  current domain's tables impact tables in anotehr domain). These are defined as parent/child arrays in the [schema](../build/schemas.ts).
 
-The "capital-planning" and "pluto" domains apply to tables derived from the capital planning database and pluto dataset respectively. The "boroughs" and "agencies" domains are responsible for the borough and agency tables respectively. The "community-districts" and "city-council-districts" domains are responsible for those respective administrative boundaries. The "all" domain contains every other domain. 
+The "capital-planning" and "pluto" domains apply to tables derived from the capital planning database and pluto dataset respectively. The "boroughs" and "agencies" domains are responsible for the borough and agency tables respectively. The "community-districts" and "city-council-districts" domains are responsible for those respective administrative boundaries. The "all" domain contains every other domain.
 
 A domain must be specified with a `BUILD` environment variable when running the data-flow

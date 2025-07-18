@@ -4,8 +4,8 @@ export const buildSchema = z.enum([
   "all",
   "agencies",
   "boroughs",
-  "community-board-budget-requests",
   "community-districts",
+  "community-board-budget-requests",
   "pluto",
   "city-council-districts",
   "capital-planning",
@@ -23,12 +23,16 @@ export const buildTree: Array<BuildNode> = [
   {
     name: "agencies",
     parents: [],
-    children: ["capital-planning"],
+    children: ["community-board-budget-requests", "capital-planning"],
   },
   {
     name: "boroughs",
     parents: [],
-    children: ["community-districts", "pluto"],
+    children: [
+      "community-districts",
+      "community-board-budget-requests",
+      "pluto",
+    ],
   },
   {
     name: "capital-planning",
@@ -41,9 +45,14 @@ export const buildTree: Array<BuildNode> = [
     children: [],
   },
   {
+    name: "community-board-budget-requests",
+    parents: ["agencies", "boroughs", "community-districts"],
+    children: [],
+  },
+  {
     name: "community-districts",
     parents: ["boroughs"],
-    children: [],
+    children: ["community-board-budget-requests"],
   },
   {
     name: "pluto",
