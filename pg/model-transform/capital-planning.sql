@@ -440,7 +440,6 @@ WITH capital_project_spatial AS (
 
 
 COPY managing_code TO '/var/lib/postgresql/data/managing_code.csv';
-COPY agency TO '/var/lib/postgresql/data/agency.csv';
 COPY capital_project TO '/var/lib/postgresql/data/capital_project.csv';
 COPY capital_project_fund TO '/var/lib/postgresql/data/capital_project_fund.csv';
 COPY capital_commitment_type TO '/var/lib/postgresql/data/capital_commitment_type.csv';
