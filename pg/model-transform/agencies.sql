@@ -4,8 +4,11 @@ TRUNCATE
 
 INSERT INTO agency
 SELECT DISTINCT
-    proposed_agency_name as name,
-    proposed_initials as initials
-FROM source_agency;
+    proposed_initials as initials,
+    proposed_agency_name as name
+FROM source_agency
+WHERE NOT proposed_agency_name = 'DEPARTMENT OF SANITATION'
+;
+
 
 COPY agency TO '/var/lib/postgresql/data/agency.csv';
