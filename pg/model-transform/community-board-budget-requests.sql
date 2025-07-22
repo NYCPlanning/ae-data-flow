@@ -24,3 +24,13 @@ FROM policy_area_need_group
 LEFT JOIN policy_area ON
     policy_area.description = policy_area_need_group.policy_area;
     -- TODO: orderby policy area id and needs group description
+
+
+SELECT
+	DISTINCT
+		REPLACE(
+			REPLACE(
+				SUBSTRING("Agency", '\([A-Z]{1,}\)'),
+			'(', ''),
+		')', '')
+    FROM source_community_board_budget_request_options;
