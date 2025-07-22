@@ -26,11 +26,29 @@ LEFT JOIN policy_area ON
     -- TODO: orderby policy area id and needs group description
 
 
+-- TODO: modify to populate existing agency table
+INSERT INTO agency
+WITH agency_options AS (
 SELECT
 	DISTINCT
-		REPLACE(
-			REPLACE(
-				SUBSTRING("Agency", '\([A-Z]{1,}\)'),
-			'(', ''),
-		')', '')
-    FROM source_community_board_budget_request_options;
+		"Need Group" AS needs_group,
+		CASE
+			WHEN "Agency" = 'Other' THEN 'OTH'
+			WHEN "Agency" = 'Queens Library (QL)' THEN 'QPL'
+			WHEN "Agency" = 'School Construction Authority' THEN 'SCA'
+			WHEN "Agency" = 'Department of Information Technology and Telecommunications (DOITT)' THEN 'OTI'
+			ELSE REPLACE(
+					REPLACE(
+						SUBSTRING("Agency", '\([A-Z]{1,}\)'),
+					'(', ''),
+				')', '')
+		END AS initials,
+		"Agency" AS name
+FROM source_community_board_budget_request_options
+) SELECT
+    agency_options.initials,
+    agency_options.name,
+    needs_group.id AS community_board_budget_request_needs_group_id
+FROM agency_options
+LEFT JOIN needs_group ON
+    agency_options.needs_group = needs_group.description;
