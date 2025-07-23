@@ -61,7 +61,7 @@ SELECT DISTINCT
 FROM source_community_board_budget_request_options
     ORDER BY need;
 
-INSERT INTO need_agency
+INSERT INTO need_agency (need_id, agency_initials)
 WITH need_agency_options AS (
 SELECT DISTINCT
     "Need" AS description,
@@ -82,8 +82,10 @@ FROM source_community_board_budget_request_options
     need_agency_options.agency_initials
 FROM need_agency_options
 LEFT JOIN need ON
-    need_agency_options.description = need.description;
-
+    need_agency_options.description = need.description
+    ORDER BY
+        need.id,
+        need_agency_options.agency_initials;
 
 INSERT INTO request (description, type)
 SELECT
