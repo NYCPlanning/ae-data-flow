@@ -6,9 +6,10 @@ DROP TABLE IF EXISTS
 	policy_area,
 	needs_group,
 	need,
-	need_agency,
 	request,
-	need_agency_request
+	need_agency,
+	need_agency_request,
+	agency_needs_group
     CASCADE;
 
 -- Temporary target creation code
@@ -25,8 +26,12 @@ CREATE TABLE IF NOT EXISTS needs_group (
 
 CREATE TABLE IF NOT EXISTS agency (
 	initials text PRIMARY KEY,
-	name text NOT NULL,
-	community_board_budget_request_needs_group_id smallint REFERENCES needs_group(id)
+	name text NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS agency_needs_group (
+	needs_group_id smallint REFERENCES needs_group(id),
+	agency_initials text REFERENCES agency(initials)
 );
 
 CREATE TABLE IF NOT EXISTS need (

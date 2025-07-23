@@ -2,8 +2,11 @@ TRUNCATE
 	policy_area,
 	needs_group,
 	need,
-	need_agency
-	CASCADE;
+	need_agency,
+	need_agency_request,
+	agency_needs_group
+RESTART IDENTITY
+CASCADE;
 
 INSERT INTO policy_area (description)
 SELECT DISTINCT
@@ -28,33 +31,40 @@ LEFT JOIN policy_area ON
 ORDER BY policy_area_id,
     description;
 
--- TODO: modify to populate existing agency table
-INSERT INTO agency
-WITH agency_options AS (
-SELECT
-	DISTINCT
-		"Need Group" AS needs_group,
-		-- TODO: add column to source table with initials, avoiding duplication of this code
+ALTER TABLE source_community_board_budget_request_options
+	ADD COLUMN IF NOT EXISTS
+		agency_initials text;
+
+UPDATE source_community_board_budget_request_options
+	SET agency_initials =
 		CASE
-			WHEN "Agency" = 'Other' THEN 'OTH'
-			WHEN "Agency" = 'Queens Library (QL)' THEN 'QPL'
-			WHEN "Agency" = 'School Construction Authority' THEN 'SCA'
-			WHEN "Agency" = 'Department of Information Technology and Telecommunications (DOITT)' THEN 'OTI'
-			ELSE REPLACE(
-					REPLACE(
-						SUBSTRING("Agency", '\([A-Z]{1,}\)'),
-					'(', ''),
-				')', '')
-		END AS initials,
-		"Agency" AS name
+	    	WHEN "Agency" = 'Other' THEN 'OTH'
+	    	WHEN "Agency" = 'Queens Library (QL)' THEN 'QPL'
+	    	WHEN "Agency" = 'School Construction Authority' THEN 'SCA'
+	    	WHEN "Agency" = 'Department of Information Technology and Telecommunications (DOITT)' THEN 'OTI'
+	    	ELSE REPLACE(
+	    			REPLACE(
+	    				SUBSTRING("Agency", '\([A-Z]{1,}\)'),
+	    			'(', ''),
+	    		')', '')
+	    END;
+
+-- Temporary code to insert agencies from cbbr into table
+INSERT INTO agency (initials, name)
+SELECT DISTINCT
+	agency_initials,
+	"Agency"
 FROM source_community_board_budget_request_options
-) SELECT
-    agency_options.initials,
-    agency_options.name,
-    needs_group.id AS community_board_budget_request_needs_group_id
-FROM agency_options
+ON CONFLICT DO NOTHING;
+-- End temporary code
+
+INSERT INTO agency_needs_group (agency_initials, needs_group_id)
+SELECT DISTINCT
+	agency_initials,
+   	needs_group.id AS needs_group_id
+FROM source_community_board_budget_request_options
 LEFT JOIN needs_group ON
-    agency_options.needs_group = needs_group.description;
+    source_community_board_budget_request_options."Need Group" = needs_group.description;
 
 INSERT INTO need (description)
 SELECT DISTINCT
@@ -66,17 +76,7 @@ INSERT INTO need_agency (need_id, agency_initials)
 WITH need_agency_options AS (
 SELECT DISTINCT
     "Need" AS description,
-    CASE
-    	WHEN "Agency" = 'Other' THEN 'OTH'
-    	WHEN "Agency" = 'Queens Library (QL)' THEN 'QPL'
-    	WHEN "Agency" = 'School Construction Authority' THEN 'SCA'
-    	WHEN "Agency" = 'Department of Information Technology and Telecommunications (DOITT)' THEN 'OTI'
-    	ELSE REPLACE(
-    			REPLACE(
-    				SUBSTRING("Agency", '\([A-Z]{1,}\)'),
-    			'(', ''),
-    		')', '')
-    END AS agency_initials
+    agency_initials
 FROM source_community_board_budget_request_options
 ) SELECT
     need.id,
@@ -98,17 +98,7 @@ FROM source_community_board_budget_request_options
 WITH need_agency_request_type_options AS (
     SELECT DISTINCT
     	"Need" AS need,
-    	CASE
-       	WHEN "Agency" = 'Other' THEN 'OTH'
-       	WHEN "Agency" = 'Queens Library (QL)' THEN 'QPL'
-       	WHEN "Agency" = 'School Construction Authority' THEN 'SCA'
-       	WHEN "Agency" = 'Department of Information Technology and Telecommunications (DOITT)' THEN 'OTI'
-       	ELSE REPLACE(
-     			REPLACE(
-        				SUBSTRING("Agency", '\([A-Z]{1,}\)'),
-     			'(', ''),
-      		')', '')
-        END AS agency_initials,
+        agency_initials,
     	"Request" AS request,
     	"Type" AS type
     FROM source_community_board_budget_request_options
