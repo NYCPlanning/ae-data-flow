@@ -24,9 +24,9 @@ SELECT
 	policy_area.id AS policy_area_id
 FROM policy_area_need_group
 LEFT JOIN policy_area ON
-    policy_area.description = policy_area_need_group.policy_area;
-    -- TODO: orderby policy area id and needs group description
-
+    policy_area.description = policy_area_need_group.policy_area
+ORDER BY policy_area_id,
+    description;
 
 -- TODO: modify to populate existing agency table
 INSERT INTO agency
@@ -34,6 +34,7 @@ WITH agency_options AS (
 SELECT
 	DISTINCT
 		"Need Group" AS needs_group,
+		-- TODO: add column to source table with initials, avoiding duplication of this code
 		CASE
 			WHEN "Agency" = 'Other' THEN 'OTH'
 			WHEN "Agency" = 'Queens Library (QL)' THEN 'QPL'
@@ -93,3 +94,39 @@ SELECT
     "Type" as type
 FROM source_community_board_budget_request_options
     ORDER BY description, type;
+
+WITH need_agency_request_type_options AS (
+    SELECT DISTINCT
+    	"Need" AS need,
+    	CASE
+       	WHEN "Agency" = 'Other' THEN 'OTH'
+       	WHEN "Agency" = 'Queens Library (QL)' THEN 'QPL'
+       	WHEN "Agency" = 'School Construction Authority' THEN 'SCA'
+       	WHEN "Agency" = 'Department of Information Technology and Telecommunications (DOITT)' THEN 'OTI'
+       	ELSE REPLACE(
+     			REPLACE(
+        				SUBSTRING("Agency", '\([A-Z]{1,}\)'),
+     			'(', ''),
+      		')', '')
+        END AS agency_initials,
+    	"Request" AS request,
+    	"Type" AS type
+    FROM source_community_board_budget_request_options
+), need_description_agency_initals AS (
+    SELECT
+    need_agency.id AS need_agency_id,
+    need.description AS need_description,
+    need_agency.agency_initials
+    FROM need_agency
+    LEFT JOIN need ON
+    	need.id = need_agency.need_id
+) SELECT
+   	need_description_agency_initals.need_agency_id AS need_agency_id,
+    request.id AS request_id
+FROM need_agency_request_type_options
+LEFT JOIN need_description_agency_initals ON
+    need_agency_request_type_options.agency_initials = need_description_agency_initals.agency_initials
+    	AND need_agency_request_type_options.need = need_description_agency_initals.need_description
+LEFT JOIN request ON
+    need_agency_request_type_options.request = request.description
+    	AND need_agency_request_type_options.type = request.type;
