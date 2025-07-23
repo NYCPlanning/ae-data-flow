@@ -53,8 +53,8 @@ import { Build } from "../../build/schemas";
         "Need",
         "Request",
       ],
-      filePath: "data",
-      fileName: "community_board_budget_request_cascade.csv",
+      filePath: "data/download",
+      fileName: "cbbr_options_cascade.csv",
       build: "community-board-budget-requests",
     },
     {
