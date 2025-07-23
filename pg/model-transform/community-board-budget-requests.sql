@@ -1,6 +1,8 @@
 TRUNCATE
 	policy_area,
-	needs_group
+	needs_group,
+	need,
+	need_agency
 	CASCADE;
 
 INSERT INTO policy_area (description)
@@ -52,3 +54,32 @@ FROM source_community_board_budget_request_options
 FROM agency_options
 LEFT JOIN needs_group ON
     agency_options.needs_group = needs_group.description;
+
+INSERT INTO need (description)
+SELECT DISTINCT
+    "Need" AS need
+FROM source_community_board_budget_request_options
+    ORDER BY need;
+
+INSERT INTO need_agency
+WITH need_agency_options AS (
+SELECT DISTINCT
+    "Need" AS description,
+    CASE
+    	WHEN "Agency" = 'Other' THEN 'OTH'
+    	WHEN "Agency" = 'Queens Library (QL)' THEN 'QPL'
+    	WHEN "Agency" = 'School Construction Authority' THEN 'SCA'
+    	WHEN "Agency" = 'Department of Information Technology and Telecommunications (DOITT)' THEN 'OTI'
+    	ELSE REPLACE(
+    			REPLACE(
+    				SUBSTRING("Agency", '\([A-Z]{1,}\)'),
+    			'(', ''),
+    		')', '')
+    END AS agency_initials
+FROM source_community_board_budget_request_options
+) SELECT
+    need.id,
+    need_agency_options.agency_initials
+FROM need_agency_options
+LEFT JOIN need ON
+    need_agency_options.description = need.description;
