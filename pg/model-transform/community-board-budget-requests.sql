@@ -83,3 +83,11 @@ FROM source_community_board_budget_request_options
 FROM need_agency_options
 LEFT JOIN need ON
     need_agency_options.description = need.description;
+
+
+INSERT INTO request (description, type)
+SELECT
+    "Request" AS description,
+    "Type" as type
+FROM source_community_board_budget_request_options
+    ORDER BY description, type;
