@@ -11,7 +11,7 @@ TRUNCATE
 	capital_project_checkbook
 	CASCADE;
 
-\copy borough FROM '/var/lib/postgresql/data/agency.csv';
+\copy agency FROM '/var/lib/postgresql/data/agency.csv';
 \copy managing_code FROM '/var/lib/postgresql/data/managing_code.csv';
 \copy capital_project FROM '/var/lib/postgresql/data/capital_project.csv';
 \copy capital_project_fund FROM '/var/lib/postgresql/data/capital_project_fund.csv';

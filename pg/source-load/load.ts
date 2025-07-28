@@ -22,13 +22,11 @@ import { Build } from "../../build/schemas";
       columns: [
         "agency_code",
         "source",
-        "agency_name",
-        "proposed_agency_name",
-        "proposed_initials",
-        "ad_edit"
+        "managing_agency_acronym",
+        "managing_agency" 
         ],
-      filePath: "data",
-      fileName: "agency.csv",
+      filePath: "data/download",
+      fileName: "dcp_managing_agencies_lookup.csv",
       build: "agencies",
     },
     {
