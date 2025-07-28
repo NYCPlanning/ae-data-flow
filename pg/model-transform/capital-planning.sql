@@ -20,9 +20,18 @@ FROM source_capital_project;
 -- Move project source into project target
 INSERT INTO capital_project
 SELECT
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS id,
-	m_agency_acro AS managing_agency,
+	(CASE
+        WHEN m_agency_acro IN ('EDC', 'BNY', 'TGI') THEN 'SBS'
+        WHEN m_agency_acro IN ('DOE/SCA') THEN 'DOE'
+		WHEN m_agency_acro IN ('QBPL') THEN 'QPL'
+		WHEN m_agency_acro IN ('DOITT') THEN 'OTI'
+        ELSE m_agency_acro
+    END) AS managing_agency,
 	description,
 	min_date,
 	max_date,
@@ -34,7 +43,8 @@ SELECT
 	null AS mercator_fill_m_pnt,
 	null AS mercator_fill_m_poly,
 	type_category AS category
-FROM  source_capital_project;
+FROM  source_capital_project
+;
 
 -- I know what you're thinking; this is a lot of repeated code.
 -- It's tempting to transform the table and use a regex on the column name to try generalizing the logic.
@@ -47,7 +57,10 @@ FROM  source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-non-exempt' AS category,
 	'adopt' AS stage,
@@ -57,7 +70,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-exempt' AS category,
 	'adopt' AS stage,
@@ -67,7 +83,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-cost' AS category,
 	'adopt' AS stage,
@@ -77,7 +96,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-state' AS category,
 	'adopt' AS stage,
@@ -87,7 +109,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-federal' AS category,
 	'adopt' AS stage,
@@ -97,7 +122,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-other' AS category,
 	'adopt' AS stage,
@@ -107,7 +135,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-cost' AS category,
 	'adopt' AS stage,
@@ -118,7 +149,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-non-exempt' AS category,
 	'allocate' AS stage,
@@ -128,7 +162,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-exempt' AS category,
 	'allocate' AS stage,
@@ -138,7 +175,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-cost' AS category,
 	'allocate' AS stage,
@@ -148,7 +188,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-state' AS category,
 	'allocate' AS stage,
@@ -158,7 +201,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-federal' AS category,
 	'allocate' AS stage,
@@ -168,7 +214,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-other' AS category,
 	'allocate' AS stage,
@@ -179,7 +228,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-non-exempt' AS category,
 	'commit' AS stage,
@@ -189,7 +241,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-exempt' AS category,
 	'commit' AS stage,
@@ -199,7 +254,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-cost' AS category,
 	'commit' AS stage,
@@ -209,7 +267,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-state' AS category,
 	'commit' AS stage,
@@ -219,7 +280,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-federal' AS category,
 	'commit' AS stage,
@@ -229,7 +293,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-other' AS category,
 	'commit' AS stage,
@@ -239,7 +306,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-cost' AS category,
 	'commit' AS stage,
@@ -250,7 +320,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-non-exempt' AS category,
 	'spent' AS stage,
@@ -260,7 +333,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-exempt' AS category,
 	'spent' AS stage,
@@ -270,7 +346,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'city-cost' AS category,
 	'spent' AS stage,
@@ -280,7 +359,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-state' AS category,
 	'spent' AS stage,
@@ -290,7 +372,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-federal' AS category,
 	'spent' AS stage,
@@ -300,7 +385,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-other' AS category,
 	'spent' AS stage,
@@ -310,7 +398,10 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund
 SELECT
 	gen_random_uuid() AS id,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-cost' AS category,
 	'spent' AS stage,
@@ -329,7 +420,14 @@ INSERT INTO agency_budget
 SELECT DISTINCT
 	SPLIT_PART(budget_line, '-', 1) AS code,
 	project_type AS type,
-	s_agency_acro AS sponsor
+	(CASE
+        WHEN s_agency_acro IN ('QBPL') THEN 'QPL'
+		WHEN s_agency_acro IN ('HRA/DSS') THEN 'HRA'
+		WHEN s_agency_acro IN ('MTA') THEN 'NYCTA'
+		WHEN s_agency_acro IN ('OCA') THEN 'OATH'
+		WHEN s_agency_acro IN ('DOITT') THEN 'OTI'
+        ELSE s_agency_acro
+    END) AS sponsor
 FROM source_capital_commitment;
 
 -- Move data from commitment source to budget_line
@@ -350,7 +448,10 @@ SELECT
 	id,
 	commitment_code AS type,
 	TO_DATE(plan_comm_date, 'MM/YY') AS planned_date,
-	m_agency AS managing_code,
+	(CASE
+        WHEN m_agency IN ('998', '801') THEN '801'
+        ELSE m_agency
+    END) AS managing_code,
 	project_id AS capital_project_id,
 	SPLIT_PART(budget_line, '-', 1) AS budget_line_code,
 	SPLIT_PART(budget_line, '-', 2) AS budget_line_id

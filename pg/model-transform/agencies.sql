@@ -4,10 +4,10 @@ TRUNCATE
 
 INSERT INTO agency
 SELECT DISTINCT
-    proposed_initials as initials,
-    proposed_agency_name as name
+    managing_agency_acronym as initials,
+    managing_agency as name
 FROM source_agency
-WHERE NOT proposed_agency_name = 'DEPARTMENT OF SANITATION'
+WHERE NOT managing_agency = 'DEPARTMENT OF SANITATION'
 ;
 
 
