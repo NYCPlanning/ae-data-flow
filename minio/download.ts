@@ -25,8 +25,8 @@ import "dotenv/config";
       }
     | {
         bucketName: "edm-recipes";
-        bucketSubPath: "inbox/dcp/dcp_managing_agencies_lookup/20250725"
-    }
+        bucketSubPath: "inbox/dcp/dcp_managing_agencies_lookup/20250725";
+      }
   );
 
   const sourcesToDownload: Array<Source> = [
@@ -92,7 +92,7 @@ import "dotenv/config";
       bucketName: "edm-recipes",
       bucketSubPath: "inbox/dcp/dcp_managing_agencies_lookup/20250725",
       build: "agencies",
-    }
+    },
   ];
 
   const downloads: Array<Promise<void>> = [];
@@ -100,11 +100,13 @@ import "dotenv/config";
     if (buildSources.includes(source.build)) {
       const file = `${source.fileName}.${source.fileExtension}`;
       const filePath = `${source.bucketSubPath}/${file}`;
-      downloads.push(minioClient.fGetObject(
-        source.bucketName,
-        filePath,
-        `data/download/${file}`,
-      ));
+      downloads.push(
+        minioClient.fGetObject(
+          source.bucketName,
+          filePath,
+          `data/download/${file}`,
+        ),
+      );
     }
   });
 
