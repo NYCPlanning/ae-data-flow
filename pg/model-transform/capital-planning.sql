@@ -423,8 +423,6 @@ SELECT DISTINCT
 	(CASE
         WHEN s_agency_acro IN ('QBPL') THEN 'QPL'
 		WHEN s_agency_acro IN ('HRA/DSS') THEN 'HRA'
-		WHEN s_agency_acro IN ('MTA') THEN 'NYCTA'
-		WHEN s_agency_acro IN ('OCA') THEN 'OATH'
 		WHEN s_agency_acro IN ('DOITT') THEN 'OTI'
         ELSE s_agency_acro
     END) AS sponsor
