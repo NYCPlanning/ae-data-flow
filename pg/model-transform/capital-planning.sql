@@ -18,18 +18,14 @@ SELECT DISTINCT
 FROM source_capital_project;
 
 ALTER TABLE source_capital_project
-    ADD COLUMN IF NOT EXISTS refined_m_agency char(3),
     ADD COLUMN IF NOT EXISTS refined_m_agency_acro text;
 
 UPDATE source_capital_project
     SET
-        refined_m_agency = CASE
-            WHEN m_agency IN ('998', '801') THEN '801'
-            ELSE m_agency
-        END,
         refined_m_agency_acro = CASE
-            WHEN m_agency_acro IN ('EDC', 'BNY', 'TGI') THEN 'SBS'
-            WHEN m_agency_acro IN ('DOE/SCA') THEN 'DOE'
+            WHEN m_agency = '801' THEN 'SBS'
+            WHEN m_agency = '040' THEN 'DOE'
+            WHEN m_agency = '044' THEN 'SCA'
       		WHEN m_agency_acro IN ('QBPL') THEN 'QPL'
       		WHEN m_agency_acro IN ('DOITT') THEN 'OTI'
             ELSE m_agency_acro
@@ -46,7 +42,7 @@ INSERT INTO capital_project (
     category
 )
 SELECT
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS id,
 	refined_m_agency_acro AS managing_agency,
 	description,
@@ -74,7 +70,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-non-exempt' AS category,
 	'adopt' AS stage,
@@ -91,7 +87,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-exempt' AS category,
 	'adopt' AS stage,
@@ -108,7 +104,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-cost' AS category,
 	'adopt' AS stage,
@@ -125,7 +121,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-state' AS category,
 	'adopt' AS stage,
@@ -142,7 +138,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-federal' AS category,
 	'adopt' AS stage,
@@ -159,7 +155,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-other' AS category,
 	'adopt' AS stage,
@@ -176,7 +172,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-cost' AS category,
 	'adopt' AS stage,
@@ -194,7 +190,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-non-exempt' AS category,
 	'allocate' AS stage,
@@ -211,7 +207,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-exempt' AS category,
 	'allocate' AS stage,
@@ -228,7 +224,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-cost' AS category,
 	'allocate' AS stage,
@@ -245,7 +241,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-state' AS category,
 	'allocate' AS stage,
@@ -262,7 +258,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-federal' AS category,
 	'allocate' AS stage,
@@ -279,7 +275,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-other' AS category,
 	'allocate' AS stage,
@@ -297,7 +293,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-non-exempt' AS category,
 	'commit' AS stage,
@@ -314,7 +310,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-exempt' AS category,
 	'commit' AS stage,
@@ -331,7 +327,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-cost' AS category,
 	'commit' AS stage,
@@ -348,7 +344,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-state' AS category,
 	'commit' AS stage,
@@ -365,7 +361,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-federal' AS category,
 	'commit' AS stage,
@@ -382,7 +378,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-other' AS category,
 	'commit' AS stage,
@@ -399,7 +395,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-cost' AS category,
 	'commit' AS stage,
@@ -417,7 +413,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-non-exempt' AS category,
 	'spent' AS stage,
@@ -434,7 +430,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-exempt' AS category,
 	'spent' AS stage,
@@ -451,7 +447,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'city-cost' AS category,
 	'spent' AS stage,
@@ -468,7 +464,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-state' AS category,
 	'spent' AS stage,
@@ -485,7 +481,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-federal' AS category,
 	'spent' AS stage,
@@ -502,7 +498,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-other' AS category,
 	'spent' AS stage,
@@ -519,7 +515,7 @@ INSERT INTO capital_project_fund (
 )
 SELECT
 	gen_random_uuid() AS id,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	proj_id AS capital_project_id,
 	'non-city-cost' AS category,
 	'spent' AS stage,
@@ -540,8 +536,7 @@ ALTER TABLE source_capital_commitment
     ADD COLUMN IF NOT EXISTS refined_budget_code text,
     ADD COLUMN IF NOT EXISTS refined_budget_id text,
     ADD COLUMN IF NOT EXISTS refined_sponsor text,
-    ADD COLUMN IF NOT EXISTS refined_plan_comm_date date,
-    ADD COLUMN IF NOT EXISTS refined_m_agency char(3);
+    ADD COLUMN IF NOT EXISTS refined_plan_comm_date date;
 
 UPDATE source_capital_commitment
     SET
@@ -553,11 +548,7 @@ UPDATE source_capital_commitment
       		WHEN s_agency_acro IN ('DOITT') THEN 'OTI'
             ELSE s_agency_acro
         END,
-        refined_plan_comm_date = TO_DATE(plan_comm_date, 'MM/YY'),
-        refined_m_agency = CASE
-            WHEN m_agency IN ('998', '801') THEN '801'
-            ELSE m_agency
-        END;
+        refined_plan_comm_date = TO_DATE(plan_comm_date, 'MM/YY');
 
 -- Move data from commitment source to agency_budget
 INSERT INTO agency_budget (
@@ -600,7 +591,7 @@ SELECT
 	id,
 	commitment_code AS type,
 	refined_plan_comm_date AS planned_date,
-	refined_m_agency AS managing_code,
+	m_agency AS managing_code,
 	project_id AS capital_project_id,
 	refined_budget_code AS budget_line_code,
 	refined_budget_id AS budget_line_id
@@ -698,35 +689,15 @@ SELECT
 	plannedcommit_total AS value
 FROM source_capital_commitment_id;
 
-ALTER TABLE source_capital_project_m_poly
-    ADD COLUMN IF NOT EXISTS refined_magency char(3);
-
-UPDATE source_capital_project_m_poly
-    SET
-        refined_magency = CASE
-            WHEN magency IN ('998', '801') THEN '801'
-            ELSE magency
-        END;
-
-ALTER TABLE source_capital_project_m_pnt
-    ADD COLUMN IF NOT EXISTS refined_magency char(3);
-
-UPDATE source_capital_project_m_pnt
-    SET
-        refined_magency = CASE
-            WHEN magency IN ('998', '801') THEN '801'
-            ELSE magency
-        END;
-
 WITH capital_project_spatial AS (
 	SELECT
-		COALESCE(source_capital_project_m_poly.refined_magency, source_capital_project_m_pnt.refined_magency) AS managing_code,
+		COALESCE(source_capital_project_m_poly.magency, source_capital_project_m_pnt.magency) AS managing_code,
 		COALESCE(source_capital_project_m_poly.projectid, source_capital_project_m_pnt.projectid) AS id,
 		source_capital_project_m_poly.wkt AS m_poly,
 		source_capital_project_m_pnt.wkt AS m_pnt
 	FROM source_capital_project_m_poly
 	FULL OUTER JOIN source_capital_project_m_pnt
-		ON source_capital_project_m_poly.refined_magency = source_capital_project_m_pnt.refined_magency AND
+		ON source_capital_project_m_poly.magency = source_capital_project_m_pnt.magency AND
 			source_capital_project_m_poly.projectid = source_capital_project_m_pnt.projectid
 		)
 	UPDATE capital_project
