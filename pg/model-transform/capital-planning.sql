@@ -67,8 +67,8 @@ FROM  source_capital_project
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -84,8 +84,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -101,8 +101,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -118,8 +118,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -135,8 +135,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -152,8 +152,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -169,8 +169,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -187,8 +187,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -204,8 +204,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -221,8 +221,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -238,8 +238,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -255,8 +255,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -272,8 +272,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -290,8 +290,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -307,8 +307,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -324,8 +324,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -341,8 +341,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -358,8 +358,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -375,8 +375,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -392,8 +392,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -410,8 +410,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -427,8 +427,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -444,8 +444,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -461,8 +461,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -478,8 +478,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -495,8 +495,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -512,8 +512,8 @@ FROM source_capital_project;
 INSERT INTO capital_project_fund (
     id,
     managing_code,
-    project_id,
-    category,
+    capital_project_id,
+    capital_fund_category,
     stage,
     value
 )
@@ -527,30 +527,58 @@ SELECT
 FROM source_capital_project;
 
 -- Move data from commitment source to commitment_type
-INSERT INTO capital_commitment_type
+INSERT INTO capital_commitment_type (
+    code,
+    description
+)
 SELECT DISTINCT
 	commitment_code AS code,
 	commitment_description AS description
 FROM source_capital_commitment;
 
+ALTER TABLE source_capital_commitment
+    ADD COLUMN IF NOT EXISTS refined_budget_code text,
+    ADD COLUMN IF NOT EXISTS refined_budget_id text,
+    ADD COLUMN IF NOT EXISTS refined_sponsor text,
+    ADD COLUMN IF NOT EXISTS refined_plan_comm_date date,
+    ADD COLUMN IF NOT EXISTS refined_m_agency char(3);
+
+UPDATE source_capital_commitment
+    SET
+        refined_budget_code = SPLIT_PART(budget_line, '-', 1),
+        refined_budget_id = SPLIT_PART(budget_line, '-', 2),
+        refined_sponsor = CASE
+            WHEN s_agency_acro IN ('QBPL') THEN 'QPL'
+      		WHEN s_agency_acro IN ('HRA/DSS') THEN 'HRA'
+      		WHEN s_agency_acro IN ('DOITT') THEN 'OTI'
+            ELSE s_agency_acro
+        END,
+        refined_plan_comm_date = TO_DATE(plan_comm_date, 'MM/YY'),
+        refined_m_agency = CASE
+            WHEN m_agency IN ('998', '801') THEN '801'
+            ELSE m_agency
+        END;
+
 -- Move data from commitment source to agency_budget
-INSERT INTO agency_budget
+INSERT INTO agency_budget (
+    code,
+    type,
+    sponsor
+)
 SELECT DISTINCT
-	SPLIT_PART(budget_line, '-', 1) AS code,
+	refined_budget_code AS code,
 	project_type AS type,
-	(CASE
-        WHEN s_agency_acro IN ('QBPL') THEN 'QPL'
-		WHEN s_agency_acro IN ('HRA/DSS') THEN 'HRA'
-		WHEN s_agency_acro IN ('DOITT') THEN 'OTI'
-        ELSE s_agency_acro
-    END) AS sponsor
+	refined_sponsor AS sponsor
 FROM source_capital_commitment;
 
 -- Move data from commitment source to budget_line
-INSERT INTO budget_line
+INSERT INTO budget_line (
+    code,
+    id
+)
 SELECT DISTINCT
-	SPLIT_PART(budget_line, '-', 1) AS code,
-	SPLIT_PART(budget_line, '-', 2) AS id
+	refined_budget_code AS code,
+	refined_budget_id AS id
 FROM source_capital_commitment;
 
 -- Provide uuids to commitment source
@@ -559,22 +587,32 @@ INTO source_capital_commitment_id
 FROM source_capital_commitment;
 
 -- Move data from commitment source id to commitment
-INSERT INTO capital_commitment
+INSERT INTO capital_commitment (
+    id,
+    type,
+    planned_date,
+    managing_code,
+    capital_project_id,
+    budget_line_code,
+    budget_line_id
+)
 SELECT
 	id,
 	commitment_code AS type,
-	TO_DATE(plan_comm_date, 'MM/YY') AS planned_date,
-	(CASE
-        WHEN m_agency IN ('998', '801') THEN '801'
-        ELSE m_agency
-    END) AS managing_code,
+	refined_plan_comm_date AS planned_date,
+	refined_m_agency AS managing_code,
 	project_id AS capital_project_id,
-	SPLIT_PART(budget_line, '-', 1) AS budget_line_code,
-	SPLIT_PART(budget_line, '-', 2) AS budget_line_id
+	refined_budget_code AS budget_line_code,
+	refined_budget_id AS budget_line_id
 FROM source_capital_commitment_id;
 
 -- Move data from commitment source id to commitment_fund
-INSERT INTO capital_commitment_fund
+INSERT INTO capital_commitment_fund (
+    id,
+    capital_commitment_id,
+    capital_fund_category,
+    value
+)
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
@@ -582,7 +620,12 @@ SELECT
 	plannedcommit_ccnonexempt AS value
 FROM source_capital_commitment_id;
 
-INSERT INTO capital_commitment_fund
+INSERT INTO capital_commitment_fund (
+    id,
+    capital_commitment_id,
+    capital_fund_category,
+    value
+)
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
@@ -590,7 +633,12 @@ SELECT
 	plannedcommit_ccexempt AS value
 FROM source_capital_commitment_id;
 
-INSERT INTO capital_commitment_fund
+INSERT INTO capital_commitment_fund (
+    id,
+    capital_commitment_id,
+    capital_fund_category,
+    value
+)
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
@@ -598,7 +646,12 @@ SELECT
 	plannedcommit_nccstate AS value
 FROM source_capital_commitment_id;
 
-INSERT INTO capital_commitment_fund
+INSERT INTO capital_commitment_fund (
+    id,
+    capital_commitment_id,
+    capital_fund_category,
+    value
+)
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
@@ -606,7 +659,12 @@ SELECT
 	plannedcommit_nccfederal AS value
 FROM source_capital_commitment_id;
 
-INSERT INTO capital_commitment_fund
+INSERT INTO capital_commitment_fund (
+    id,
+    capital_commitment_id,
+    capital_fund_category,
+    value
+)
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
@@ -614,7 +672,12 @@ SELECT
 	plannedcommit_nccother AS value
 FROM source_capital_commitment_id;
 
-INSERT INTO capital_commitment_fund
+INSERT INTO capital_commitment_fund (
+    id,
+    capital_commitment_id,
+    capital_fund_category,
+    value
+)
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
@@ -622,7 +685,12 @@ SELECT
 	plannedcommit_noncitycost AS value
 FROM source_capital_commitment_id;
 
-INSERT INTO capital_commitment_fund
+INSERT INTO capital_commitment_fund (
+    id,
+    capital_commitment_id,
+    capital_fund_category,
+    value
+)
 SELECT
 	gen_random_uuid() AS id,
 	id AS capital_commitment_id,
@@ -630,15 +698,35 @@ SELECT
 	plannedcommit_total AS value
 FROM source_capital_commitment_id;
 
+ALTER TABLE source_capital_project_m_poly
+    ADD COLUMN IF NOT EXISTS refined_magency char(3);
+
+UPDATE source_capital_project_m_poly
+    SET
+        refined_magency = CASE
+            WHEN magency IN ('998', '801') THEN '801'
+            ELSE magency
+        END;
+
+ALTER TABLE source_capital_project_m_pnt
+    ADD COLUMN IF NOT EXISTS refined_magency char(3);
+
+UPDATE source_capital_project_m_pnt
+    SET
+        refined_magency = CASE
+            WHEN magency IN ('998', '801') THEN '801'
+            ELSE magency
+        END;
+
 WITH capital_project_spatial AS (
 	SELECT
-		COALESCE(source_capital_project_m_poly.magency, source_capital_project_m_pnt.magency) AS managing_code,
-		COALESCE(source_capital_project_m_poly.projectid, source_capital_project_m_pnt.projectid) id,
+		COALESCE(source_capital_project_m_poly.refined_magency, source_capital_project_m_pnt.refined_magency) AS managing_code,
+		COALESCE(source_capital_project_m_poly.projectid, source_capital_project_m_pnt.projectid) AS id,
 		source_capital_project_m_poly.wkt AS m_poly,
 		source_capital_project_m_pnt.wkt AS m_pnt
 	FROM source_capital_project_m_poly
 	FULL OUTER JOIN source_capital_project_m_pnt
-		ON source_capital_project_m_poly.magency = source_capital_project_m_pnt.magency AND
+		ON source_capital_project_m_poly.refined_magency = source_capital_project_m_pnt.refined_magency AND
 			source_capital_project_m_poly.projectid = source_capital_project_m_pnt.projectid
 		)
 	UPDATE capital_project
