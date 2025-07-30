@@ -1,5 +1,4 @@
 TRUNCATE
-	managing_code,
 	capital_project,
 	capital_project_fund,
 	capital_commitment_type,
@@ -11,11 +10,6 @@ TRUNCATE
 	CASCADE;
 
 DROP TABLE IF EXISTS source_capital_commitment_id CASCADE;
-
-INSERT INTO managing_code
-SELECT DISTINCT
-	m_agency as id
-FROM source_capital_project;
 
 ALTER TABLE source_capital_project
     ADD COLUMN IF NOT EXISTS refined_m_agency_acro text;
@@ -715,7 +709,6 @@ WITH capital_project_spatial AS (
 		capital_project_spatial.id = capital_project.id;
 
 
-COPY managing_code TO '/var/lib/postgresql/data/managing_code.csv';
 COPY capital_project TO '/var/lib/postgresql/data/capital_project.csv';
 COPY capital_project_fund TO '/var/lib/postgresql/data/capital_project_fund.csv';
 COPY capital_commitment_type TO '/var/lib/postgresql/data/capital_commitment_type.csv';
