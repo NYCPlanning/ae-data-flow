@@ -18,7 +18,15 @@ SELECT DISTINCT
 FROM source_capital_project;
 
 -- Move project source into project target
-INSERT INTO capital_project
+INSERT INTO capital_project (
+    managing_code,
+    id,
+    managing_agency,
+    description,
+    min_date,
+    max_date,
+    category
+)
 SELECT
 	(CASE
         WHEN m_agency IN ('998', '801') THEN '801'
@@ -35,13 +43,6 @@ SELECT
 	description,
 	min_date,
 	max_date,
-	-- spatial columns will be updated later
-	-- need their places held here to update category
-	null AS li_ft_m_pnt,
-	null AS li_ft_m_poly,
-	null AS mercator_label,
-	null AS mercator_fill_m_pnt,
-	null AS mercator_fill_m_poly,
 	type_category AS category
 FROM  source_capital_project
 ;
