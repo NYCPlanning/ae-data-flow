@@ -23,8 +23,8 @@ import { Build } from "../../build/schemas";
         "agency_code",
         "source",
         "managing_agency_acronym",
-        "managing_agency" 
-        ],
+        "managing_agency",
+      ],
       filePath: "data/download",
       fileName: "dcp_managing_agencies_lookup.csv",
       build: "agencies",
