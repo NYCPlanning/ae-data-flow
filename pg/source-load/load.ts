@@ -44,7 +44,7 @@ import { Build } from "../../build/schemas";
       build: "city-council-districts",
     },
     {
-      table: "source_community_board_budget_request_options",
+      table: "source_cbbr_option",
       columns: [
         "Policy Area",
         "Need Group",

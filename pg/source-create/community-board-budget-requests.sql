@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS
-	source_community_board_budget_request_options
+	source_cbbr_option
 	CASCADE;
 
-CREATE TABLE IF NOT EXISTS source_community_board_budget_request_options (
+CREATE TABLE IF NOT EXISTS source_cbbr_option (
 	"Policy Area" text,
 	"Need Group" text,
 	"Agency" text,

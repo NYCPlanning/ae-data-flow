@@ -14,7 +14,6 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -s \
     --no-owner \
     -t managing_code \
-    -t agency \
     -t borough \
     -t community_district \
     --file ./data/community_board_budget_requests_dump.sql
