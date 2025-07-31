@@ -42,21 +42,13 @@ UPDATE source_cbbr_option
 	    	WHEN "Agency" = 'Queens Library (QL)' THEN 'QPL'
 	    	WHEN "Agency" = 'School Construction Authority' THEN 'SCA'
 	    	WHEN "Agency" = 'Department of Information Technology and Telecommunications (DOITT)' THEN 'OTI'
+			WHEN "Agency" = 'NYC Emergency Management (NYCEM)' THEN 'OEM'
 	    	ELSE REPLACE(
 	    			REPLACE(
 	    				SUBSTRING("Agency", '\([A-Z]{1,}\)'),
 	    			'(', ''),
 	    		')', '')
 	    END;
-
--- Temporary code to insert agencies from cbbr into table
-INSERT INTO agency (initials, name)
-SELECT DISTINCT
-	agency_initials,
-	"Agency"
-FROM source_cbbr_option
-ON CONFLICT DO NOTHING;
--- End temporary code
 
 INSERT INTO cbbr_agency_need_group (agency_initials, need_group_id)
 SELECT DISTINCT
