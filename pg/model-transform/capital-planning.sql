@@ -25,6 +25,20 @@ UPDATE source_capital_project
             ELSE m_agency_acro
         END;
 
+ALTER TABLE source_capital_project
+    ADD COLUMN IF NOT EXISTS refined_m_agency_acro text;
+
+UPDATE source_capital_project
+    SET
+        refined_m_agency_acro = CASE
+            WHEN m_agency = '801' THEN 'SBS'
+            WHEN m_agency = '040' THEN 'DOE'
+            WHEN m_agency = '044' THEN 'SCA'
+      		WHEN m_agency_acro IN ('QBPL') THEN 'QPL'
+      		WHEN m_agency_acro IN ('DOITT') THEN 'OTI'
+            ELSE m_agency_acro
+        END;
+
 -- Move project source into project target
 INSERT INTO capital_project (
     managing_code,

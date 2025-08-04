@@ -31,6 +31,13 @@ import "dotenv/config";
 
   const sourcesToDownload: Array<Source> = [
     {
+      fileName: "cbbr_options_cascade",
+      fileExtension: "csv",
+      bucketName: "ae-data-backups",
+      bucketSubPath: "zoning-api",
+      build: "community-board-budget-requests",
+    },
+    {
       fileName: "cpdb_planned_commitments",
       fileExtension: "csv",
       bucketName: "edm-publishing",

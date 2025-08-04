@@ -12,6 +12,8 @@ FROM source_agency;
 INSERT INTO agency (initials, name)
     VALUES
         ('OCA', 'Office of Court Administration'),
+        -- Community board budget requests list "other" as an agency option
+        ('OTH', 'Other'),
         ('MTA', 'Metropolitan Transportation Authority');
 
 INSERT INTO managing_code (id)

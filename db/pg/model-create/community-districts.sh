@@ -15,6 +15,15 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     --no-owner \
     -t borough \
     -t community_district \
+    -t managing_code \
+    -t agency \
+    -t cbbr_policy_area \
+    -t cbbr_need_group \
+    -t cbbr_agency_need_group \
+    -t cbbr_need \
+    -t cbbr_agency_need \
+    -t cbbr_request \
+    -t cbbr_agency_need_request \
     --file ./data/community-districts_dump.sql
 
 PGPASSWORD=$POSTGRES_PASSWORD \
