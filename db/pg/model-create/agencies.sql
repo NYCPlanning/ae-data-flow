@@ -1,6 +1,13 @@
 DROP TABLE IF EXISTS
     agency,
     managing_code,
+    borough,
+    community_district,
+    cbbr_policy_area,
+    cbbr_need_group,
+    cbbr_need,
+    cbbr_request,
+    cbbr_option_cascade,
 	capital_project,
 	capital_project_fund,
 	capital_commitment_type,
@@ -9,4 +16,4 @@ DROP TABLE IF EXISTS
 	budget_line,
 	capital_commitment,
 	capital_commitment_fund
-    CASCADE
+CASCADE
