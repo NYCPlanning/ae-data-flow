@@ -23,6 +23,11 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -t zoning_district_zoning_district_class \
     -t managing_code \
     -t agency \
+    -t cbbr_policy_area \
+    -t cbbr_need_group \
+    -t cbbr_need \
+    -t cbbr_request \
+    -t cbbr_option_cascade \
     -t capital_project \
     -t capital_project_fund \
     -t capital_commitment_type \
