@@ -14,7 +14,16 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -s \
     --no-owner \
     -t borough \
+    -t managing_code \
+    -t agency \
     -t community_district \
+    -t cbbr_policy_area \
+    -t cbbr_need_group \
+    -t cbbr_agency_need_group \
+    -t cbbr_need \
+    -t cbbr_agency_need \
+    -t cbbr_request \
+    -t cbbr_agency_need_request \
     -t land_use \
     -t tax_lot \
     -t zoning_district \
