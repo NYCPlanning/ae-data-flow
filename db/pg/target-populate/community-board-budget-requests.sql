@@ -5,7 +5,8 @@ TRUNCATE
     cbbr_need,
     cbbr_agency_need,
     cbbr_request,
-    cbbr_agency_need_request
+    cbbr_agency_need_request,
+    cbbr_options_cascade
 RESTART IDENTITY
 CASCADE;
 
