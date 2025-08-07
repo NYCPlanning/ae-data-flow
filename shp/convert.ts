@@ -38,6 +38,11 @@ import { buildSources } from "../build/parse-build";
       build: "capital-planning",
       promoteToMulti: true,
     },
+    {
+      fileName: "facilities.shp",
+      build: "facilities",
+      promoteToMulti: true,
+    },
   ];
 
   const conversion = async (source: Source) => {
@@ -45,6 +50,7 @@ import { buildSources } from "../build/parse-build";
     const geojson = (await shpjs(geogBuffer)) as FeatureCollection;
     geojson.features.forEach((feature, index) => {
       if (source.promoteToMulti) {
+        if (feature.geometry === null) return;
         if (feature.geometry.type === "Polygon") {
           const mp = turf.multiPolygon(
             [feature.geometry.coordinates],
@@ -74,7 +80,7 @@ import { buildSources } from "../build/parse-build";
     const flatJson = geojson.features.map((feature) => {
       return {
         ...feature.properties,
-        wkt: geojsonToWKT(feature.geometry),
+        wkt: feature.geometry !== null ? geojsonToWKT(feature.geometry) : null,
       };
     });
 

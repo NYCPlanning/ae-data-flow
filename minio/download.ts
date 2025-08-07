@@ -17,7 +17,8 @@ import "dotenv/config";
         bucketSubPath:
           | "db-cpdb/publish/latest"
           | "datasets/dcp_city_council_districts/24B"
-          | "datasets/dcp_community_districts/24B";
+          | "datasets/dcp_community_districts/24B"
+          | "db-facilities/publish/latest";
       }
     | {
         bucketName: "ae-data-backups";
@@ -71,6 +72,13 @@ import "dotenv/config";
       bucketName: "edm-publishing",
       bucketSubPath: "datasets/dcp_community_districts/24B",
       build: "community-districts",
+    },
+    {
+      fileName: "facilities.shp",
+      fileExtension: "zip",
+      bucketName: "edm-publishing",
+      bucketSubPath: "db-facilities/publish/latest",
+      build: "facilities",
     },
     {
       fileName: "pluto",
