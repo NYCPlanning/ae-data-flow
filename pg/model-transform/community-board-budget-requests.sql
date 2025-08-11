@@ -2,34 +2,22 @@ TRUNCATE
 	cbbr_policy_area,
 	cbbr_need_group,
 	cbbr_need,
-	cbbr_agency_need,
-	cbbr_agency_need_request,
-	cbbr_agency_need_group
+	cbbr_request,
+	cbbr_options_cascade
 RESTART IDENTITY
 CASCADE;
 
 INSERT INTO cbbr_policy_area (description)
 SELECT DISTINCT
-		"Policy Area" AS description
+	"Policy Area" AS description
 FROM source_cbbr_option
-ORDER BY
-		source_cbbr_option."Policy Area";
+ORDER BY description;
 
-INSERT INTO cbbr_need_group (description, policy_area_id)
-WITH policy_area_need_group AS (
-	SELECT DISTINCT
-		"Policy Area" AS policy_area,
-		"Need Group" AS need_group
-	FROM source_cbbr_option
-)
-SELECT
-	policy_area_need_group.need_group AS description,
-	cbbr_policy_area.id AS policy_area_id
-FROM policy_area_need_group
-LEFT JOIN cbbr_policy_area ON
-    cbbr_policy_area.description = policy_area_need_group.policy_area
-ORDER BY policy_area_id,
-    description;
+INSERT INTO cbbr_need_group (description)
+SELECT DISTINCT
+	"Need Group" AS description
+FROM source_cbbr_option
+ORDER BY description;
 
 ALTER TABLE source_cbbr_option
 	ADD COLUMN IF NOT EXISTS
@@ -50,73 +38,43 @@ UPDATE source_cbbr_option
 	    		')', '')
 	    END;
 
-INSERT INTO cbbr_agency_need_group (agency_initials, need_group_id)
-SELECT DISTINCT
-	agency_initials,
-   	cbbr_need_group.id AS need_group_id
-FROM source_cbbr_option
-LEFT JOIN cbbr_need_group ON
-    source_cbbr_option."Need Group" = cbbr_need_group.description;
-
 INSERT INTO cbbr_need (description)
 SELECT DISTINCT
-    "Need" AS need
+    "Need" AS description
 FROM source_cbbr_option
-    ORDER BY need;
+    ORDER BY description;
 
-INSERT INTO cbbr_agency_need (need_id, agency_initials)
-WITH agency_need_option AS (
-SELECT DISTINCT
-    "Need" AS description,
-    agency_initials
-FROM source_cbbr_option
-) SELECT
-    cbbr_need.id,
-    agency_need_option.agency_initials
-FROM agency_need_option
-LEFT JOIN cbbr_need ON
-    agency_need_option.description = cbbr_need.description
-    ORDER BY
-        cbbr_need.id,
-        agency_need_option.agency_initials;
-
-INSERT INTO cbbr_request (description, type)
+INSERT INTO cbbr_request (description)
 SELECT
-    "Request" AS description,
-    "Type" as type
+    "Request" AS description
 FROM source_cbbr_option
-    ORDER BY description, type;
+    ORDER BY description;
 
-WITH agency_need_request_type_option AS (
-    SELECT DISTINCT
-    	"Need" AS need,
-        agency_initials,
-    	"Request" AS request,
-    	"Type" AS type
-    FROM source_cbbr_option
-), agency_initials_need_description AS (
-    SELECT
-    cbbr_agency_need.id AS agency_need_id,
-    cbbr_need.description AS need_description,
-    cbbr_agency_need.agency_initials
-    FROM cbbr_agency_need
-    LEFT JOIN cbbr_need ON
-    	cbbr_need.id = cbbr_agency_need.need_id
-) SELECT
-   	agency_initials_need_description.agency_need_id AS agency_need_id,
-    cbbr_request.id AS request_id
-FROM agency_need_request_type_option
-LEFT JOIN agency_initials_need_description ON
-    agency_need_request_type_option.agency_initials = agency_initials_need_description.agency_initials
-    	AND agency_need_request_type_option.need = agency_initials_need_description.need_description
-LEFT JOIN cbbr_request ON
-    agency_need_request_type_option.request = cbbr_request.description
-    	AND agency_need_request_type_option.type = cbbr_request.type;
+INSERT INTO cbbr_options_cascade (
+	policy_area_id,
+	need_group_id,
+	agency_initials,
+	type,
+	need_id,
+	request_id
+)
+SELECT
+	cbbr_policy_area.id as policy_area_id,
+	cbbr_need_group.id as need_group_id,
+	agency.initials as agency_initials,
+	"Type" as type,
+	cbbr_need.id as need_id,
+	cbbr_request.id as request_id
+FROM source_cbbr_option
+LEFT JOIN cbbr_policy_area ON cbbr_policy_area.description = source_cbbr_option."Policy Area"
+LEFT JOIN cbbr_need_group ON cbbr_need_group.description = source_cbbr_option."Need Group"
+LEFT JOIN agency ON agency.initials = source_cbbr_option.agency_initials
+LEFT JOIN cbbr_need ON cbbr_need.description = source_cbbr_option."Need"
+LEFT JOIN cbbr_request ON cbbr_request.description = source_cbbr_option."Request"
+;
 
 COPY cbbr_policy_area TO '/var/lib/postgresql/data/cbbr_policy_area.csv';
 COPY cbbr_need_group TO '/var/lib/postgresql/data/cbbr_need_group.csv';
-COPY cbbr_agency_need_group TO '/var/lib/postgresql/data/cbbr_agency_need_group.csv';
 COPY cbbr_need TO '/var/lib/postgresql/data/cbbr_need.csv';
-COPY cbbr_agency_need TO '/var/lib/postgresql/data/cbbr_agency_need.csv';
 COPY cbbr_request TO '/var/lib/postgresql/data/cbbr_request.csv';
-COPY cbbr_agency_need_request TO '/var/lib/postgresql/data/cbbr_agency_need_request.csv';
+COPY cbbr_options_cascade TO '/var/lib/postgresql/data/cbbr_options_cascade.csv';

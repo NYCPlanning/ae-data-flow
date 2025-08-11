@@ -19,11 +19,9 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -t community_district \
     -t cbbr_policy_area \
     -t cbbr_need_group \
-    -t cbbr_agency_need_group \
     -t cbbr_need \
-    -t cbbr_agency_need \
     -t cbbr_request \
-    -t cbbr_agency_need_request \
+    -t cbbr_options_cascade \
     --file ./data/community_board_budget_requests_dump.sql
 
 PGPASSWORD=$POSTGRES_PASSWORD \
