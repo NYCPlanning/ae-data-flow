@@ -17,7 +17,8 @@ import "dotenv/config";
         bucketSubPath:
           | "db-cpdb/publish/latest"
           | "datasets/dcp_city_council_districts/24B"
-          | "datasets/dcp_community_districts/24B";
+          | "datasets/dcp_community_districts/24B"
+          | "db-cbbr/publish/latest";
       }
     | {
         bucketName: "ae-data-backups";
@@ -35,6 +36,13 @@ import "dotenv/config";
       fileExtension: "csv",
       bucketName: "ae-data-backups",
       bucketSubPath: "zoning-api",
+      build: "community-board-budget-requests",
+    },
+    {
+      fileName: "cbbr_export",
+      fileExtension: "csv",
+      bucketName: "edm-publishing",
+      bucketSubPath: "db-cbbr/publish/latest",
       build: "community-board-budget-requests",
     },
     {
