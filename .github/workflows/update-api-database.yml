@@ -12,6 +12,7 @@ on:
                     - all
                     - agencies
                     - boroughs
+                    - community-board-budget-requests
                     - community-districts
                     - city-council-districts
                     - capital-planning
@@ -42,7 +43,7 @@ jobs:
             TARGET_DATABASE_PASSWORD: ${{ secrets.TARGET_DATABASE_PASSWORD }}
             TARGET_DATABASE_PORT: ${{ secrets.TARGET_DATABASE_PORT }}
             TARGET_DATABASE_USER: ${{ secrets.TARGET_DATABASE_USER }}
-            
+
         name: Update database
         runs-on: ubuntu-latest
         steps:
@@ -53,7 +54,7 @@ jobs:
               with:
                 compose-file: "compose.ci.yml"
             - name: install node
-              uses: actions/setup-node@v4  
+              uses: actions/setup-node@v4
               with:
                 node-version: '20.x'
             - name: install node dependencies
