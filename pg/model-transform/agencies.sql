@@ -24,5 +24,9 @@ WHERE
 	agency_code IS NOT NULL
 	AND agency_code != '04A';
 
+-- MOME agency code that is NULL in source data
+INSERT INTO managing_code (id)
+    VALUES ('859');
+
 COPY agency TO '/var/lib/postgresql/data/agency.csv';
 COPY managing_code TO '/var/lib/postgresql/data/managing_code.csv';

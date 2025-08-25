@@ -2,9 +2,6 @@ TRUNCATE
 	borough	
 	CASCADE;
 
-CREATE TABLE IF NOT EXISTS flow_borough 
-	(LIKE borough INCLUDING ALL);
-
 INSERT INTO borough
 	SELECT
 		id,
