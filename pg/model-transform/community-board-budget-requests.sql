@@ -77,6 +77,13 @@ WHERE
 	AND cbbr_need.description = source_cbbr_option."Need"
 	AND cbbr_request.description = source_cbbr_option."Request";
 
+INSERT INTO community_board_budget_request (
+	id,
+	tracking_code,
+	borough_id,
+	community_district_id
+)
+
 COPY cbbr_policy_area TO '/var/lib/postgresql/data/cbbr_policy_area.csv';
 COPY cbbr_need_group TO '/var/lib/postgresql/data/cbbr_need_group.csv';
 COPY cbbr_need TO '/var/lib/postgresql/data/cbbr_need.csv';
