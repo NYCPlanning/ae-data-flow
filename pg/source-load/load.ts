@@ -68,6 +68,8 @@ import { Build } from "../../build/schemas";
         "commdist",
         "cb_label",
         "type_br",
+        "policy_area",
+        "need_group",
         "priority",
         "need",
         "request",
@@ -92,7 +94,7 @@ import { Build } from "../../build/schemas";
       ],
       filePath: "data/download",
       fileName: "cbbr_export.csv",
-      build: "community-board-budget-requests", 
+      build: "community-board-budget-requests",
     },
     {
       table: "source_community_district",
