@@ -77,15 +77,69 @@ WHERE
 	AND cbbr_need.description = source_cbbr_option."Need"
 	AND cbbr_request.description = source_cbbr_option."Request";
 
+ALTER TABLE source_cbbr_export
+    ADD COLUMN IF NOT EXISTS is_location_specific boolean;
+
+UPDATE source_cbbr_export
+	SET	
+		is_location_specific = CASE
+			WHEN location_specific = 'Yes' THEN True
+			WHEN location_specific = 'No' THEN False
+		END;
+
+ALTER TABLE source_cbbr_export
+    ADD COLUMN IF NOT EXISTS refined_m_agency_acro text;
+
+UPDATE source_cbbr_export
+    SET
+        refined_m_agency_acro = CASE
+            WHEN agency_acronym = 'DoiTT' THEN 'OTI'
+            WHEN agency_acronym = 'CHR' THEN 'CCHR'
+            WHEN agency_acronym = 'CEOM' THEN 'BEBS'
+      		WHEN agency_acronym = 'DCA' THEN 'DCWP'
+            ELSE agency_acronym
+        END;
+
+UPDATE source_cbbr_export
+	SET agency = LPAD(agency::TEXT, 3, '0');
+
 INSERT INTO community_board_budget_request (
 	id,
 	tracking_code,
 	borough_id,
-	community_district_id
+	community_district_id,
+	agency,
+	agency_category_response,
+	agency_response,
+	type,
+	priority,
+	need,
+	request,
+	explanation,
+	is_location_specific,
+	geom
 )
+SELECT
+	unique_id as id,
+	tracking_code,
+	borough_code as borough_id,
+	cd as community_district_id,
+	agency_acronym as agency,
+	agency_category_response,
+	agency_response,
+	type_br as type,
+	priority,
+	need,
+	request,
+	explanation,
+	is_location_specific,
+	geom
+FROM source_cbbr_export
+;
 
 COPY cbbr_policy_area TO '/var/lib/postgresql/data/cbbr_policy_area.csv';
 COPY cbbr_need_group TO '/var/lib/postgresql/data/cbbr_need_group.csv';
 COPY cbbr_need TO '/var/lib/postgresql/data/cbbr_need.csv';
 COPY cbbr_request TO '/var/lib/postgresql/data/cbbr_request.csv';
 COPY cbbr_option_cascade TO '/var/lib/postgresql/data/cbbr_option_cascade.csv';
+COPY community_board_budget_request TO '/var/lib/postgresql/data/community_board_budget_request.csv';

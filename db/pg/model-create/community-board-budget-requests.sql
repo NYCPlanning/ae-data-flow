@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS community_board_budget_request (
     "tracking_code" text NOT NULL,
     "borough_id" char(1) NOT NULL,
     "community_district_id" char(2) NOT NULL,
-    "agency" char(3),
+    "agency" text,
     "agency_category_response" text,
     "agency_response" text,
     "type" char(1) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS community_board_budget_request (
     "need" text,
     "request" text,
     "explanation" text,
-    "location_specific" boolean,
+    "is_location_specific" boolean,
     "geom" geometry(geometry, 4326)
 );
 
