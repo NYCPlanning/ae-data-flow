@@ -109,6 +109,7 @@ INSERT INTO community_board_budget_request (
 	borough_id,
 	community_district_id,
 	agency,
+	managing_code,
 	agency_category_response,
 	agency_response,
 	type,
@@ -125,6 +126,7 @@ SELECT
 	borough_code as borough_id,
 	cd as community_district_id,
 	agency_acronym as agency,
+	agency as managing_code,
 	agency_category_response,
 	agency_response,
 	type_br as type,
@@ -134,8 +136,7 @@ SELECT
 	explanation,
 	is_location_specific,
 	geom
-FROM source_cbbr_export
-;
+FROM source_cbbr_export;
 
 COPY cbbr_policy_area TO '/var/lib/postgresql/data/cbbr_policy_area.csv';
 COPY cbbr_need_group TO '/var/lib/postgresql/data/cbbr_need_group.csv';

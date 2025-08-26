@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS community_board_budget_request (
     "borough_id" char(1) NOT NULL,
     "community_district_id" char(2) NOT NULL,
     "agency" text,
+    "managing_code" char(3),
     "agency_category_response" text,
     "agency_response" text,
     "type" char(1) NOT NULL,
