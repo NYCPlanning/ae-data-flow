@@ -138,6 +138,15 @@ SELECT
 	geom
 FROM source_cbbr_export;
 
+INSERT INTO agency_response (description)
+SELECT 
+	acr.description
+FROM (
+	SELECT DISTINCT 
+	agency_category_response as description 
+	FROM source_cbbr_export
+) acr;
+
 COPY cbbr_policy_area TO '/var/lib/postgresql/data/cbbr_policy_area.csv';
 COPY cbbr_need_group TO '/var/lib/postgresql/data/cbbr_need_group.csv';
 COPY cbbr_need TO '/var/lib/postgresql/data/cbbr_need.csv';

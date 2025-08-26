@@ -31,6 +31,6 @@ CREATE TABLE IF NOT EXISTS community_board_budget_request (
 );
 
 CREATE TABLE IF NOT EXISTS agency_response (
-    "id" char(1) PRIMARY KEY NOT NULL,
+    "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL,
     "description" text NOT NULL
 );
