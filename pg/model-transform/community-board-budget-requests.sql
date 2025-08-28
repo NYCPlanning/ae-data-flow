@@ -3,7 +3,9 @@ TRUNCATE
 	cbbr_need_group,
 	cbbr_need,
 	cbbr_request,
-	cbbr_option_cascade
+	cbbr_option_cascade,
+	cbbr_agency_category_response,
+	community_board_budget_request
 RESTART IDENTITY
 CASCADE;
 
@@ -77,6 +79,16 @@ WHERE
 	AND cbbr_need.description = source_cbbr_option."Need"
 	AND cbbr_request.description = source_cbbr_option."Request";
 
+
+INSERT INTO cbbr_agency_category_response (description)
+SELECT 
+	acr.description
+FROM (
+	SELECT DISTINCT 
+	agency_category_response as description 
+	FROM source_cbbr_export
+) acr;
+
 ALTER TABLE source_cbbr_export
     ADD COLUMN IF NOT EXISTS is_location_specific boolean;
 
@@ -110,12 +122,12 @@ INSERT INTO community_board_budget_request (
 	community_district_id,
 	agency,
 	managing_code,
-	agency_category_response,
+	agency_category_response_id,
 	agency_response,
-	type,
+	request_type,
 	priority,
-	need,
-	request,
+	need_id,
+	request_id,
 	explanation,
 	is_location_specific,
 	geom
@@ -123,29 +135,29 @@ INSERT INTO community_board_budget_request (
 SELECT
 	unique_id as id,
 	tracking_code,
-	borough_code as borough_id,
-	cd as community_district_id,
-	agency_acronym as agency,
-	agency as managing_code,
-	agency_category_response,
+	borough.id as borough_id,
+	community_district.id as community_district_id,
+	agency.initials as agency,
+	managing_code.id as managing_code,
+	cbbr_agency_category_response.id as agency_category_response_id,
 	agency_response,
-	type_br as type,
+	type_br as request_type,
 	priority,
-	need,
-	request,
+	cbbr_need.id as need_id,
+	cbbr_request.id as request_id,
 	explanation,
 	is_location_specific,
-	geom
-FROM source_cbbr_export;
+	ST_ForceCollection(geom)
+FROM source_cbbr_export
+LEFT JOIN borough on borough.id = source_cbbr_export.borough_code
+LEFT JOIN community_district on community_district.id = source_cbbr_export.cd
+LEFT JOIN agency on agency.initials = source_cbbr_export.agency_acronym
+LEFT JOIN managing_code on managing_code.id = source_cbbr_export.agency
+LEFT JOIN cbbr_agency_category_response on cbbr_agency_category_response.description = source_cbbr_export.agency_category_response
+LEFT JOIN cbbr_need on cbbr_need.description = source_cbbr_export.need
+LEFT JOIN cbbr_request on cbbr_request.description = source_cbbr_export.request
+;
 
-INSERT INTO agency_response (description)
-SELECT 
-	acr.description
-FROM (
-	SELECT DISTINCT 
-	agency_category_response as description 
-	FROM source_cbbr_export
-) acr;
 
 COPY cbbr_policy_area TO '/var/lib/postgresql/data/cbbr_policy_area.csv';
 COPY cbbr_need_group TO '/var/lib/postgresql/data/cbbr_need_group.csv';
