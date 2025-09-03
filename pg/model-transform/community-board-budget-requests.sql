@@ -81,7 +81,12 @@ WHERE
 
 
 ALTER TABLE source_cbbr_export
-    ADD COLUMN IF NOT EXISTS is_location_specific boolean;
+    ADD COLUMN IF NOT EXISTS is_location_specific boolean,
+	ADD COLUMN IF NOT EXISTS li_ft_m_pnt geometry(MULTIPOINT, 2263),
+	ADD COLUMN IF NOT EXISTS li_ft_m_poly geometry(MULTIPOLYGON, 2263),
+	ADD COLUMN IF NOT EXISTS mercator_fill_m_pnt geometry(MULTIPOINT, 3857),
+	ADD COLUMN IF NOT EXISTS mercator_fill_m_poly geometry(MULTIPOLYGON, 3857)
+	;
 
 UPDATE source_cbbr_export
 	SET	
@@ -89,6 +94,22 @@ UPDATE source_cbbr_export
 			WHEN location_specific = 'Yes' THEN True
 			WHEN location_specific = 'No' THEN False
 		END;
+
+UPDATE source_cbbr_export
+	SET
+		li_ft_m_pnt = CASE
+			WHEN ST_GeometryType(geom) = 'ST_MultiPoint' THEN ST_Transform(geom, 2263)
+			END,
+		li_ft_m_poly = CASE
+			WHEN ST_GeometryType(geom) = 'ST_MultiPolygon' THEN ST_Transform(geom, 2263)
+			END,
+		mercator_fill_m_pnt = CASE
+			WHEN ST_GeometryType(geom) = 'ST_MultiPoint' THEN ST_Transform(geom, 3857)
+			END,
+		mercator_fill_m_poly = CASE
+			WHEN ST_GeometryType(geom) = 'ST_MultiPolygon' THEN ST_Transform(geom, 3857)
+			END;
+
 
 ALTER TABLE source_cbbr_export
     ADD COLUMN IF NOT EXISTS refined_m_agency_acro text;
@@ -132,7 +153,10 @@ INSERT INTO community_board_budget_request (
 	request_id,
 	explanation,
 	is_location_specific,
-	geom
+	li_ft_m_pnt,
+	li_ft_m_poly,
+	mercator_fill_m_pnt,
+	mercator_fill_m_poly
 )
 SELECT
 	unique_id as id,
@@ -149,7 +173,10 @@ SELECT
 	cbbr_request.id as request_id,
 	explanation,
 	is_location_specific,
-	ST_ForceCollection(geom)
+	li_ft_m_pnt,
+	li_ft_m_poly,
+	mercator_fill_m_pnt,
+	mercator_fill_m_poly
 FROM source_cbbr_export
 LEFT JOIN borough on borough.id = source_cbbr_export.borough_code
 LEFT JOIN community_district on community_district.id = source_cbbr_export.cd
@@ -161,10 +188,10 @@ LEFT JOIN cbbr_request on cbbr_request.description = source_cbbr_export.request
 ;
 
 
--- COPY cbbr_policy_area TO '/var/lib/postgresql/data/cbbr_policy_area.csv';
--- COPY cbbr_need_group TO '/var/lib/postgresql/data/cbbr_need_group.csv';
--- COPY cbbr_need TO '/var/lib/postgresql/data/cbbr_need.csv';
--- COPY cbbr_request TO '/var/lib/postgresql/data/cbbr_request.csv';
--- COPY cbbr_option_cascade TO '/var/lib/postgresql/data/cbbr_option_cascade.csv';
--- COPY cbbr_agency_category_response TO '/var/lib/postgresql/data/cbbr_agency_category_response.csv';
--- COPY community_board_budget_request TO '/var/lib/postgresql/data/community_board_budget_request.csv';
+COPY cbbr_policy_area TO '/var/lib/postgresql/data/cbbr_policy_area.csv';
+COPY cbbr_need_group TO '/var/lib/postgresql/data/cbbr_need_group.csv';
+COPY cbbr_need TO '/var/lib/postgresql/data/cbbr_need.csv';
+COPY cbbr_request TO '/var/lib/postgresql/data/cbbr_request.csv';
+COPY cbbr_option_cascade TO '/var/lib/postgresql/data/cbbr_option_cascade.csv';
+COPY cbbr_agency_category_response TO '/var/lib/postgresql/data/cbbr_agency_category_response.csv';
+COPY community_board_budget_request TO '/var/lib/postgresql/data/community_board_budget_request.csv';
