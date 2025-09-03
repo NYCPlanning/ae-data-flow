@@ -92,7 +92,7 @@ import { Build } from "../../build/schemas";
       ],
       filePath: "data/download",
       fileName: "cbbr_export.csv",
-      build: "community-board-budget-requests", 
+      build: "community-board-budget-requests",
     },
     {
       table: "source_community_district",
