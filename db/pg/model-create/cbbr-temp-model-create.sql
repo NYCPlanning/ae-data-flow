@@ -26,7 +26,11 @@ CREATE TABLE "community_board_budget_request" (
 	"li_ft_m_pnt" geometry(multiPoint,2263),
 	"li_ft_m_poly" geometry(multiPolygon,2263),
 	"mercator_fill_m_pnt" geometry(multiPoint,3857),
-	"mercator_fill_m_poly" geometry(multiPolygon,3857)
+	"mercator_fill_m_poly" geometry(multiPolygon,3857),
+	CONSTRAINT "community_board_budget_request_request_type_options" CHECK ("community_board_budget_request"."request_type" IN (
+        'Capital',
+        'Expense'
+      ))
 );
 --> statement-breakpoint
 ALTER TABLE "community_board_budget_request" ADD CONSTRAINT "community_board_budget_request_borough_id_borough_id_fk" FOREIGN KEY ("borough_id") REFERENCES "public"."borough"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
@@ -35,4 +39,8 @@ ALTER TABLE "community_board_budget_request" ADD CONSTRAINT "community_board_bud
 ALTER TABLE "community_board_budget_request" ADD CONSTRAINT "community_board_budget_request_agency_category_response_id_cbbr_agency_category_response_id_fk" FOREIGN KEY ("agency_category_response_id") REFERENCES "public"."cbbr_agency_category_response"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "community_board_budget_request" ADD CONSTRAINT "community_board_budget_request_need_id_cbbr_need_id_fk" FOREIGN KEY ("need_id") REFERENCES "public"."cbbr_need"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "community_board_budget_request" ADD CONSTRAINT "community_board_budget_request_request_id_cbbr_request_id_fk" FOREIGN KEY ("request_id") REFERENCES "public"."cbbr_request"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "community_board_budget_request" ADD CONSTRAINT "community_board_budget_request_borough_id_community_district_id_community_district_borough_id_id_fk" FOREIGN KEY ("borough_id","community_district_id") REFERENCES "public"."community_district"("borough_id","id") ON DELETE no action ON UPDATE no action;
+ALTER TABLE "community_board_budget_request" ADD CONSTRAINT "community_board_budget_request_borough_id_community_district_id_community_district_borough_id_id_fk" FOREIGN KEY ("borough_id","community_district_id") REFERENCES "public"."community_district"("borough_id","id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+CREATE INDEX "community_board_budget_request_li_ft_m_pnt_index" ON "community_board_budget_request" USING GIST ("li_ft_m_pnt");--> statement-breakpoint
+CREATE INDEX "community_board_budget_request_li_ft_m_poly_index" ON "community_board_budget_request" USING GIST ("li_ft_m_poly");--> statement-breakpoint
+CREATE INDEX "community_board_budget_request_mercator_fill_m_poly_index" ON "community_board_budget_request" USING GIST ("mercator_fill_m_poly");--> statement-breakpoint
+CREATE INDEX "community_board_budget_request_mercator_fill_m_pnt_index" ON "community_board_budget_request" USING GIST ("mercator_fill_m_pnt");

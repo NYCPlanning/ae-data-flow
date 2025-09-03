@@ -82,6 +82,9 @@ WHERE
 
 ALTER TABLE source_cbbr_export
     ADD COLUMN IF NOT EXISTS is_location_specific boolean,
+	ADD COLUMN IF NOT EXISTS refined_managing_code text,
+	ADD COLUMN IF NOT EXISTS refined_m_agency_acro text,
+	ADD COLUMN IF NOT EXISTS refined_request_type text,
 	ADD COLUMN IF NOT EXISTS li_ft_m_pnt geometry(MULTIPOINT, 2263),
 	ADD COLUMN IF NOT EXISTS li_ft_m_poly geometry(MULTIPOLYGON, 2263),
 	ADD COLUMN IF NOT EXISTS mercator_fill_m_pnt geometry(MULTIPOINT, 3857),
@@ -96,6 +99,27 @@ UPDATE source_cbbr_export
 		END;
 
 UPDATE source_cbbr_export
+	SET refined_managing_code = LPAD(agency::TEXT, 3, '0');
+
+UPDATE source_cbbr_export
+	SET refined_request_type = CASE
+		WHEN type_br = 'C' THEN 'Capital'
+		WHEN type_br = 'E' THEN 'Expense'
+	END;
+
+UPDATE source_cbbr_export
+    SET
+        refined_m_agency_acro = CASE
+            WHEN agency_acronym = 'DoiTT' THEN 'OTI'
+            WHEN agency_acronym = 'CHR' THEN 'CCHR'
+            WHEN agency_acronym = 'CEOM' THEN 'BEBS'
+      		WHEN agency_acronym = 'DCA' THEN 'DCWP'
+			WHEN agency_acronym IS NULL AND refined_managing_code = '032' THEN 'DOI'
+			WHEN agency_acronym IS NULL and refined_managing_code = '836' THEN 'DOF'
+            ELSE agency_acronym
+        END;
+	
+UPDATE source_cbbr_export
 	SET
 		li_ft_m_pnt = CASE
 			WHEN ST_GeometryType(geom) = 'ST_MultiPoint' THEN ST_Transform(geom, 2263)
@@ -109,25 +133,6 @@ UPDATE source_cbbr_export
 		mercator_fill_m_poly = CASE
 			WHEN ST_GeometryType(geom) = 'ST_MultiPolygon' THEN ST_Transform(geom, 3857)
 			END;
-
-
-ALTER TABLE source_cbbr_export
-    ADD COLUMN IF NOT EXISTS refined_m_agency_acro text;
-
-UPDATE source_cbbr_export
-	SET agency = LPAD(agency::TEXT, 3, '0');
-
-UPDATE source_cbbr_export
-    SET
-        refined_m_agency_acro = CASE
-            WHEN agency_acronym = 'DoiTT' THEN 'OTI'
-            WHEN agency_acronym = 'CHR' THEN 'CCHR'
-            WHEN agency_acronym = 'CEOM' THEN 'BEBS'
-      		WHEN agency_acronym = 'DCA' THEN 'DCWP'
-			WHEN agency_acronym IS NULL AND agency = '032' THEN 'DOI'
-			WHEN agency_acronym IS NULL and agency = '836' THEN 'DOF'
-            ELSE agency_acronym
-        END;
 
 INSERT INTO cbbr_agency_category_response (description)
 SELECT 
@@ -167,7 +172,7 @@ SELECT
 	managing_code.id as managing_code,
 	cbbr_agency_category_response.id as agency_category_response_id,
 	agency_response,
-	type_br as request_type,
+	refined_request_type as request_type,
 	priority,
 	cbbr_need.id as need_id,
 	cbbr_request.id as request_id,
@@ -181,7 +186,7 @@ FROM source_cbbr_export
 LEFT JOIN borough on borough.id = source_cbbr_export.borough_code
 LEFT JOIN community_district on community_district.id = source_cbbr_export.cd
 LEFT JOIN agency on agency.initials = source_cbbr_export.agency_acronym
-LEFT JOIN managing_code on managing_code.id = source_cbbr_export.agency
+LEFT JOIN managing_code on managing_code.id = source_cbbr_export.refined_managing_code
 LEFT JOIN cbbr_agency_category_response on cbbr_agency_category_response.description = source_cbbr_export.agency_category_response
 LEFT JOIN cbbr_need on UPPER(cbbr_need.description) = UPPER(source_cbbr_export.need)
 LEFT JOIN cbbr_request on cbbr_request.description = source_cbbr_export.request
