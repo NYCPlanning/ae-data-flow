@@ -25,6 +25,7 @@ CREATE TABLE "community_board_budget_request" (
 	"is_location_specific" boolean NOT NULL,
 	"li_ft_m_pnt" geometry(multiPoint,2263),
 	"li_ft_m_poly" geometry(multiPolygon,2263),
+	"mercator_label" geometry(point,3857),
 	"mercator_fill_m_pnt" geometry(multiPoint,3857),
 	"mercator_fill_m_poly" geometry(multiPolygon,3857),
 	CONSTRAINT "community_board_budget_request_request_type_options" CHECK ("community_board_budget_request"."request_type" IN (

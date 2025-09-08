@@ -87,6 +87,7 @@ ALTER TABLE source_cbbr_export
 	ADD COLUMN IF NOT EXISTS refined_request_type text,
 	ADD COLUMN IF NOT EXISTS li_ft_m_pnt geometry(MULTIPOINT, 2263),
 	ADD COLUMN IF NOT EXISTS li_ft_m_poly geometry(MULTIPOLYGON, 2263),
+	ADD COLUMN IF NOT EXISTS mercator_label geometry(POINT, 3857),
 	ADD COLUMN IF NOT EXISTS mercator_fill_m_pnt geometry(MULTIPOINT, 3857),
 	ADD COLUMN IF NOT EXISTS mercator_fill_m_poly geometry(MULTIPOLYGON, 3857)
 	;
@@ -127,6 +128,9 @@ UPDATE source_cbbr_export
 		li_ft_m_poly = CASE
 			WHEN ST_GeometryType(geom) = 'ST_MultiPolygon' THEN ST_Transform(geom, 2263)
 			END,
+		mercator_label = CASE
+			WHEN ST_GeometryType(geom) = 'ST_MultiPoint' THEN ST_Transform(ST_PointOnSurface(geom), 3857)
+			END,
 		mercator_fill_m_pnt = CASE
 			WHEN ST_GeometryType(geom) = 'ST_MultiPoint' THEN ST_Transform(geom, 3857)
 			END,
@@ -160,10 +164,11 @@ INSERT INTO community_board_budget_request (
 	is_location_specific,
 	li_ft_m_pnt,
 	li_ft_m_poly,
+	mercator_label,
 	mercator_fill_m_pnt,
 	mercator_fill_m_poly
 )
-SELECT
+SELECT DISTINCT
 	unique_id as id,
 	tracking_code,
 	borough.id as borough_id,
@@ -180,6 +185,7 @@ SELECT
 	is_location_specific,
 	li_ft_m_pnt,
 	li_ft_m_poly,
+	source_cbbr_export.mercator_label as mercator_label,
 	mercator_fill_m_pnt,
 	mercator_fill_m_poly
 FROM source_cbbr_export
