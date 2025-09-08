@@ -9,7 +9,7 @@ CREATE TABLE "cbbr_agency_category_response" (
 );
 --> statement-breakpoint
 CREATE TABLE "community_board_budget_request" (
-	"id" text NOT NULL,
+	"id" text PRIMARY KEY NOT NULL,
 	"tracking_code" text NOT NULL,
 	"borough_id" char(1) NOT NULL,
 	"community_district_id" char(2) NOT NULL,
