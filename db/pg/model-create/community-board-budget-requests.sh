@@ -24,6 +24,7 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -t cbbr_option_cascade \
     --file ./data/community_board_budget_requests_dump.sql
 
+
 PGPASSWORD=$POSTGRES_PASSWORD \
 psql --host=localhost \
     --port=5432 \
@@ -31,3 +32,12 @@ psql --host=localhost \
     -d $POSTGRES_DB \
     --single-transaction \
     --file ./data/community_board_budget_requests_dump.sql
+
+PGPASSWORD=$POSTGRES_PASSWORD \
+psql --host=localhost \
+    --port=5432 \
+    -U $POSTGRES_USER \
+    -d $POSTGRES_DB \
+    --single-transaction \
+    --file ./flow/model-create/cbbr-temp-model-create.sql
+
