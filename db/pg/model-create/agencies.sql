@@ -8,6 +8,8 @@ DROP TABLE IF EXISTS
     cbbr_need,
     cbbr_request,
     cbbr_option_cascade,
+    cbbr_agency_category_response,
+    community_board_budget_request,
 	capital_project,
 	capital_project_fund,
 	capital_commitment_type,

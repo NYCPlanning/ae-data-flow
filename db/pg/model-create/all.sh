@@ -28,6 +28,8 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -t cbbr_need \
     -t cbbr_request \
     -t cbbr_option_cascade \
+    -t cbbr_agency_category_response \
+    -t community_board_budget_request \
     -t capital_project \
     -t capital_project_fund \
     -t capital_commitment_type \
