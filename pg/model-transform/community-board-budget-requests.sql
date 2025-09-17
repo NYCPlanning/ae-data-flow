@@ -161,9 +161,9 @@ INSERT INTO community_board_budget_request (
 	agency_category_response_id,
 	agency_response,
 	request_type,
+	priority,
 	policy_area_id,
 	need_group_id,
-	priority,
 	need_id,
 	request_id,
 	explanation,
@@ -174,9 +174,9 @@ INSERT INTO community_board_budget_request (
 	mercator_fill_m_pnt,
 	mercator_fill_m_poly
 )
-SELECT
-	unique_id as id,
-	tracking_code,
+SELECT DISTINCT
+	tracking_code as id,
+	unique_id as internal_id,
 	borough.id as borough_id,
 	community_district.id as community_district_id,
 	refined_m_agency_acro as agency,
@@ -184,9 +184,9 @@ SELECT
 	cbbr_agency_category_response.id as agency_category_response_id,
 	agency_response,
 	refined_request_type as request_type,
+	priority,
 	cbbr_policy_area.id as policy_area_id,
 	cbbr_need_group.id as need_group_id,
-	priority,
 	cbbr_need.id as need_id,
 	cbbr_request.id as request_id,
 	explanation,
