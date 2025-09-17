@@ -8,6 +8,8 @@ DROP TABLE IF EXISTS
     cbbr_need,
     cbbr_request,
     cbbr_option_cascade,
+    cbbr_agency_category_response,
+    community_board_budget_request,
     land_use,
     tax_lot,
     zoning_district,
