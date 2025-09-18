@@ -82,6 +82,7 @@ WHERE
 
 ALTER TABLE source_cbbr_export
     ADD COLUMN IF NOT EXISTS is_location_specific boolean,
+	ADD COLUMN IF NOT EXISTS is_continued_support boolean,
 	ADD COLUMN IF NOT EXISTS refined_managing_code text,
 	ADD COLUMN IF NOT EXISTS refined_m_agency_acro text,
 	ADD COLUMN IF NOT EXISTS refined_request_type text,
@@ -97,6 +98,13 @@ UPDATE source_cbbr_export
 		is_location_specific = CASE
 			WHEN location_specific = 'Yes' THEN True
 			WHEN location_specific = 'No' THEN False
+		END;
+
+UPDATE source_cbbr_export
+	SET	
+		is_continued_support = CASE
+			WHEN RIGHT(tracking_code, 1) = 'S' THEN True
+			ELSE False
 		END;
 
 UPDATE source_cbbr_export
@@ -168,6 +176,7 @@ INSERT INTO community_board_budget_request (
 	request_id,
 	explanation,
 	is_location_specific,
+	is_continued_support,
 	li_ft_m_pnt,
 	li_ft_m_poly,
 	mercator_label,
@@ -191,6 +200,7 @@ SELECT DISTINCT
 	cbbr_request.id as request_id,
 	explanation,
 	is_location_specific,
+	is_continued_support,
 	li_ft_m_pnt,
 	li_ft_m_poly,
 	source_cbbr_export.mercator_label,
