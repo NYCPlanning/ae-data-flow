@@ -39,6 +39,13 @@ import "dotenv/config";
       build: "community-board-budget-requests",
     },
     {
+      fileName: "CBBR_FullOptionList_NoDuplicates",
+      fileExtension: "csv",
+      bucketName: "ae-data-backups",
+      bucketSubPath: "zoning-api",
+      build: "community-board-budget-requests",
+    },
+    {
       fileName: "cbbr_export",
       fileExtension: "csv",
       bucketName: "edm-publishing",

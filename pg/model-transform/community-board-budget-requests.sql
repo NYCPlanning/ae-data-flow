@@ -10,27 +10,27 @@ RESTART IDENTITY
 CASCADE;
 
 INSERT INTO cbbr_policy_area (description)
-SELECT DISTINCT
+SELECT 
 	"Policy Area" AS description
-FROM source_cbbr_option
+FROM source_cbbr_options_no_duplicates
 ORDER BY description;
 
 INSERT INTO cbbr_need_group (description)
 SELECT DISTINCT
 	"Need Group" AS description
-FROM source_cbbr_option
+FROM source_cbbr_options_no_duplicates
 ORDER BY description;
 
 INSERT INTO cbbr_need (description)
 SELECT DISTINCT
     RTRIM("Need") AS description
-FROM source_cbbr_option
+FROM source_cbbr_options_no_duplicates
     ORDER BY description;
 
 INSERT INTO cbbr_request (description)
 SELECT DISTINCT
     "Request" AS description
-FROM source_cbbr_option
+FROM source_cbbr_options_no_duplicates
     ORDER BY description;
 
 ALTER TABLE source_cbbr_option
