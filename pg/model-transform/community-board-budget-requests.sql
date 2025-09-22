@@ -162,6 +162,7 @@ FROM (
 INSERT INTO community_board_budget_request (
 	id,
 	internal_id,
+	title,
 	borough_id,
 	community_district_id,
 	agency,
@@ -186,6 +187,7 @@ INSERT INTO community_board_budget_request (
 SELECT DISTINCT
 	tracking_code as id,
 	unique_id as internal_id,
+	source_cbbr_export.title,
 	borough.id as borough_id,
 	community_district.id as community_district_id,
 	refined_m_agency_acro as agency,
