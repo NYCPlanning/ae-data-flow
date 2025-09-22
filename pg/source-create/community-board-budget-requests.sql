@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS source_cbbr_option (
 CREATE TABLE IF NOT EXISTS source_cbbr_export (
 	unique_id text,
 	tracking_code text,
+	title text,
 	borough text,
 	borough_code char(1) NOT NULL,
 	cd char(2) NOT NULL CHECK (cd SIMILAR TO '[0-9]{2}'),

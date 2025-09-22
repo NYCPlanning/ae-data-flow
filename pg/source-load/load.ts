@@ -72,6 +72,7 @@ import { Build } from "../../build/schemas";
         "policy_area",
         "need_group",
         "need",
+        "title",
         "request",
         "explanation",
         "location_specific",
