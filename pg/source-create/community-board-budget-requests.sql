@@ -1,7 +1,17 @@
 DROP TABLE IF EXISTS
 	source_cbbr_option,
+	source_cbbr_options_no_duplicates,
 	source_cbbr_export
 	CASCADE;
+
+CREATE TABLE IF NOT EXISTS source_cbbr_options_no_duplicates (
+	"Policy Area" text,
+	"Need Group" text,
+	"Agency" text,
+	"Type" text,
+	"Need" text,
+	"Request" text	
+);
 
 CREATE TABLE IF NOT EXISTS source_cbbr_option (
 	"Policy Area" text,

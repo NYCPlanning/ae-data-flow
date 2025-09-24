@@ -44,6 +44,20 @@ import { Build } from "../../build/schemas";
       build: "city-council-districts",
     },
     {
+      table: "source_cbbr_options_no_duplicates",
+      columns: [
+        "Policy Area",
+        "Need Group",
+        "Agency",
+        "Type",
+        "Need",
+        "Request",
+      ],
+      filePath: "data/download",
+      fileName: "cbbr_options_no_duplicates.csv",
+      build: "community-board-budget-requests",
+    },
+    {
       table: "source_cbbr_option",
       columns: [
         "Policy Area",
