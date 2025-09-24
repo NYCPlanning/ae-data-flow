@@ -54,7 +54,7 @@ import { Build } from "../../build/schemas";
         "Request",
       ],
       filePath: "data/download",
-      fileName: "CBBR_FullOptionList_NoDuplicates.csv",
+      fileName: "cbbr_options_no_duplicates.csv",
       build: "community-board-budget-requests",
     },
     {
