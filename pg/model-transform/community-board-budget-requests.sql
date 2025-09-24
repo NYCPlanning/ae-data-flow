@@ -13,25 +13,29 @@ INSERT INTO cbbr_policy_area (description)
 SELECT 
 	"Policy Area" AS description
 FROM source_cbbr_options_no_duplicates
-ORDER BY description;
+WHERE source_cbbr_options_no_duplicates."Policy Area" IS NOT NULL
+;
 
 INSERT INTO cbbr_need_group (description)
 SELECT DISTINCT
 	"Need Group" AS description
 FROM source_cbbr_options_no_duplicates
-ORDER BY description;
+WHERE source_cbbr_options_no_duplicates."Need Group" IS NOT NULL
+;
 
 INSERT INTO cbbr_need (description)
 SELECT DISTINCT
     RTRIM("Need") AS description
 FROM source_cbbr_options_no_duplicates
-    ORDER BY description;
+WHERE source_cbbr_options_no_duplicates."Need" IS NOT NULL
+;
 
 INSERT INTO cbbr_request (description)
 SELECT DISTINCT
     "Request" AS description
 FROM source_cbbr_options_no_duplicates
-    ORDER BY description;
+WHERE source_cbbr_options_no_duplicates."Request" IS NOT NULL
+;
 
 ALTER TABLE source_cbbr_option
 	ADD COLUMN IF NOT EXISTS
