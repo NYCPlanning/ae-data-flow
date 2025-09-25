@@ -716,6 +716,10 @@ WITH capital_project_spatial AS (
 								WHEN capital_project_spatial.m_pnt IS NOT NULL THEN ST_Transform(ST_PointOnSurface(capital_project_spatial.m_pnt), 3857)
 								WHEN capital_project_spatial.m_poly IS NOT NULL THEN ST_Transform((ST_MaximumInscribedCircle(capital_project_spatial.m_poly)).center, 3857)
 							END,
+    		mercator_fill = CASE
+    							WHEN capital_project_spatial.m_pnt IS NOT NULL THEN ST_Transform(capital_project_spatial.m_pnt, 3857)
+    							WHEN capital_project_spatial.m_poly IS NOT NULL THEN ST_Transform(capital_project_spatial.m_poly, 3857)
+    						END,
 			mercator_fill_m_pnt = ST_Transform(capital_project_spatial.m_pnt, 3857),
 			mercator_fill_m_poly = ST_Transform(capital_project_spatial.m_poly, 3857)
 	FROM capital_project_spatial

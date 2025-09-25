@@ -89,19 +89,20 @@ ALTER TABLE source_cbbr_export
 	ADD COLUMN IF NOT EXISTS li_ft_m_pnt geometry(MULTIPOINT, 2263),
 	ADD COLUMN IF NOT EXISTS li_ft_m_poly geometry(MULTIPOLYGON, 2263),
 	ADD COLUMN IF NOT EXISTS mercator_label geometry(POINT, 3857),
+	ADD COLUMN IF NOT EXISTS mercator_fill geometry(GEOMETRY, 3857),
 	ADD COLUMN IF NOT EXISTS mercator_fill_m_pnt geometry(MULTIPOINT, 3857),
 	ADD COLUMN IF NOT EXISTS mercator_fill_m_poly geometry(MULTIPOLYGON, 3857)
 	;
 
 UPDATE source_cbbr_export
-	SET	
+	SET
 		is_location_specific = CASE
 			WHEN location_specific = 'Yes' THEN True
 			WHEN location_specific = 'No' THEN False
 		END;
 
 UPDATE source_cbbr_export
-	SET	
+	SET
 		is_continued_support = CASE
 			WHEN RIGHT(tracking_code, 1) = 'S' THEN True
 			ELSE False
@@ -127,7 +128,7 @@ UPDATE source_cbbr_export
 			WHEN agency_acronym IS NULL and refined_managing_code = '836' THEN 'DOF'
             ELSE agency_acronym
         END;
-	
+
 UPDATE source_cbbr_export
 	SET
 		li_ft_m_pnt = CASE
@@ -136,6 +137,7 @@ UPDATE source_cbbr_export
 		li_ft_m_poly = CASE
 			WHEN ST_GeometryType(geom) = 'ST_MultiPolygon' THEN ST_Transform(geom, 2263)
 			END,
+		mercator_fill = ST_Transform(geom, 3857),
 		mercator_fill_m_pnt = CASE
 			WHEN ST_GeometryType(geom) = 'ST_MultiPoint' THEN ST_Transform(geom, 3857)
 			END,
@@ -151,11 +153,11 @@ UPDATE source_cbbr_export
 			END;
 
 INSERT INTO cbbr_agency_category_response (description)
-SELECT 
+SELECT
 	acr.description
 FROM (
-	SELECT DISTINCT 
-	agency_category_response as description 
+	SELECT DISTINCT
+	agency_category_response as description
 	FROM source_cbbr_export
 ) acr;
 
@@ -181,6 +183,7 @@ INSERT INTO community_board_budget_request (
 	li_ft_m_pnt,
 	li_ft_m_poly,
 	mercator_label,
+	mercator_fill,
 	mercator_fill_m_pnt,
 	mercator_fill_m_poly
 )
@@ -206,6 +209,7 @@ SELECT DISTINCT
 	li_ft_m_pnt,
 	li_ft_m_poly,
 	source_cbbr_export.mercator_label,
+	source_cbbr_export.mercator_fill,
 	mercator_fill_m_pnt,
 	mercator_fill_m_poly
 FROM source_cbbr_export
