@@ -39,7 +39,7 @@ import "dotenv/config";
       build: "community-board-budget-requests",
     },
     {
-      fileName: "cbbr_options_no_duplicates",
+      fileName: "cbbr_options_no_duplicates_surrogate_ids",
       fileExtension: "csv",
       bucketName: "ae-data-backups",
       bucketSubPath: "zoning-api",
