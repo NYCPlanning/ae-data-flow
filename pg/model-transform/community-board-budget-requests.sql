@@ -9,15 +9,17 @@ TRUNCATE
 RESTART IDENTITY
 CASCADE;
 
-INSERT INTO cbbr_policy_area (description)
+INSERT INTO cbbr_policy_area (id, description)
 SELECT 
+	policy_area_id as id,
 	"Policy Area" AS description
 FROM source_cbbr_options_no_duplicates
 WHERE source_cbbr_options_no_duplicates."Policy Area" IS NOT NULL
 ;
 
-INSERT INTO cbbr_need_group (description)
+INSERT INTO cbbr_need_group (id, description)
 SELECT DISTINCT
+	need_group_id as id,
 	"Need Group" AS description
 FROM source_cbbr_options_no_duplicates
 WHERE source_cbbr_options_no_duplicates."Need Group" IS NOT NULL

@@ -46,7 +46,9 @@ import { Build } from "../../build/schemas";
     {
       table: "source_cbbr_options_no_duplicates",
       columns: [
+        "policy_area_id",
         "Policy Area",
+        "need_group_id",
         "Need Group",
         "Agency",
         "Type",
@@ -54,7 +56,7 @@ import { Build } from "../../build/schemas";
         "Request",
       ],
       filePath: "data/download",
-      fileName: "cbbr_options_no_duplicates.csv",
+      fileName: "cbbr_options_no_duplicates_surrogate_ids.csv",
       build: "community-board-budget-requests",
     },
     {
