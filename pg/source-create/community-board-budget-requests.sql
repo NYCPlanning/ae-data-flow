@@ -5,7 +5,9 @@ DROP TABLE IF EXISTS
 	CASCADE;
 
 CREATE TABLE IF NOT EXISTS source_cbbr_options_no_duplicates (
+	"policy_area_id" integer,
 	"Policy Area" text,
+	"need_group_id" integer,
 	"Need Group" text,
 	"Agency" text,
 	"Type" text,
