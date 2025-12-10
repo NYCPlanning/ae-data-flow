@@ -89,6 +89,7 @@ WHERE
 ALTER TABLE source_cbbr_export
     ADD COLUMN IF NOT EXISTS is_location_specific boolean,
 	ADD COLUMN IF NOT EXISTS is_continued_support boolean,
+	ADD COLUMN IF NOT EXISTS refined_agency_response text,
 	ADD COLUMN IF NOT EXISTS refined_managing_code text,
 	ADD COLUMN IF NOT EXISTS refined_m_agency_acro text,
 	ADD COLUMN IF NOT EXISTS refined_request_type text,
@@ -112,6 +113,13 @@ UPDATE source_cbbr_export
 			WHEN RIGHT(tracking_code, 1) = 'S' THEN True
 			ELSE False
 		END;
+
+UPDATE source_cbbr_export
+    -- Replace "\n" characters with line breaks, remove duplicates
+    SET refined_agency_response = REGEXP_REPLACE(
+    		REGEXP_REPLACE(agency_response, '\\n', E'\n', 'g'),
+    		'\n{2,}', E'\n'
+    	);
 
 UPDATE source_cbbr_export
 	SET refined_managing_code = LPAD(agency::TEXT, 3, '0');
