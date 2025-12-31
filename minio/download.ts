@@ -32,14 +32,14 @@ import "dotenv/config";
 
   const sourcesToDownload: Array<Source> = [
     {
-      fileName: "cbbr_options_cascade",
+      fileName: "cbbr_options_cascade_v2",
       fileExtension: "csv",
       bucketName: "ae-data-backups",
       bucketSubPath: "zoning-api",
       build: "community-board-budget-requests",
     },
     {
-      fileName: "cbbr_options_no_duplicates_surrogate_ids",
+      fileName: "cbbr_options_no_duplicates_surrogate_ids_v2",
       fileExtension: "csv",
       bucketName: "ae-data-backups",
       bucketSubPath: "zoning-api",

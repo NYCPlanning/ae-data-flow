@@ -56,7 +56,7 @@ import { Build } from "../../build/schemas";
         "Request",
       ],
       filePath: "data/download",
-      fileName: "cbbr_options_no_duplicates_surrogate_ids.csv",
+      fileName: "cbbr_options_no_duplicates_surrogate_ids_v2.csv",
       build: "community-board-budget-requests",
     },
     {
@@ -70,7 +70,7 @@ import { Build } from "../../build/schemas";
         "Request",
       ],
       filePath: "data/download",
-      fileName: "cbbr_options_cascade.csv",
+      fileName: "cbbr_options_cascade_v2.csv",
       build: "community-board-budget-requests",
     },
     {
