@@ -35,3 +35,6 @@ data/tiles/extracted/*
 
 data/tiles/finished/*
 !data/tiles/finished/.gitkeep
+
+tippecanoe/tile-finish/interim/*
+!tippecanoe/tile-finish/interim/.gitkeep
