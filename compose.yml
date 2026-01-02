@@ -5,6 +5,12 @@ services:
       service: postgis
     networks:
       - data
+  gdal:
+    extends:
+      file: common-services.yml
+      service: gdal
+    networks:
+      - data
 networks:
   data:
     name: ae-zoning-api_data
