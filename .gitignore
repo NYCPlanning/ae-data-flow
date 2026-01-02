@@ -29,3 +29,12 @@ data/download/*
 
 data/convert/*
 !data/convert/.gitkeep
+
+data/tiles/extracted/*
+!data/tiles/extracted/.gitkeep
+
+data/tiles/finished/*
+!data/tiles/finished/.gitkeep
+
+tippecanoe/tile-finish/interim/*
+!tippecanoe/tile-finish/interim/.gitkeep

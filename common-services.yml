@@ -1,4 +1,13 @@
 services:
+  gdal:
+    build: gdal/.
+    environment:
+      POSTGRES_USER: $FLOW_DATABASE_USER
+      PGPASSWORD: $FLOW_DATABASE_PASSWORD
+      POSTGRES_DB: $FLOW_DATABASE_NAME
+    volumes:
+      - ./data:/data
+      - ./gdal/tile-extract:/tile-extract
   postgis:
     build:
       context: db/.
@@ -15,3 +24,8 @@ services:
       - $FLOW_DATABASE_PORT:5432
     volumes:
       - ./db/pg:/var/lib/postgresql/flow
+  tippecanoe:
+    build: tippecanoe/.
+    volumes:
+      - ./data:/data
+      - ./tippecanoe/tile-finish:/tile-finish
