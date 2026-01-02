@@ -24,3 +24,8 @@ services:
       - $FLOW_DATABASE_PORT:5432
     volumes:
       - ./db/pg:/var/lib/postgresql/flow
+  tippecanoe:
+    build: tippecanoe/.
+    volumes:
+      - ./data:/data
+      - ./tippecanoe/tile-finish:/tile-finish

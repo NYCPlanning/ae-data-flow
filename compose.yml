@@ -11,6 +11,10 @@ services:
       service: gdal
     networks:
       - data
+  tippecanoe:
+    extends:
+      file: common-services.yml
+      service: tippecanoe
 networks:
   data:
     name: ae-zoning-api_data
