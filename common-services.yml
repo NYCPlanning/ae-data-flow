@@ -1,4 +1,17 @@
 services:
+  control:
+    build: control/.
+    environment:
+      - POSTGRES_USER=${FLOW_DATABASE_USER}
+      - POSTGRES_PASSWORD=${FLOW_DATABASE_PASSWORD}
+      - POSTGRES_DB=${FLOW_DATABASE_NAME}
+      - TARGET_DATABASE_USER=${TARGET_DATABASE_USER}
+      - TARGET_DATABASE_PASSWORD=${TARGET_DATABASE_PASSWORD}
+      - TARGET_DATABASE_NAME=${TARGET_DATABASE_NAME}
+      - TARGET_DATABASE_PORT=${TARGET_DATABASE_PORT}
+      - TARGET_DATABASE_HOST=${TARGET_DATABASE_HOST}
+    volumes:
+      - ./control/scripts:/app/scripts
   postgis:
     build:
       context: db/.

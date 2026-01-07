@@ -1,4 +1,10 @@
 services:
+  control:
+    extends:
+      file: common-services.yml
+      service: control
+    networks:
+      - data
   db:
     extends:
       file: common-services.yml
