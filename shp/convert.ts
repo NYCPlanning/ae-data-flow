@@ -19,6 +19,11 @@ import { buildSources } from "../build/parse-build";
   };
   const sourcesToConvert: Array<Source> = [
     {
+      fileName: "dcp_borough_boundary",
+      build: "boroughs",
+      promoteToMulti: true,
+    },
+    {
       fileName: "dcp_city_council_districts",
       build: "city-council-districts",
       promoteToMulti: true,
