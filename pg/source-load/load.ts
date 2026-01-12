@@ -31,9 +31,9 @@ import { Build } from "../../build/schemas";
     },
     {
       table: "source_borough",
-      columns: ["id", "title", "abbr"],
-      filePath: "data",
-      fileName: "borough.csv",
+      columns: ["boro_code", "boro_name", "shape_leng", "shape_area", "wkt"],
+      filePath: "data/convert",
+      fileName: "dcp_borough_boundary.csv",
       build: "boroughs",
     },
     {
