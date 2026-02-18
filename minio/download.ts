@@ -19,7 +19,9 @@ import "dotenv/config";
           | "datasets/dcp_city_council_districts/24B"
           | "datasets/dcp_community_districts/24B"
           | "datasets/dcp_borough_boundary/production"
-          | "db-cbbr/publish/latest";
+          | "db-cbbr/publish/latest"
+          | "datasets/dcp_nta_2010/24B"
+          | "datasets/dcp_nta_2020/24B";
       }
     | {
         bucketName: "ae-data-backups";
@@ -122,6 +124,20 @@ import "dotenv/config";
       bucketName: "edm-recipes",
       bucketSubPath: "inbox/dcp/dcp_managing_agencies_lookup/20250725",
       build: "agencies",
+    },
+    {
+      fileName: "dcp_nta_2010",
+      fileExtension: "zip",
+      bucketName: "edm-publishing",
+      bucketSubPath: "datasets/dcp_nta_2010/24B",
+      build: "neighborhood-tabulation-areas",
+    },
+    {
+      fileName: "dcp_nta_2020",
+      fileExtension: "zip",
+      bucketName: "edm-publishing",
+      bucketSubPath: "datasets/dcp_nta_2020/24B",
+      build: "neighborhood-tabulation-areas",
     },
   ];
 

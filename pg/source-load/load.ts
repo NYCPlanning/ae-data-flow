@@ -277,6 +277,42 @@ import { Build } from "../../build/schemas";
       fileName: "zoning_district_class.csv",
       build: "pluto",
     },
+    {
+      table: "source_neighborhood_tabulation_area_2010",
+      columns: [
+        "borough_code",
+        "borough_name",
+        "county_fips",
+        "nta_code",
+        "nta_name",
+        "shape_leng",
+        "shape_area",
+        "wkt",
+      ],
+      filePath: "data/convert",
+      fileName: "dcp_nta_2010.csv",
+      build: "neighborhood-tabulation-areas",
+    },
+    {
+      table: "source_neighborhood_tabulation_area_2020",
+      columns: [
+        "borough_code",
+        "borough_name",
+        "county_fips",
+        "nta_2020",
+        "nta_name",
+        "nta_abbrev",
+        "nta_type",
+        "cdta_2020",
+        "cdta_name",
+        "shape_leng",
+        "shape_area",
+        "wkt",
+      ],
+      filePath: "data/convert",
+      fileName: "dcp_nta_2020.csv",
+      build: "neighborhood-tabulation-areas",
+    },
   ];
 
   const sqlTemplate = fs.readFileSync(`pg/source-load/load.sql`).toString();

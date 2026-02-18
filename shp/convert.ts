@@ -43,6 +43,16 @@ import { buildSources } from "../build/parse-build";
       build: "capital-planning",
       promoteToMulti: true,
     },
+    {
+      fileName: "dcp_nta_2010",
+      build: "neighborhood-tabulation-areas",
+      promoteToMulti: true,
+    },
+    {
+      fileName: "dcp_nta_2020",
+      build: "neighborhood-tabulation-areas",
+      promoteToMulti: true,
+    },
   ];
 
   const conversion = async (source: Source) => {
