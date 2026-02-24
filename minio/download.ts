@@ -21,7 +21,9 @@ import "dotenv/config";
           | "datasets/dcp_borough_boundary/production"
           | "db-cbbr/publish/latest"
           | "datasets/dcp_nta_2010/24B"
-          | "datasets/dcp_nta_2020/24B";
+          | "datasets/dcp_nta_2020/24B"
+          | "datasets/dcp_census_tracts_2010/23B"
+          | "datasets/dcp_census_tracts_2020/25D";
       }
     | {
         bucketName: "ae-data-backups";
@@ -138,6 +140,20 @@ import "dotenv/config";
       bucketName: "edm-publishing",
       bucketSubPath: "datasets/dcp_nta_2020/24B",
       build: "neighborhood-tabulation-areas",
+    },
+    {
+      fileName: "dcp_census_tracts_2010",
+      fileExtension: "zip",
+      bucketName: "edm-publishing",
+      bucketSubPath: "datasets/dcp_census_tracts_2010/23B",
+      build: "census-tracts",
+    },
+    {
+      fileName: "dcp_census_tracts_2020",
+      fileExtension: "zip",
+      bucketName: "edm-publishing",
+      bucketSubPath: "datasets/dcp_census_tracts_2020/25D",
+      build: "census-tracts",
     },
   ];
 

@@ -53,6 +53,16 @@ import { buildSources } from "../build/parse-build";
       build: "neighborhood-tabulation-areas",
       promoteToMulti: true,
     },
+    {
+      fileName: "dcp_census_tracts_2010",
+      build: "census-tracts",
+      promoteToMulti: true,
+    },
+    {
+      fileName: "dcp_census_tracts_2020",
+      build: "census-tracts",
+      promoteToMulti: true,
+    },
   ];
 
   const conversion = async (source: Source) => {
