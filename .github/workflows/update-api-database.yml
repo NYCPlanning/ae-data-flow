@@ -17,6 +17,7 @@ on:
                     - city-council-districts
                     - capital-planning
                     - pluto
+                    - census-tracts
             environment:
                 description: "The database environment to update"
                 type: choice
