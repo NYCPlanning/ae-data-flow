@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS 
-	source_city_council_district,
+	source_city_council_district
 	CASCADE;
 
 CREATE TABLE IF NOT EXISTS source_city_council_district (
