@@ -38,6 +38,7 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -t budget_line \
     -t capital_commitment \
     -t capital_commitment_fund \
+    -t neighborhood_tabulation_area \
     --file ./data/all_dump.sql
 
 PGPASSWORD=$POSTGRES_PASSWORD \
