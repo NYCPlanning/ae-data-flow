@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS
-    source_neighborhood_tabulation_areas_2010,
-    source_neighborhood_tabulation_areas_2020,
+    source_neighborhood_tabulation_area_2010,
+    source_neighborhood_tabulation_area_2020
     CASCADE;
 
 CREATE TABLE IF NOT EXISTS source_neighborhood_tabulation_area_2010 (

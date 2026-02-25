@@ -1,3 +1,3 @@
 DROP TABLE IF EXISTS
-	city_council_district,
+	city_council_district
     CASCADE

@@ -23,5 +23,6 @@ DROP TABLE IF EXISTS
 	agency_budget,
 	budget_line,
 	capital_commitment,
-	capital_commitment_fund
+	capital_commitment_fund,
+	neighborhood_tabulation_area
     CASCADE
