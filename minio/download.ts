@@ -9,7 +9,7 @@ import "dotenv/config";
 
   type Source = {
     fileName: string;
-    fileExtension: "csv" | "zip";
+    fileExtension: "csv" | "zip" | "parquet";
     build: Build;
   } & (
     | {
@@ -29,7 +29,10 @@ import "dotenv/config";
       }
     | {
         bucketName: "edm-recipes";
-        bucketSubPath: "inbox/dcp/dcp_managing_agencies_lookup/20250725";
+        bucketSubPath: 
+          | "inbox/dcp/dcp_managing_agencies_lookup/20250725"
+          | "datasets/dcp_policeprecincts/24b"
+          | "datasets/dcp_school_districts";
       }
   );
 
@@ -138,6 +141,20 @@ import "dotenv/config";
       bucketName: "edm-publishing",
       bucketSubPath: "datasets/dcp_nta_2020/24B",
       build: "neighborhood-tabulation-areas",
+    },
+    {
+      fileName: "dcp_policeprecincts.csv",
+      fileExtension: "csv",
+      bucketName: "edm-recipes",
+      bucketSubPath: "datasets/dcp_policeprecincts/24b",
+      build: "police-precincts",
+    },
+    {
+      fileName: "dcp_school_districts.csv",
+      fileExtension: "csv",
+      bucketName: "edm-recipes",
+      bucketSubPath: "datasets/dcp_school_districts",
+      build: "school-districts",
     },
   ];
 
