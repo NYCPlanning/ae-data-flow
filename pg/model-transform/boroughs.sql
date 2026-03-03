@@ -6,6 +6,8 @@ ALTER TABLE source_borough
     ADD COLUMN IF NOT EXISTS
         abbr char(2);
 
+-- The (borough) boundaries are part of CSCL and require a schema change which must be approved by the governing committee. It has been determined that adding borough abbreviations to the data source is not feasible.
+
 UPDATE source_borough
     SET
         abbr = CASE
