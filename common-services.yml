@@ -2,6 +2,7 @@ services:
   postgis:
     build:
       context: db/.
+      target: postgres
     environment:
       - POSTGRES_USER=${FLOW_DATABASE_USER}
       - POSTGRES_PASSWORD=${FLOW_DATABASE_PASSWORD}
