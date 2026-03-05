@@ -21,7 +21,8 @@
     "pg:source:load": "tsx ./pg/source-load/load.ts",
     "pg:model:transform": "tsx ./pg/model-transform/transform.ts",
     "db:pg:target:populate": "docker compose exec -e BUILD=$BUILD -it db  bash flow/target-populate/populate.sh",
-    "db:pg:model:create": "docker compose exec -it db bash flow/model-create/$BUILD.sh"
+    "db:pg:model:create": "docker compose exec -it db bash flow/model-create/$BUILD.sh",
+    "parquet": "tsx ./pg/source-create/parquetfile.ts"
   },
   "author": "",
   "license": "ISC",
