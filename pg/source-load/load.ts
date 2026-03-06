@@ -357,6 +357,18 @@ import { Build } from "../../build/schemas";
       build: "census-tracts",
 
     },
+    {
+      table: "source_data_sources",
+      columns: [
+        "schema_name",
+        "dataset_name",
+        "v",
+        "file_type",
+      ],
+      filePath: "data/download",
+      fileName: "source_data_versions.csv",
+      build: "data-sources",
+    },
   ];
 
   const sqlTemplate = fs.readFileSync(`pg/source-load/load.sql`).toString();
