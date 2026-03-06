@@ -402,6 +402,18 @@ import { Build } from "../../build/schemas";
       fileName: "facilities.csv",
       build: "facilities",
     },
+    {
+      table: "source_data_sources",
+      columns: [
+        "schema_name",
+        "dataset_name",
+        "v",
+        "file_type",
+      ],
+      filePath: "data/download",
+      fileName: "source_data_versions.csv",
+      build: "data-sources",
+    },
   ];
 
   const sqlTemplate = fs.readFileSync(`pg/source-load/load.sql`).toString();

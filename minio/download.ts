@@ -24,7 +24,8 @@ import "dotenv/config";
         | "datasets/dcp_nta_2020/24B"
         | "datasets/dcp_census_tracts_2010/23B"
         | "datasets/dcp_census_tracts_2020/25D"
-        | "db-facilities/publish/25v2";
+        | "db-facilities/publish/25v2"
+        | "datasets/db-facilities/publish/26v1";
       }
       | {
         bucketName: "ae-data-backups";
@@ -162,6 +163,13 @@ import "dotenv/config";
       bucketName: "edm-publishing",
       bucketSubPath: "db-facilities/publish/25v2",
       build: "facilities",
+    },
+    {
+      fileName: "source_data_versions",
+      fileExtension: "csv",
+      bucketName: "edm-publishing",
+      bucketSubPath: "datasets/db-facilities/publish/26v1",
+      build: "data-sources",
     },
   ];
 
