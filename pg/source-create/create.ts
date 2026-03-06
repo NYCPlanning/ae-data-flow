@@ -17,7 +17,7 @@ import { buildSources } from "../../build/parse-build";
     await pgClient.query("COMMIT;");
   } catch (e) {
     await pgClient.query("ROLLBACK;");
-    console.error(e);
+    console.error("error:", e);
   } finally {
     console.debug("ending");
     await pgClient.end();
