@@ -355,20 +355,44 @@ import { Build } from "../../build/schemas";
       filePath: "data/convert",
       fileName: "dcp_census_tracts_2020.csv",
       build: "census-tracts",
-
     },
+    {
+      table: "source_police_precincts",
+      columns: [
+        "police_precinct",
+        "shape_area",
+        "shape_leng",
+        "wkt",
+      ],
+      filePath: "data/download",
+      fileName: "dcp_policeprecincts.parquet",
+      build: "police-precincts",
+    }
   ];
 
   const sqlTemplate = fs.readFileSync(`pg/source-load/load.sql`).toString();
+  // console.log("sqlTemplate", sqlTemplate)
+  const parquetSqlTemplate = fs.readFileSync(`pg/source-load/parquet-load.sql`).toString();
 
   const copy = async (source: Source) => {
     const client = await pgPool.connect();
     try {
+      if (source.build === 'police-precincts') {
+        console.log("in police precincts");
+        const parquetSqlFormat = format(parquetSqlTemplate, source.table, source.columns);
+        const pqInjestStream = client.query(from(parquetSqlFormat));
+        const pqSourceStream = fs.createReadStream(`${source.filePath}/${source.fileName}`);
+        await pipeline(pqSourceStream, pqInjestStream);
+      }
       const sqlFormat = format(sqlTemplate, source.table, source.columns);
+      // console.log("sqlFormat", sqlFormat);
       const ingestStream = client.query(from(sqlFormat));
       const sourceStream = fs.createReadStream(
         `${source.filePath}/${source.fileName}`,
       );
+
+      console.log("sourcestream", sourceStream);
+      console.log("injeststream", ingestStream);
       console.debug("source", source.fileName);
       await pipeline(sourceStream, ingestStream);
     } catch (e) {

@@ -9,7 +9,7 @@ import "dotenv/config";
 
   type Source = {
     fileName: string;
-    fileExtension: "csv" | "zip";
+    fileExtension: "csv" | "zip" | "parquet";
     build: Build;
   } & (
     | {
@@ -31,7 +31,10 @@ import "dotenv/config";
       }
     | {
         bucketName: "edm-recipes";
-        bucketSubPath: "inbox/dcp/dcp_managing_agencies_lookup/20250725";
+        bucketSubPath: 
+          | "inbox/dcp/dcp_managing_agencies_lookup/20250725"
+          | "datasets/dcp_policeprecincts/25d";
+        
       }
   );
 
@@ -154,6 +157,13 @@ import "dotenv/config";
       bucketName: "edm-publishing",
       bucketSubPath: "datasets/dcp_census_tracts_2020/25D",
       build: "census-tracts",
+    },
+    {
+      fileName: "dcp_policeprecincts",
+      fileExtension: "parquet",
+      bucketName: "edm-recipes",
+      bucketSubPath: "datasets/dcp_policeprecincts/25d",
+      build: "police-precincts",
     },
   ];
 
