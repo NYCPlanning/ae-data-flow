@@ -24,7 +24,8 @@ import "dotenv/config";
           | "datasets/dcp_nta_2020/24B"
           | "datasets/dcp_census_tracts_2010/23B"
           | "datasets/dcp_census_tracts_2020/25D"
-          | "datasets/db-facilities/publish/26v1";
+          // | "datasets/db-facilities/publish/26v1"
+          |"db-facilities/build/nightly_qa";
       }
     | {
         bucketName: "ae-data-backups";
