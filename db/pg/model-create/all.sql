@@ -24,5 +24,6 @@ DROP TABLE IF EXISTS
 	budget_line,
 	capital_commitment,
 	capital_commitment_fund,
-	neighborhood_tabulation_area
+	neighborhood_tabulation_area,
+	census_tract
     CASCADE
