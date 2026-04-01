@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS
-	source_facilities
+	source_facility
 	CASCADE;
 
-CREATE TABLE IF NOT EXISTS source_facilities (
+CREATE TABLE IF NOT EXISTS source_facility (
   "FACNAME" text,
   "ADDRESSNUM" text,
   "STREETNAME" text,

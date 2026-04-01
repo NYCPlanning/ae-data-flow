@@ -357,7 +357,7 @@ import { Build } from "../../build/schemas";
       build: "census-tracts",
     },
     {
-      table: "source_facilities",
+      table: "source_facility",
       columns: [
         "FACNAME",
         "ADDRESSNUM",
