@@ -9,7 +9,7 @@ import "dotenv/config";
 
   type Source = {
     fileName: string;
-    fileExtension: "csv" | "zip";
+    fileExtension: "csv" | "zip" | "parquet";
     build: Build;
   } & (
       | {
@@ -32,7 +32,9 @@ import "dotenv/config";
       }
       | {
         bucketName: "edm-recipes";
-        bucketSubPath: "inbox/dcp/dcp_managing_agencies_lookup/20250725";
+        bucketSubPath: 
+          | "inbox/dcp/dcp_managing_agencies_lookup/20250725"
+          | "datasets/dcp_school_districts/24b";
       }
     );
 
@@ -162,6 +164,13 @@ import "dotenv/config";
       bucketName: "edm-publishing",
       bucketSubPath: "db-facilities/publish/25v2",
       build: "facilities",
+    },
+    {
+      fileName: "dcp_school_districts",
+      fileExtension: "parquet",
+      bucketName: "edm-recipes",
+      bucketSubPath: "datasets/dcp_school_districts/24b",
+      build: "school-districts",
     },
   ];
 
