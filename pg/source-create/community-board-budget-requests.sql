@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS source_cbbr_export (
 	commdist char(3) NOT NULL,
 	cb_label text,
 	type_br char(1) NOT NULL CHECK (type_br IN ('C', 'E')),
+	type text,
 	priority integer,
 	policy_area text,
 	need_group text,
