@@ -15,6 +15,7 @@ import { Build } from "../../build/schemas";
     filePath: "data" | "data/download" | "data/convert";
     fileName: string;
     build: Build;
+    fileType: "csv" | "parquet";
   };
   const sourceTables: Array<Source> = [
     {
@@ -28,6 +29,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/download",
       fileName: "dcp_managing_agencies_lookup.csv",
       build: "agencies",
+      fileType: "csv",
     },
     {
       table: "source_borough",
@@ -35,6 +37,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/convert",
       fileName: "dcp_borough_boundary.csv",
       build: "boroughs",
+      fileType: "csv",
     },
     {
       table: "source_city_council_district",
@@ -42,6 +45,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/convert",
       fileName: "dcp_city_council_districts.csv",
       build: "city-council-districts",
+      fileType: "csv",
     },
     {
       table: "source_cbbr_options_no_duplicates",
@@ -58,6 +62,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/download",
       fileName: "cbbr_options_no_duplicates_surrogate_ids_v2.csv",
       build: "community-board-budget-requests",
+      fileType: "csv",
     },
     {
       table: "source_cbbr_option",
@@ -72,6 +77,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/download",
       fileName: "cbbr_options_cascade_v2.csv",
       build: "community-board-budget-requests",
+      fileType: "csv",
     },
     {
       table: "source_cbbr_export",
@@ -112,6 +118,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/download",
       fileName: "cbbr_export.csv",
       build: "community-board-budget-requests",
+      fileType: "csv",
     },
     {
       table: "source_community_district",
@@ -119,6 +126,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/convert",
       fileName: "dcp_community_districts.csv",
       build: "community-districts",
+      fileType: "csv",
     },
     {
       table: "source_capital_commitment",
@@ -149,6 +157,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/download",
       fileName: "cpdb_planned_commitments.csv",
       build: "capital-planning",
+      fileType: "csv",
     },
     {
       table: "source_capital_project",
@@ -208,6 +217,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/download",
       fileName: "cpdb_projects.csv",
       build: "capital-planning",
+      fileType: "csv",
     },
     {
       table: "source_capital_project_m_poly",
@@ -228,6 +238,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/convert",
       fileName: "cpdb_dcpattributes_poly.shp.csv",
       build: "capital-planning",
+      fileType: "csv",
     },
     {
       table: "source_capital_project_m_pnt",
@@ -248,6 +259,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/convert",
       fileName: "cpdb_dcpattributes_pts.shp.csv",
       build: "capital-planning",
+      fileType: "csv",
     },
     {
       table: "source_land_use",
@@ -255,6 +267,7 @@ import { Build } from "../../build/schemas";
       filePath: "data",
       fileName: "land_use.csv",
       build: "pluto",
+      fileType: "csv",
     },
     {
       table: "source_pluto",
@@ -262,6 +275,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/download",
       fileName: "pluto.csv",
       build: "pluto",
+      fileType: "csv",
     },
     {
       table: "source_zoning_district",
@@ -269,6 +283,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/download",
       fileName: "zoning_districts.csv",
       build: "pluto",
+      fileType: "csv",
     },
     {
       table: "source_zoning_district_class",
@@ -276,6 +291,7 @@ import { Build } from "../../build/schemas";
       filePath: "data",
       fileName: "zoning_district_class.csv",
       build: "pluto",
+      fileType: "csv",
     },
     {
       table: "source_neighborhood_tabulation_area_2010",
@@ -292,6 +308,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/convert",
       fileName: "dcp_nta_2010.csv",
       build: "neighborhood-tabulation-areas",
+      fileType: "csv",
     },
     {
       table: "source_neighborhood_tabulation_area_2020",
@@ -312,6 +329,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/convert",
       fileName: "dcp_nta_2020.csv",
       build: "neighborhood-tabulation-areas",
+      fileType: "csv",
     },
     {
       table: "source_census_tracts_2010",
@@ -332,6 +350,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/convert",
       fileName: "dcp_census_tracts_2010.csv",
       build: "census-tracts",
+      fileType: "csv",
     },
     {
       table: "source_census_tracts_2020",
@@ -355,6 +374,7 @@ import { Build } from "../../build/schemas";
       filePath: "data/convert",
       fileName: "dcp_census_tracts_2020.csv",
       build: "census-tracts",
+      fileType: "csv",
     },
     {
       table: "source_facility",
@@ -400,14 +420,33 @@ import { Build } from "../../build/schemas";
       filePath: "data/download",
       fileName: "facilities.csv",
       build: "facilities",
+      fileType: "csv",
+    },
+    {
+      table: "source_school_district",
+      columns: [
+        "schooldist",
+        "shape_leng",
+        "shape_area",
+        "geometry"
+      ],
+      filePath: "data/download",
+      fileName: "dcp_school_districts.parquet",
+      build: "school-districts",
+      fileType: "parquet",
     },
   ];
 
   const sqlTemplate = fs.readFileSync(`pg/source-load/load.sql`).toString();
 
+  
+
   const copy = async (source: Source) => {
     const client = await pgPool.connect();
     try {
+      if (source.fileType === "parquet") {
+        console.log("damn we in it now");
+      }
       const sqlFormat = format(sqlTemplate, source.table, source.columns);
       const ingestStream = client.query(from(sqlFormat));
       const sourceStream = fs.createReadStream(
