@@ -439,98 +439,70 @@ import { DuckDBInstance, INTEGER, LIST, listValue, VARCHAR } from "@duckdb/node-
   ];
 
   const sqlTemplate = fs.readFileSync(`pg/source-load/load.sql`).toString();
-  // const pqSql = fs.readFileSync(`pg/source-load/parquet-load.sql`).toString();
-  const instance = await DuckDBInstance.create(':memory:');
-  const connection = await instance.connect();
-  await connection.runAndReadAll(`
-    INSTALL spatial;
-    LOAD spatial;
-  `);
-  
 
   const copy = async (source: Source) => {
-    const client = await pgPool.connect();
-    try {
-      if (source.fileType === "parquet") {
-        console.log("damn we in it now");
-        const secret = await connection.run(`
-          CREATE SECRET my_secret (
-          TYPE postgres,
-          HOST $host,
-          PORT 8001,
-          DATABASE 'data-flow',
-          USER 'postgres',
-          PASSWORD 'postgres'
-          );`, {
-            'host': process.env.FLOW_DATABASE_HOST  || ''
-          }
-        );
+    const instance = await DuckDBInstance.create(':memory:');
+    const connection = await instance.connect();
+    if (source.fileType === "parquet") {
+      try {
+      
+      await connection.runAndReadAll(`
+        INSTALL spatial;
+        LOAD spatial;
+      `);  
 
-        
-
-        const attach = await connection.prepare(`
-          ATTACH '' AS postgres_db (TYPE postgres, SECRET my_secret);
-          `);
-        // attach.bind({
-        //   'dbname': 'data-flow',
-        //   // 'user': process.env.FLOW_DATABASE_USER || '',
-        //   // 'host': process.env.FLOW_DATABASE_HOST || '',
-        //   // 'password': process.env.FLOW_DATABASE_PASSWORD || '',
-        //   // 'port': process.env.FLOW_DATABASE_PASSWORD || '',
-        // }, {
-        //   'dbname': VARCHAR,
-        //   // 'b': INTEGER,
-        //   // 'c': LIST(INTEGER),
-        // });
-        await attach.run();
-
-        // const sql = `SELECT * FROM read_parquet(`+source.filePath+`/`+source.fileName+`);`;
-        // console.log("sqllll", sql);
-
-        const copy = `COPY postgres_db.source_school_district FROM '`+source.filePath+`/`+source.fileName+`' (FORMAT parquet); SELECT * FROM postgres_db.source_school_district;`
-
-        const insert = await connection.run(copy);
-        // const select = await connection.run(`SELECT * FROM postgres_db.source_school_district;`);
-
-        // console.log("inserted into table", select.getRowObjects());
-        const inseretResult = await insert.getRowsJson();
-        console.log("select from table", inseretResult);
-
-        // const prepared = await connection.prepare('select $1, $2, $3');
-        // prepared.bindVarchar(1, 'duck');
-        // prepared.bindInteger(2, 42);
-        // prepared.bindList(3, listValue([10, 11, 12]), LIST(INTEGER));
-        // const result = await prepared.run();
-
-        // console.log("example result", result.columnNames());
-        
-        // , {
-        //   'dbname': VARCHAR,
-        // });
-
-        const reader = await connection.runAndReadAll(`
-            
-          `);
-        const columnTypes = reader.columnTypes();
-        const columnNames = reader.columnNames();
-
-        // console.log("column names", columnNames);
-        // console.log("column types", columnTypes.toString())
-      }
-      const sqlFormat = format(sqlTemplate, source.table, source.columns);
-
-
-      const ingestStream = client.query(from(sqlFormat));
-
-      const sourceStream = fs.createReadStream(
-        `${source.filePath}/${source.fileName}`,
+      console.log("damn we in it now");
+      await connection.run(`
+        CREATE SECRET my_secret (
+        TYPE postgres,
+        HOST $host,
+        PORT $port,
+        DATABASE $database,
+        USER $user,
+        PASSWORD $password
+        );`, {
+          'host': process.env.FLOW_DATABASE_HOST  || '',
+          'port': process.env.FLOW_DATABASE_PORT  || '',
+          'database': process.env.FLOW_DATABASE_NAME  || '',
+          'user': process.env.FLOW_DATABASE_USER  || '',
+          'password': process.env.FLOW_DATABASE_PASSWORD  || ''
+        }
       );
-      console.debug("source", source.fileName);
-      await pipeline(sourceStream, ingestStream);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      client.release();
+        
+      await connection.run(`
+        ATTACH '' AS postgres_db (TYPE postgres, SECRET my_secret);
+        `);
+
+      // const insert = `INSERT INTO postgres_db.`+source.table+` SELECT * FROM read_parquet('`+source.filePath+`/`+source.fileName+`');`;
+      // console.log("insert", insert);
+
+      const copy = `COPY postgres_db.`+source.table+` FROM '`+source.filePath+`/`+source.fileName+`' (FORMAT parquet);`
+      await connection.run(copy);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        connection.disconnectSync();
+      }
+    } else {
+
+      const client = await pgPool.connect();
+      try {
+        const sqlFormat = format(sqlTemplate, source.table, source.columns);
+
+
+        const ingestStream = client.query(from(sqlFormat));
+
+        const sourceStream = fs.createReadStream(
+          `${source.filePath}/${source.fileName}`,
+        );
+        console.debug("source", source.fileName);
+        await pipeline(sourceStream, ingestStream);
+        
+      } catch (e) {
+        console.error(e);
+      } finally {
+        client.release();
+      }
     }
   };
 
