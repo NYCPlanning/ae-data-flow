@@ -446,11 +446,6 @@ import { DuckDBInstance } from "@duckdb/node-api";
     if (source.fileType === "parquet") {
       try {
         await connection.run(`
-        INSTALL spatial;
-        LOAD spatial;
-      `);
-
-        await connection.run(`
         CREATE SECRET postgres_secret (
         TYPE postgres,
         HOST $host,

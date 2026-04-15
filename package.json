@@ -50,7 +50,7 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@duckdb/node-api": "^1.4.4-r.3",
+    "@duckdb/node-api": "^1.5.2-r.1",
     "@types/lodash.clonedeep": "^4.5.9",
     "lodash.clonedeep": "^4.5.0",
     "minimist": "^1.2.8",

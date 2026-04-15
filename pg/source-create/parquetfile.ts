@@ -8,11 +8,6 @@ async function tryduckdb() {
     const instance = await DuckDBInstance.create(':memory:');
     const connection = await instance.connect();
     try {
-        await connection.runAndReadAll(`
-          INSTALL spatial;
-          LOAD spatial;
-        `);
-
         const reader = await connection.runAndReadAll(`
           DESCRIBE SELECT * FROM 'data/download/`+fileName+`';
         `);
