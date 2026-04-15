@@ -60,3 +60,6 @@ The data flow may fail at one of the steps. To pick up the data flow from an int
 If the data flow database is in a confused or irreparable state, it can be wiped using `docker compose down`.
 
 If the data flow is incomplete but it's necessary to pause and restart later, the database can be paused and saved with `docker compose stop`
+
+#### Adding new builds
+Most of the source files are CSVs or shapefiles that are turned into CSVs. So to inspect them in order to create source tables, it's a matter of opening the files. For parquet files, run `npm run parquet -- --file=$parquet_file`, replacing `$parquet_file` with the one in `data/download` to get its column names and types.

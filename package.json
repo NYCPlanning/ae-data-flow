@@ -22,7 +22,7 @@
     "pg:model:transform": "tsx ./pg/model-transform/transform.ts",
     "db:pg:target:populate": "docker compose exec -e BUILD=$BUILD -it db  bash flow/target-populate/populate.sh",
     "db:pg:model:create": "docker compose exec -it db bash flow/model-create/$BUILD.sh",
-    "parquet": "tsx ./pg/source-create/parquetfile.ts"
+    "parquet": "tsx ./pg/source-create/parquetfile.ts file=$parquet_file"
   },
   "author": "",
   "license": "ISC",
@@ -53,6 +53,7 @@
     "@duckdb/node-api": "^1.4.4-r.3",
     "@types/lodash.clonedeep": "^4.5.9",
     "lodash.clonedeep": "^4.5.0",
+    "minimist": "^1.2.8",
     "zod": "^3.23.8"
   }
 }

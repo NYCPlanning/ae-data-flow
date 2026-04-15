@@ -7,7 +7,7 @@ import { pgPool } from "../pg-connector";
 import { buildSources } from "../../build/parse-build";
 import "dotenv/config";
 import { Build } from "../../build/schemas";
-import { DuckDBInstance, INTEGER, LIST, listValue, VARCHAR } from "@duckdb/node-api";
+import { DuckDBInstance } from "@duckdb/node-api";
 
 (async () => {
   type Source = {
@@ -445,15 +445,13 @@ import { DuckDBInstance, INTEGER, LIST, listValue, VARCHAR } from "@duckdb/node-
     const connection = await instance.connect();
     if (source.fileType === "parquet") {
       try {
-      
-      await connection.runAndReadAll(`
+        await connection.run(`
         INSTALL spatial;
         LOAD spatial;
-      `);  
+      `);
 
-      console.log("damn we in it now");
-      await connection.run(`
-        CREATE SECRET my_secret (
+        await connection.run(`
+        CREATE SECRET postgres_secret (
         TYPE postgres,
         HOST $host,
         PORT $port,
@@ -461,34 +459,29 @@ import { DuckDBInstance, INTEGER, LIST, listValue, VARCHAR } from "@duckdb/node-
         USER $user,
         PASSWORD $password
         );`, {
-          'host': process.env.FLOW_DATABASE_HOST  || '',
-          'port': process.env.FLOW_DATABASE_PORT  || '',
-          'database': process.env.FLOW_DATABASE_NAME  || '',
-          'user': process.env.FLOW_DATABASE_USER  || '',
-          'password': process.env.FLOW_DATABASE_PASSWORD  || ''
+          'host': process.env.FLOW_DATABASE_HOST || '',
+          'port': process.env.FLOW_DATABASE_PORT || '',
+          'database': process.env.FLOW_DATABASE_NAME || '',
+          'user': process.env.FLOW_DATABASE_USER || '',
+          'password': process.env.FLOW_DATABASE_PASSWORD || ''
         }
-      );
-        
-      await connection.run(`
-        ATTACH '' AS postgres_db (TYPE postgres, SECRET my_secret);
+        );
+
+        await connection.run(`
+        ATTACH '' AS postgres_db (TYPE postgres, SECRET postgres_secret);
         `);
 
-      // const insert = `INSERT INTO postgres_db.`+source.table+` SELECT * FROM read_parquet('`+source.filePath+`/`+source.fileName+`');`;
-      // console.log("insert", insert);
-
-      const copy = `COPY postgres_db.`+source.table+` FROM '`+source.filePath+`/`+source.fileName+`' (FORMAT parquet);`
-      await connection.run(copy);
+        const copy = `COPY postgres_db.` + source.table + ` FROM '` + source.filePath + `/` + source.fileName + `' (FORMAT parquet);`
+        await connection.run(copy);
       } catch (e) {
         console.error(e);
       } finally {
         connection.disconnectSync();
       }
     } else {
-
       const client = await pgPool.connect();
       try {
         const sqlFormat = format(sqlTemplate, source.table, source.columns);
-
 
         const ingestStream = client.query(from(sqlFormat));
 
@@ -497,7 +490,7 @@ import { DuckDBInstance, INTEGER, LIST, listValue, VARCHAR } from "@duckdb/node-
         );
         console.debug("source", source.fileName);
         await pipeline(sourceStream, ingestStream);
-        
+
       } catch (e) {
         console.error(e);
       } finally {
