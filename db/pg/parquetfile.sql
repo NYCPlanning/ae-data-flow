@@ -1,0 +1,1 @@
+SELECT * FROM parquet.schema('/var/lib/postgresql/flow/dcp_school_districts.parquet');
