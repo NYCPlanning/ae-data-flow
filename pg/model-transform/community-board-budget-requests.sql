@@ -134,11 +134,14 @@ UPDATE source_cbbr_export
     SET
         refined_m_agency_acro = CASE
             WHEN agency_acronym = 'DoiTT' THEN 'OTI'
+            WHEN agency_acronym = 'DOITT' THEN 'OTI'
+            WHEN agency_acronym = 'NYCECM' THEN 'OEM'
+            WHEN agency_acronym = 'QL' THEN 'QPL'
             WHEN agency_acronym = 'CHR' THEN 'CCHR'
             WHEN agency_acronym = 'CEOM' THEN 'BEBS'
-      		WHEN agency_acronym = 'DCA' THEN 'DCWP'
-			WHEN agency_acronym IS NULL AND refined_managing_code = '032' THEN 'DOI'
-			WHEN agency_acronym IS NULL and refined_managing_code = '836' THEN 'DOF'
+            WHEN agency_acronym = 'DCA' THEN 'DCWP'
+            WHEN agency_acronym IS NULL AND refined_managing_code = '032' THEN 'DOI'
+            WHEN agency_acronym IS NULL and refined_managing_code = '836' THEN 'DOF'
             ELSE agency_acronym
         END;
 	
