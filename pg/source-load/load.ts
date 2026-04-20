@@ -84,6 +84,7 @@ import { Build } from "../../build/schemas";
         "commdist",
         "cb_label",
         "type_br",
+        "type",
         "priority",
         "policy_area",
         "need_group",
