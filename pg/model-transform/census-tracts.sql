@@ -17,12 +17,12 @@ INSERT INTO census_tracts_2010
     shape_leng,
     shape_area,
     ST_Transform(wkt, 2263) as li_ft
-  FROM census_tracts_2010;
+  FROM source_census_tracts_2010;
 
   INSERT INTO census_tracts_2020
   SELECT
     census_tract_label,
-    borough_code
+    borough_code,
     borough_name,
     census_tract_2020,
     borough_code_census_tract_2020,
@@ -36,4 +36,4 @@ INSERT INTO census_tracts_2010
     shape_leng,
     shape_area,
     ST_Transform(wkt, 2263) as li_ft
-  FROM census_tracts_2020;
+  FROM source_census_tracts_2020;
