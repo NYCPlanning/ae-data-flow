@@ -12,6 +12,7 @@ export const buildSchema = z.enum([
   "neighborhood-tabulation-areas",
   "census-tracts",
   "facilities",
+  "data-sources"
 ]);
 export type Build = z.infer<typeof buildSchema>;
 
@@ -74,6 +75,11 @@ export const buildTree: Array<BuildNode> = [
   },
   {
     name: "facilities",
+    parents: [],
+    children: [],
+  },
+  {
+    name: "data-sources",
     parents: [],
     children: [],
   },
