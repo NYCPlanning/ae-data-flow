@@ -161,7 +161,7 @@ import "dotenv/config";
       fileName: "facilities",
       fileExtension: "csv",
       bucketName: "edm-publishing",
-      bucketSubPath: "db-facilities/publish/25v2",
+      bucketSubPath: "db-facilities/build/nightly_qa",
       build: "facilities",
     },
     {
