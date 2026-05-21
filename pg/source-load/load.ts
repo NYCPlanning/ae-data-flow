@@ -409,6 +409,7 @@ import { Build } from "../../build/schemas";
         "dataset_name",
         "v",
         "file_type",
+        "archive_date",
       ],
       filePath: "data/download",
       fileName: "source_data_versions.csv",

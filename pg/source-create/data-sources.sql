@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS source_data_sources (
   schema_name text,
   dataset_name text,
   v text,
-  file_type text
+  file_type text,
+  archive_date: date,
 );
