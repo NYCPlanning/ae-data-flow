@@ -3,8 +3,12 @@ DROP TABLE IF EXISTS
     CASCADE;
 
 CREATE TABLE IF NOT EXISTS source_agency (
-    agency_code char(3),
-    source text,
     managing_agency_acronym text,
-    managing_agency text
+    managing_agency text,
+    source text,
+    manages_capital_projects boolean,
+    operates_facilities boolean,
+    agency_code char(3),
+    overlevel text,
+    optype text
 );

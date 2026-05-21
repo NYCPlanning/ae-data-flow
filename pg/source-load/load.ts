@@ -20,10 +20,14 @@ import { Build } from "../../build/schemas";
     {
       table: "source_agency",
       columns: [
-        "agency_code",
-        "source",
         "managing_agency_acronym",
         "managing_agency",
+        "source",
+        "manages_capital_projects",
+        "operates_facilities",
+        "agency_code",
+        "overlevel",
+        "optype",
       ],
       filePath: "data/download",
       fileName: "dcp_managing_agencies_lookup.csv",
@@ -404,33 +408,21 @@ import { Build } from "../../build/schemas";
     },
     {
       table: "source_facility_category",
-      columns: [
-        "id",
-        "category",
-        "description",
-      ],
+      columns: ["id", "category", "description"],
       filePath: "data",
       fileName: "facility_category.csv",
       build: "facilities",
     },
     {
       table: "source_facility_group",
-      columns: [
-        "id",
-        "group",
-        "description",
-      ],
+      columns: ["id", "group", "description"],
       filePath: "data",
       fileName: "facility_group.csv",
       build: "facilities",
     },
     {
       table: "source_facility_subgroup",
-      columns: [
-        "id",
-        "subgroup",
-        "description",
-      ],
+      columns: ["id", "subgroup", "description"],
       filePath: "data",
       fileName: "facility_subgroup.csv",
       build: "facilities",
