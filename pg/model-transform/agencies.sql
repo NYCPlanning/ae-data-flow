@@ -3,19 +3,21 @@ TRUNCATE
     managing_code
     CASCADE;
 
-INSERT INTO agency (initials, name)
+INSERT INTO agency (initials, name, oversight_level)
 SELECT DISTINCT
     managing_agency_acronym as initials,
-    managing_agency as name
+    managing_agency as name,
+    NULLIF(overlevel, '') AS oversight_level
 FROM source_agency;
 
 INSERT INTO agency (initials, name)
     VALUES
         ('OCA', 'Office of Court Administration'),
         -- Community board budget requests list "other" as an agency option
-        ('OTH', 'Other'),
-        ('MTA', 'Metropolitan Transportation Authority');
-
+        ('OTH', 'Other');
+-- NYCRGB and SUNY have blank names the below is updating the table to include the names
+UPDATE agency SET name = 'NYC Rent Guidelines Board' WHERE initials = 'NYCRGB';
+UPDATE agency SET name = 'State University of New York' WHERE initials = 'SUNY';
 INSERT INTO managing_code (id)
 SELECT DISTINCT
 	agency_code AS id
