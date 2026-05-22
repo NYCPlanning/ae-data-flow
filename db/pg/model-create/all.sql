@@ -26,5 +26,9 @@ DROP TABLE IF EXISTS
 	capital_commitment_fund,
 	neighborhood_tabulation_area,
 	census_tract,
-	facility_operator
+	facility_operator,
+	facility_type,
+    facility_subgroup,
+    facility_group,
+    facility_domain
     CASCADE

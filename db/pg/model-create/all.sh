@@ -41,6 +41,10 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -t neighborhood_tabulation_area \
     -t census_tract \
     -t facility_operator \
+    -t facility_domain \
+    -t facility_group \
+    -t facility_subgroup \
+    -t facility_type \
     --file ./data/all_dump.sql
 
 PGPASSWORD=$POSTGRES_PASSWORD \

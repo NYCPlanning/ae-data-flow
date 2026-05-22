@@ -1,0 +1,26 @@
+﻿id,group,description
+1,Schools (K-12),K-12 and alternative equivalency programs overseen by NYC Dept. of Education and NYS Education Department
+2,Day Care and Pre-Kindergarten,Childcare centers overseen by NYC Administration for Childrens Services and NYC Dept. of Mental Health and Hygiene
+3,Child Services and Welfare,Services overseen by NYC Health and Human Services and NYC Administration for Children's Services
+4,Youth Services,Services overseen by NYC Dept. of Youth and Community Development
+5,Adult Services,
+6,Camps,Camps overseen by NYC Dept. of Mental Health and Hygiene
+7,Higher Education,Public and privately operated 2 and 4 year colleges and universities
+8,Vocational and Proprietary Schools,ESL schools and trade colleges
+9,Parks and Plazas,"Properties operated by NYC Parks, NYC Dept. of Transportation, NYS Office of Parks, Recreation and Historic Preservation, NYS Dept. of Conservation, and City-State corporations and trusts"
+10,Historical Sites,"Sites operated by NYC Parks, NYS Office of Parks, Recreation and Historic Preservation, and US National Park Service"
+11,Libraries,"Libraries operated by New York Public Libraries, Queens Public Libraries, and Brooklyn Public Libraries and academic institutions"
+12,Cultural Institutions,Institutions licensed or funded by the NYC Dept. of Cultural Affairs
+13,Emergency Services,Services provided by Fire Dept. of New York
+14,Public Safety,Services provided by New York Police Dept. and New York Housing Authority Police
+15,Justice and Corrections,"Courts and correctional facilities operated by NYC. Dept. of Correction, NYS Unified Court System, NYS Dept. of Corrections and Community Supervision, US Courts, and Federal Bureau of Prisons"
+16,Health Care,"Health facilities overseen by NYC Health and Hospitals Corporation, NYC Health and Human Services, NYS Dept. of Health, NYS Office of Mental Health, and NYS Office of Addiction Services and Supports"
+17,Human Services,"Services overseen by NYC Dept. of Homeless Services, NYC Dept. of Human Resources, NYC Mayorality, and others"
+18,Solid Waste,"Sites overseen and operated by NYC Dept. of Sanitation, NYC Business Integrity Commission, and NYS Dept. of Conservation"
+19,Water and Wastewater,Sites overseen and operated by NYC Dept. of Environmental Protection
+20,Transportation,"Sites operated or overseen by Metropolitan Transportation Authority, Port Authority of NY and NJ, NYC Dept. of Transportation, NYC Dept. of Consumer Affairs, US Dept. of Transportation, and others"
+21,Telecommunications,Sites operated or overseen by Dept. of Information Technology and Telecommunications and other City telecommunications services
+22,Material Supplies and Markets,Sites operated or overseen by Dept. of Information Technology and Telecommunications and other City telecommunications services
+23,"Offices, Training, and Testing",All City owned or leased offices overseen by Dept. of Citywide Administrative Services
+24,"City Agency Parking, Maintenance, and Storage",City owned or leased properites used for City vehicle and equipment-related operations by Dept. of Citywide Administrative Services
+25,Other Property,City owned or leased property without a categorized use overseen by Dept. of Citywide Administrative Services

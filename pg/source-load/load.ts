@@ -403,6 +403,39 @@ import { Build } from "../../build/schemas";
       build: "facilities",
     },
     {
+      table: "source_facility_category",
+      columns: [
+        "id",
+        "category",
+        "description",
+      ],
+      filePath: "data",
+      fileName: "facility_category.csv",
+      build: "facilities",
+    },
+    {
+      table: "source_facility_group",
+      columns: [
+        "id",
+        "group",
+        "description",
+      ],
+      filePath: "data",
+      fileName: "facility_group.csv",
+      build: "facilities",
+    },
+    {
+      table: "source_facility_subgroup",
+      columns: [
+        "id",
+        "subgroup",
+        "description",
+      ],
+      filePath: "data",
+      fileName: "facility_subgroup.csv",
+      build: "facilities",
+    },
+    {
       table: "source_data_sources",
       columns: [
         "schema_name",
