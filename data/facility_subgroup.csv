@@ -1,0 +1,73 @@
+﻿id,subgroup,description
+1,Public K-12 Schools,"Public elementary, middle, and high schools"
+2,Charter K-12 Schools,"Publically funded charter elementary, middle, and high schools"
+3,Non-Public K-12 Schools,"Private elementary, middle, and high schools"
+4,Public and Private Special Education Schools,Specialized schools and educational services for students with disabilities
+5,GED and Alternative High School Equivalency,Alternative programs for obtaining high school equivalency degree
+6,DOE Universal Pre-Kindergarten,NYC DOE designated Universal Pre-K center
+7,Day Care,"Group and school-based child care centers for infants, toddlers, and preschoolers"
+8,Preschools for Students with Disabilities,Center specialized on preschool students with disabilities
+9,Head Start,Federal program promoting school readiness for children up to age five
+10,Child Nutrition,"Summer and year-round child feeding centers, either based at NYC Dept of Education schools or tracked by New York State Education Department"
+11,"Youth Centers, Literacy Programs, and Job Training Services","Youth Centers, Literacy Programs, and Job Training Services"
+12,After-School Programs,After-School Programs
+13,Adult and Immigrant Literacy,Adult and Immigrant Literacy
+14,Camps,Preschool age and all age camps
+15,Colleges or Universities,Public and privately operated 2 and 4 year colleges and universities
+16,Proprietary Schools,ESL schools and trade colleges
+17,Parks,"Flagship parks, community parks, state parks, and city-state parks"
+18,Recreation and Waterfront Sites,"Playgrounds, waterfront facilities, and recreation fields and courts"
+19,"Streetscapes, Plazas, and Malls","Pedestrian plazas, malls, triangle plazas, and parkways"
+20,Gardens,Community gardens
+21,Privately Owned Public Space,"Plazas, arcades, and other open space provided for public use by a private office or residential building owner"
+22,Preserves and Conservation Areas,"Nature areas, preserves, wetlands, and state forests"
+23,Cemeteries,Cemeteries operated by NYC Parks
+24,Undeveloped,Undeveloped parks land
+25,Historical Sites,"Historic house parks, State historic places, national monuments, and national memorials"
+26,Public Libraries,All public libaries
+27,Academic and Special Libraries,Libraries operated by academic institutions or other specialized organizations
+28,Museums,Publicly and privately operated museums
+29,Historical Societies,Historical societies
+30,Other Cultural Institutions,"Zoos, botanical gardens, performing arts centers, and multi-disciplinary art centers"
+31,Fire Services,Firehouses
+32,Other Emergency Services,Ambulance and Emergency Medical Stations
+33,Police Services,NYPD and NYCHA police stations
+34,Other Public Safety,Other public safety related support centers
+35,Courthouses and Judicial,"Courthouses, clerk offices, and court librarians"
+36,Detention and Correctional,Correctional and dentention centers
+37,Hospitals and Clinics,"Urgent care hospitals, diagnostic and treatment centers, and school-based health facilities"
+38,Mental Health,"Inpatient, outpatient, and emergency mental health services"
+39,Residential Health Care,"Nursing homes, hospice care, and supportive housing"
+40,Substance Use Disorder Treatment Programs,"Monitored support, inpatient, outpatient, and crisis services"
+41,Health Promotion and Disease Prevention,Programs focused on improving health through education and disease prevention
+42,Other Health Care,"Rehab, respite servies, vaccination services, AIDS counseling, and home health centers"
+43,Senior Services,"Neighborhood senior centers, meal delivery programs, and other services for seniors"
+44,Immigrant Services,Immigrant Services
+45,Community Centers and Community Programs,Community centers that provide multiple social services at one site
+46,Financial Assistance and Social Services,"SNAP, Child Support, and Medicaid Centers operated by NYC Human Resources Administration"
+47,Workforce Development,Workforce 1 Centers and other vocational services for adults
+48,Legal and Intervention Services,"Early intervention, criminal defense, and mediation services"
+49,Programs for People with Disabilities,"Specialized child care, caregiver support, and recreational services"
+50,Non-residential Housing and Homeless Services,Non-residential homelessness prevention services
+51,Soup Kitchens and Food Pantries,Soup kitchens and food pantries
+52,Solid Waste Processing,"Material recovery, composting, landfill gas recovery, and scrap metal processing facilities"
+53,Solid Waste Transfer and Carting,Waste carter sites and transfer stations
+54,DSNY Drop-Off Facility,Locations where New York City residents can drop-off certain harmful products
+55,Wastewater and Pollution Control,Wastewater treatment plants and other sites related to wastewater conveyance and pollution control
+56,Water Supply,Sites related to water supply
+57,Parking Lots and Garages,Publicly and commerially operated parking lots and garages
+58,Bus Depots and Terminals,"School bus depots, MTA bus depots, and Port Authority bus terminals"
+59,Rail Yards and Maintenance,Rail yards and maintenance facilities
+60,Ports and Ferry Landings,"Ferry landings, cruise terminals, and ports"
+61,Airports and Heliports,"Publicly and privately operated airports, heliports, and seaplane bases"
+62,Other Transportation,Uncategorized transportation related sites
+63,Telecommunications,Antennas and other telecommunications sites
+64,Material Supplies,Asphalt plants and other material processing facilities
+65,Wholesale Markets,Wholesale food and commercial markets
+66,City Government Offices,Offices used by City agencies
+67,Training and Testing,Training and testing sites used by City agencies
+68,Custodial,City agency custodial sites
+69,Maintenance and Garages,City agency vehicle maintenance sites
+70,City Agency Parking,City agency parking lots
+71,Storage,City agency storage sites
+72,Miscellaneous Use,Property without a categorized use

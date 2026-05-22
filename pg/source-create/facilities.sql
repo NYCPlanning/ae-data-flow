@@ -1,4 +1,7 @@
 DROP TABLE IF EXISTS
+  source_facility_category,
+  source_facility_group,
+  source_facility_subgroup,
 	source_facility
 	CASCADE;
 
@@ -40,4 +43,22 @@ CREATE TABLE IF NOT EXISTS source_facility (
   "POLICEPRCT" numeric,
   "DATASOURCE" text,
   "UID" text
+);
+
+CREATE TABLE IF NOT EXISTS source_facility_category (
+  "id" text,
+  "category" text,
+  "description" text
+);
+
+CREATE TABLE IF NOT EXISTS source_facility_group (
+  "id" text,
+  "group" text,
+  "description" text
+);
+
+CREATE TABLE IF NOT EXISTS source_facility_subgroup (
+  "id" text,
+  "subgroup" text,
+  "description" text
 );
