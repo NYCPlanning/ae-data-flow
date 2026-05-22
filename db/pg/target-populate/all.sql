@@ -26,7 +26,8 @@ TRUNCATE
 	capital_project_checkbook,
 	census_tract,
 	neighborhood_tabulation_area,
-	facility_operator
+	facility_operator,
+	data_source
 RESTART IDENTITY
 CASCADE;
 
@@ -64,4 +65,4 @@ CASCADE;
 \copy census_tract from '/var/lib/postgresql/data/census_tract.csv';
 \copy neighborhood_tabulation_area from '/var/lib/postgresql/data/neighborhood_tabulation_area.csv';
 \copy facility_operator from '/var/lib/postgresql/data/facility_operator.csv';
- 
+\copy data_source from '/var/lib/postgresql/data/data_source.csv';
