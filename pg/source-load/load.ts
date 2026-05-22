@@ -436,7 +436,7 @@ import { Build } from "../../build/schemas";
       build: "facilities",
     },
     {
-      table: "source_data_sources",
+      table: "source_data_source",
       columns: [
         "schema_name",
         "dataset_name",

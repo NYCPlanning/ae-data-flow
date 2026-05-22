@@ -12,7 +12,7 @@ export const buildSchema = z.enum([
   "neighborhood-tabulation-areas",
   "census-tracts",
   "facilities",
-  "data-sources"
+  "data-sources",
 ]);
 export type Build = z.infer<typeof buildSchema>;
 
