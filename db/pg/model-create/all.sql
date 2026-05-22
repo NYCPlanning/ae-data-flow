@@ -28,7 +28,8 @@ DROP TABLE IF EXISTS
 	census_tract,
 	facility_operator,
 	facility_type,
-    facility_subgroup,
-    facility_group,
-    facility_domain
-    CASCADE
+	facility_subgroup,
+	facility_group,
+	facility_domain,
+	data_source
+CASCADE
