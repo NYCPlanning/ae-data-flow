@@ -23,7 +23,10 @@ TRUNCATE
 	budget_line,
 	capital_commitment,
 	capital_commitment_fund,
-	capital_project_checkbook
+	capital_project_checkbook,
+	census_tract,
+	neighborhood_tabulation_area,
+	facility_operator
 RESTART IDENTITY
 CASCADE;
 
@@ -57,3 +60,8 @@ CASCADE;
 \copy budget_line FROM '/var/lib/postgresql/data/budget_line.csv';
 \copy capital_commitment FROM '/var/lib/postgresql/data/capital_commitment.csv';
 \copy capital_commitment_fund FROM '/var/lib/postgresql/data/capital_commitment_fund.csv';
+
+\copy census_tract from '/var/lib/postgresql/data/census_tract.csv';
+\copy neighborhood_tabulation_area from '/var/lib/postgresql/data/neighborhood_tabulation_area.csv';
+\copy facility_operator from '/var/lib/postgresql/data/facility_operator.csv';
+ 

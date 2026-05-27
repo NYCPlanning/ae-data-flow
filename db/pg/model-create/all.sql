@@ -25,5 +25,6 @@ DROP TABLE IF EXISTS
 	capital_commitment,
 	capital_commitment_fund,
 	neighborhood_tabulation_area,
-	census_tract
+	census_tract,
+	facility_operator
     CASCADE

@@ -14,7 +14,7 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -s \
     --no-owner \
     -t facility_operator \
-    --file ./data/facilities.sql
+    --file ./data/facilities_dump.sql
 
 PGPASSWORD=$POSTGRES_PASSWORD \
 psql --host=localhost \
@@ -22,4 +22,4 @@ psql --host=localhost \
     -U $POSTGRES_USER \
     -d $POSTGRES_DB \
     --single-transaction \
-    --file ./data/facilities.sql
+    --file ./data/facilities_dump.sql
