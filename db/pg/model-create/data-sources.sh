@@ -14,6 +14,12 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -s \
     --no-owner \
     -t data_source \
+    -t facility_operator \
+    -t facility_domain \
+    -t facility_group \
+    -t facility_subgroup \
+    -t facility_type \
+    -t facility \
     --file ./data/data-sources_dump.sql
 
 PGPASSWORD=$POSTGRES_PASSWORD \

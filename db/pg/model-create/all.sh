@@ -45,6 +45,7 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -t facility_group \
     -t facility_subgroup \
     -t facility_type \
+    -t facility \
     -t data_source \
     --file ./data/all_dump.sql
 

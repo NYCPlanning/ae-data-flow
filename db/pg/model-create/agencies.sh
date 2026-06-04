@@ -32,6 +32,12 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -t budget_line \
     -t capital_commitment \
     -t capital_commitment_fund \
+    -t facility_operator \
+    -t facility_domain \
+    -t facility_group \
+    -t facility_subgroup \
+    -t facility_type \
+    -t facility \
     --file ./data/agency_dump.sql
 
 PGPASSWORD=$POSTGRES_PASSWORD \

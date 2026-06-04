@@ -17,5 +17,11 @@ DROP TABLE IF EXISTS
 	agency_budget,
 	budget_line,
 	capital_commitment,
-	capital_commitment_fund
+	capital_commitment_fund,
+    facility_operator,
+	facility_type,
+	facility_subgroup,
+	facility_group,
+	facility_domain,
+	facility
 CASCADE
