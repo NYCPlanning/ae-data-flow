@@ -27,7 +27,11 @@ export const buildTree: Array<BuildNode> = [
   {
     name: "agencies",
     parents: [],
-    children: ["community-board-budget-requests", "capital-planning"],
+    children: [
+      "community-board-budget-requests",
+      "capital-planning",
+      "facilities",
+    ],
   },
   {
     name: "boroughs",
@@ -75,12 +79,12 @@ export const buildTree: Array<BuildNode> = [
   },
   {
     name: "facilities",
-    parents: [],
+    parents: ["agencies", "data-sources"],
     children: [],
   },
   {
     name: "data-sources",
     parents: [],
-    children: [],
+    children: ["facilities"],
   },
 ];

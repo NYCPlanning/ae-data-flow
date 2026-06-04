@@ -31,5 +31,6 @@ DROP TABLE IF EXISTS
 	facility_subgroup,
 	facility_group,
 	facility_domain,
+	facility,
 	data_source
 CASCADE

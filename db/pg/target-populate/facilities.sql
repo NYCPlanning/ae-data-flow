@@ -3,7 +3,8 @@ TRUNCATE
     facility_type,
     facility_subgroup,
     facility_group,
-    facility_domain
+    facility_domain,
+    facility
     CASCADE;
 
 \copy facility_operator FROM '/var/lib/postgresql/data/facility_operator.csv';
@@ -11,3 +12,4 @@ TRUNCATE
 \copy facility_group FROM '/var/lib/postgresql/data/facility_group.csv';
 \copy facility_subgroup FROM '/var/lib/postgresql/data/facility_subgroup.csv';
 \copy facility_type FROM '/var/lib/postgresql/data/facility_type.csv';
+\copy facility FROM '/var/lib/postgresql/data/facility.csv';
