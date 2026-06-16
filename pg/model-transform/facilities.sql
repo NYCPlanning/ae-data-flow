@@ -63,6 +63,21 @@ SELECT DISTINCT
 FROM source_facility
 LEFT JOIN facility_subgroup ON LOWER(source_facility.facsubgrp) = LOWER(facility_subgroup.name);
 
+ALTER TABLE source_facility
+    ADD COLUMN IF NOT EXISTS sgr_ltr text,
+    ADD COLUMN IF NOT EXISTS sgr_arc_ltr text,
+    ADD COLUMN IF NOT EXISTS sgr_sys_ltr text,
+    ADD COLUMN IF NOT EXISTS sgr_year integer;
+
+UPDATE source_facility
+    SET
+        sgr_ltr = sgrltr,
+        sgr_arc_ltr = sgrltrarc,
+        sgr_sys_ltr = sgrltrsys,
+        sgr_year = sgrasmtyr
+    FROM source_facility_sgr WHERE source_facility.facname = source_facility_sgr.facname
+;
+
 INSERT INTO facility (
     name, 
     address,
@@ -75,7 +90,11 @@ INSERT INTO facility (
     facility_operator_id,
     overseeing_agency_initials,
     capacity, 
-    capacity_type, 
+    capacity_type,
+    sgr_ltr,
+    sgr_arc_ltr,
+    sgr_sys_ltr,
+    sgr_year,
     bin, 
     bbl, 
     li_ft, 
@@ -96,6 +115,10 @@ SELECT DISTINCT
     agency.initials as overseeing_agency_initials,
     source_facility.capacity as capacity,
     source_facility.captype as capacity_type,
+    source_facility.sgr_ltr as sgr_ltr,
+    source_facility.sgr_arc_ltr as sgr_arc_ltr,
+    source_facility.sgr_sys_ltr as sgr_sys_ltr,
+    source_facility.sgr_year as sgr_year,
     source_facility.bin as bin,
     source_facility.bbl as bbl,
     ST_SetSRID(ST_MakePoint(source_facility.xcoord, source_facility.ycoord), 2263) as li_ft,
