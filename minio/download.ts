@@ -25,7 +25,8 @@ import "dotenv/config";
           | "datasets/dcp_census_tracts_2010/23B"
           | "datasets/dcp_census_tracts_2020/25D"
           | "db-facilities/publish/25v2"
-          | "db-facilities/build/nightly_qa";
+          | "db-facilities/build/nightly_qa"
+          | "db-facilities/build/dm-facdb-mock-sgr";
       }
     | {
         bucketName: "ae-data-backups";
@@ -161,14 +162,14 @@ import "dotenv/config";
       fileName: "facilities",
       fileExtension: "csv",
       bucketName: "edm-publishing",
-      bucketSubPath: "db-facilities/build/nightly_qa",
+      bucketSubPath: "db-facilities/build/dm-facdb-mock-sgr",
       build: "facilities",
     },
     {
       fileName: "source_data_versions",
       fileExtension: "csv",
       bucketName: "edm-publishing",
-      bucketSubPath: "db-facilities/build/nightly_qa",
+      bucketSubPath: "db-facilities/build/dm-facdb-mock-sgr",
       build: "data-sources",
     },
   ];
