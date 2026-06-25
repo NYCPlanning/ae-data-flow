@@ -1,8 +1,8 @@
-﻿id,category,description
-1,"Education, Child Welfare, and Youth","Providers of children and youth services and all schools, including higher education facilities"
-2,"Parks, Gardens, and Historical Sites","Historic sites, recreational areas, parks, and nature preserves"
-3,Libraries and Cultural Programs,Public Libraries and Cultural Institutions
-4,"Public Safety, Emergency Services, and Administration of Justice","Police services, emergency response, courthouses, and correctional facilities"
-5,Health and Human Services,"Health and social service providers, including hospitals, legal services, and homeless shelters"
-6,Core Infrastructure and Transportation,"Train and bus yards, parking lots, solid waste processors, and wastewater treatment plants"
-7,Administration of Government,"Sites owned or leased by the City for administration, operations, and maintenance"
+﻿id,short_name,category,description
+1,"Education, Youth","Education, Child Welfare, and Youth","Providers of children and youth services and all schools, including higher education facilities"
+2,"Health, Human Services","Health and Human Services","Health and social service providers, including hospitals, legal services, and homeless shelters"
+3,"Parks, Historical Sites","Parks, Gardens, and Historical Sites","Historic sites, recreational areas, parks, and nature preserves"
+4,"Core Infrastructure, Transportation","Core Infrastructure and Transportation","Train and bus yards, parking lots, solid waste processors, and wastewater treatment plants"
+5,"Libraries, Cultural Programs","Libraries and Cultural Programs","Public Libraries and Cultural Institutions"
+6,"Public Safety, Emergency Services, Justice","Public Safety, Emergency Services, and Administration of Justice","Police services, emergency response, courthouses, and correctional facilities"
+7,"Government","Administration of Government","Sites owned or leased by the City for administration, operations, and maintenance"
