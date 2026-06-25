@@ -55,7 +55,8 @@ CREATE TABLE IF NOT EXISTS source_facility (
 );
 
 CREATE TABLE IF NOT EXISTS source_facility_category (
-  "id" text,
+  "id" numeric,
+  "short_name" text,
   "category" text,
   "description" text
 );

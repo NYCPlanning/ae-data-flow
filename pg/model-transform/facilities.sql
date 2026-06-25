@@ -32,8 +32,10 @@ INSERT INTO facility_operator
 SELECT gen_random_uuid() as id, *
 FROM facility_operator_all;
 
-INSERT INTO facility_domain (name, description)
+INSERT INTO facility_domain (id, short_name, name, description)
 SELECT DISTINCT
+    source_facility_category.id as id,
+    source_facility_category.short_name as short_name,
     source_facility_category.category as name,
     source_facility_category.description as description
 FROM source_facility_category;

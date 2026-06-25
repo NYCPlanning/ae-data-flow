@@ -417,7 +417,7 @@ import { Build } from "../../build/schemas";
     },
     {
       table: "source_facility_category",
-      columns: ["id", "category", "description"],
+      columns: ["id", "short_name","category", "description"],
       filePath: "data",
       fileName: "facility_category.csv",
       build: "facilities",
