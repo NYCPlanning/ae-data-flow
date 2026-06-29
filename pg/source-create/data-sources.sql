@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS source_data_source (
   dataset_name text,
   v text,
   file_type text,
-  archive_date date
+  archive_date date,
+  url text
 );
