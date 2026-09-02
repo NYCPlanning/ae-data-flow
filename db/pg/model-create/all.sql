@@ -32,5 +32,7 @@ DROP TABLE IF EXISTS
 	facility_group,
 	facility_domain,
 	facility,
+	housing_growth_cd,
+	housing_growth_nta,
 	data_source
 CASCADE

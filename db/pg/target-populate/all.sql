@@ -32,6 +32,8 @@ TRUNCATE
     facility_group,
     facility_domain,
 	facility,
+	housing_growth_cd,
+	housing_growth_nta,
 	data_source
 RESTART IDENTITY
 CASCADE;
@@ -78,3 +80,6 @@ CASCADE;
 \copy facility_subgroup FROM '/var/lib/postgresql/data/facility_subgroup.csv';
 \copy facility_type FROM '/var/lib/postgresql/data/facility_type.csv';
 \copy facility FROM '/var/lib/postgresql/data/facility.csv';
+
+\copy housing_growth_cd FROM '/var/lib/postgresql/data/housing_growth_cd.csv';
+\copy housing_growth_nta FROM '/var/lib/postgresql/data/housing_growth_nta.csv';
