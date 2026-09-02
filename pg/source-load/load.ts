@@ -437,6 +437,20 @@ import { Build } from "../../build/schemas";
       build: "facilities",
     },
     {
+      table: "source_housing_growth_cd",
+      columns: ["geography_id", "units_2020_census", "units_2020", "completed_units_2016_2025", "completed_units_2021_2025", "units_2025", "projected_completed_units_2026_2035", "projected_units_2035"],
+      filePath: "data/download",
+      fileName: "cpp_housing_growth_cd.csv",
+      build: "housing",
+    },
+    {
+      table: "source_housing_growth_nta",
+      columns: ["geography_id", "units_2020_census", "units_2020", "completed_units_2016_2025", "completed_units_2021_2025", "units_2025", "projected_completed_units_2026_2035", "projected_units_2035"],
+      filePath: "data/download",
+      fileName: "cpp_housing_growth_nta.csv",
+      build: "housing",
+    },
+    {
       table: "source_data_source",
       columns: [
         "schema_name",
