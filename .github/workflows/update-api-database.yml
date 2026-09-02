@@ -15,8 +15,13 @@ on:
                     - community-board-budget-requests
                     - community-districts
                     - city-council-districts
+                    - neighborhood-tabulation-areas
                     - capital-planning
                     - pluto
+                    - census-tracts
+                    - facilities
+                    - housing
+                    - data-sources
             environment:
                 description: "The database environment to update"
                 type: choice
