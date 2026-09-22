@@ -135,6 +135,7 @@ import { Build } from "../../build/schemas";
         "budget_line",
         "project_type",
         "s_agency_acro",
+        "s_agency_abbrev",
         "s_agency_name",
         "plan_comm_date",
         "project_description",
