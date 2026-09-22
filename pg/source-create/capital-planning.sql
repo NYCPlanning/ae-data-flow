@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS source_capital_commitment (
   budget_line text,
   project_type text,
   s_agency_acro text,
+  s_agency_abbrev text,
   s_agency_name text,
   -- plan_comm_date should be a date but the stored format is text
   plan_comm_date text,
