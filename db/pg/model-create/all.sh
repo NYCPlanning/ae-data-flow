@@ -46,6 +46,8 @@ pg_dump --host=$TARGET_DATABASE_HOST  \
     -t facility_subgroup \
     -t facility_type \
     -t facility \
+    -t housing_growth_cd \
+    -t housing_growth_nta \
     -t data_source \
     --file ./data/all_dump.sql
 
