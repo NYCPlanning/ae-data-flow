@@ -27,7 +27,7 @@ import "dotenv/config";
         | "db-facilities/publish/25v2"
         | "db-facilities/build/nightly_qa"
         | "db-facilities/build/dm-facdb-mock-sgr"
-        | "db-kpdb/build/dm-cpp-kpdb/cpp_housing_growth";
+        | "db-kpdb/draft/2026-09-01/1/cpp_housing_growth";
       }
       | {
         bucketName: "ae-data-backups";
@@ -170,14 +170,14 @@ import "dotenv/config";
       fileName: "cpp_housing_growth_cd",
       fileExtension: "csv",
       bucketName: "edm-publishing",
-      bucketSubPath: "db-kpdb/build/dm-cpp-kpdb/cpp_housing_growth",
+      bucketSubPath: "db-kpdb/draft/2026-09-01/1/cpp_housing_growth",
       build: "housing",
     },
     {
       fileName: "cpp_housing_growth_nta",
       fileExtension: "csv",
       bucketName: "edm-publishing",
-      bucketSubPath: "db-kpdb/build/dm-cpp-kpdb/cpp_housing_growth",
+      bucketSubPath: "db-kpdb/draft/2026-09-01/1/cpp_housing_growth",
       build: "housing",
     },
     {
