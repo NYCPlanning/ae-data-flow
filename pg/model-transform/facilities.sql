@@ -22,11 +22,11 @@ INSERT INTO facility_operator_all (
     type
 )
 SELECT DISTINCT
-    source_facility.opabbrev as abbreviation,
-    source_facility.opname as name,
-    source_facility.optype as type
+    source_facility.operating_entity_abbreviation as abbreviation,
+    source_facility.operating_entity_name as name,
+    source_facility.operator_type as type
 FROM source_facility
-WHERE source_facility.opname IS NOT NULL;
+WHERE source_facility.operating_entity_name IS NOT NULL;
 
 INSERT INTO facility_operator
 SELECT gen_random_uuid() as id, *
@@ -46,8 +46,8 @@ SELECT DISTINCT
     source_facility_group.description as description,
     facility_domain.id as facility_domain_id
 FROM source_facility_group
-LEFT JOIN source_facility ON LOWER(source_facility.facgroup) = LOWER(source_facility_group.group)
-LEFT JOIN facility_domain ON LOWER(facility_domain.name) = LOWER(source_facility.facdomain);
+LEFT JOIN source_facility ON LOWER(source_facility.facility_group) = LOWER(source_facility_group.group)
+LEFT JOIN facility_domain ON LOWER(facility_domain.name) = LOWER(source_facility.facility_domain);
 
 INSERT INTO facility_subgroup (name, description, facility_group_id)
 SELECT DISTINCT
@@ -55,15 +55,15 @@ SELECT DISTINCT
     source_facility_subgroup.description as description,
     facility_group.id as facility_group_id
 FROM source_facility_subgroup
-RIGHT JOIN source_facility ON LOWER(source_facility.facsubgrp) = LOWER(source_facility_subgroup.subgroup)
-LEFT JOIN facility_group ON LOWER(facility_group.name) = LOWER(source_facility.facgroup);
+RIGHT JOIN source_facility ON LOWER(source_facility.facility_subgroup) = LOWER(source_facility_subgroup.subgroup)
+LEFT JOIN facility_group ON LOWER(facility_group.name) = LOWER(source_facility.facility_group);
 
 INSERT INTO facility_type (name, facility_subgroup_id)
 SELECT DISTINCT
-    source_facility.factype as name,
+    source_facility.facility_type as name,
     facility_subgroup.id as facility_subgroup_id
 FROM source_facility
-LEFT JOIN facility_subgroup ON LOWER(source_facility.facsubgrp) = LOWER(facility_subgroup.name);
+LEFT JOIN facility_subgroup ON LOWER(source_facility.facility_subgroup) = LOWER(facility_subgroup.name);
 
 INSERT INTO facility (
     name, 
@@ -78,10 +78,13 @@ INSERT INTO facility (
     overseeing_agency_initials,
     capacity, 
     capacity_type,
-    sgr_ltr,
-    sgr_arc_ltr,
-    sgr_sys_ltr,
-    sgr_year,
+    fcs_score_total,
+    fcs_letter_grade_total,
+    fcs_score_architectural,
+    fcs_letter_grade_architectural,
+    fcs_score_systems,
+    fcs_letter_grade_systems,
+    fcs_assessment_year,
     bin, 
     bbl, 
     li_ft, 
@@ -90,33 +93,36 @@ INSERT INTO facility (
     id
 )
 SELECT DISTINCT
-    source_facility.facname as name,
+    source_facility.facility_name as name,
     source_facility.address as address,
-    source_facility.addressnum as address_number,
-    source_facility.streetname as street_name,
+    source_facility.address_number as address_number,
+    source_facility.street_name as street_name,
     source_facility.city as city,
-    source_facility.zipcode as zip_code,
+    source_facility.zip_code as zip_code,
     facility_type.id as facility_type_id,
-    source_facility.servarea as service_area,
+    source_facility.service_area as service_area,
     facility_operator.id as facility_operator_id,
     agency.initials as overseeing_agency_initials,
     source_facility.capacity as capacity,
-    source_facility.captype as capacity_type,
-    source_facility.sgr_grade_tot as sgr_ltr,
-    source_facility.sgr_grade_arch as sgr_arc_ltr,
-    source_facility.sgr_grade_syst as sgr_sys_ltr,
-    source_facility.sgr_assmt_year as sgr_year,
+    source_facility.capacity_unit_type as capacity_type,
+    source_facility.fcs_score_total as fcs_score_total,
+    source_facility.fcs_letter_grade_total as fcs_letter_grade_total,
+    source_facility.fcs_score_architectural as fcs_score_architectural,
+    source_facility.fcs_letter_grade_architectural as fcs_letter_grade_architectural,
+    source_facility.fcs_score_systems as fcs_score_systems,
+    source_facility.fcs_letter_grade_systems as fcs_letter_grade_systems,
+    source_facility.fcs_assessment_year as fcs_assessment_year,
     source_facility.bin as bin,
     source_facility.bbl as bbl,
-    ST_SetSRID(ST_MakePoint(source_facility.xcoord, source_facility.ycoord), 2263) as li_ft,
-    ST_Transform(ST_SetSRID(ST_MakePoint(source_facility.xcoord, source_facility.ycoord), 2263), 3857) as mercator,
+    ST_SetSRID(ST_MakePoint(source_facility.x_coordinate, source_facility.y_coordinate), 2263) as li_ft,
+    ST_Transform(ST_SetSRID(ST_MakePoint(source_facility.x_coordinate, source_facility.y_coordinate), 2263), 3857) as mercator,
     data_source.schema_name as data_source_schema,
     source_facility.uid as id
 FROM source_facility
-LEFT JOIN facility_type ON source_facility.factype = facility_type.name
-LEFT JOIN facility_operator ON source_facility.opname = facility_operator.name AND source_facility.opabbrev = facility_operator.abbreviation
-LEFT JOIN agency ON source_facility.overabbrev = agency.initials
-LEFT JOIN data_source ON source_facility.datasource = data_source.schema_name
+LEFT JOIN facility_type ON source_facility.facility_type = facility_type.name
+LEFT JOIN facility_operator ON source_facility.operating_entity_name = facility_operator.name AND source_facility.operating_entity_abbreviation = facility_operator.abbreviation
+LEFT JOIN agency ON source_facility.oversight_agency_abbreviation = agency.initials
+LEFT JOIN data_source ON source_facility.data_source_file = data_source.schema_name
 ;
     
 COPY facility_operator TO '/var/lib/postgresql/data/facility_operator.csv';
